@@ -74,6 +74,14 @@ class UserInfoPage extends StatelessWidget {
                               ),
                             ],
                           ),
+                          child: ClipOval(
+                            child: Image.asset(
+                              'assets/default.png',
+                              width: 120,
+                              height: 120,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
                         
                         const SizedBox(height: 40),

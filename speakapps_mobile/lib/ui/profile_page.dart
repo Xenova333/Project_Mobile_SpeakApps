@@ -75,7 +75,7 @@ class ProfilePage extends StatelessWidget {
                           ),
                           child: ClipOval(
                             child: Image.asset(
-                              'assets/rimuru.jpg',
+                              'assets/default.png',
                               width: 120,
                               height: 120,
                               fit: BoxFit.cover,

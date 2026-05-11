@@ -1,0 +1,777 @@
+CRITICAL - 2026-05-08 05:45:04 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/kontak/14]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/kontak/14')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 05:45:07 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/friends/pending/14]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/pending/14')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 05:46:14 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/kontak/18]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/kontak/18')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 05:46:27 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 05:46:32 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 05:46:47 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/kontak/14]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/kontak/14')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 05:46:54 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 05:46:59 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 05:50:30 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 05:50:34 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:04:20 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/kontak/14]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/kontak/14')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:04:24 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/kontak/14]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/kontak/14')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:04:27 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:05:44 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/kontak/18]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/kontak/18')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:05:47 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/friends/pending/18]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/pending/18')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:05:52 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:17:19 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/kontak/18]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/kontak/18')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:17:20 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/kontak/18]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/kontak/18')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:17:21 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/kontak/18]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/kontak/18')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:17:46 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/kontak/14]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/kontak/14')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:17:48 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/friends/pending/14]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/pending/14')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:17:53 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:17:57 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:18:01 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:18:06 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:20:18 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/kontak/14]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/kontak/14')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:20:45 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/kontak/14]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/kontak/14')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:20:47 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/friends/pending/14]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/pending/14')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:20:53 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:21:16 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/kontak/18]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/kontak/18')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:21:24 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:21:29 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:23:41 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/kontak/18]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/kontak/18')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:23:42 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/friends/pending/18]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/pending/18')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:23:47 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:30:25 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/kontak/18]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/kontak/18')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:30:27 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: GET, Route: api/friends/pending/18]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/pending/18')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:30:31 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:30:35 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 06:30:40 --> ParseError: Unclosed '[' on line 266 does not match '}'
+[Method: POST, Route: api/friends/add]
+in APPPATH\Controllers\TemanController.php on line 269.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\app\\Controllers\\TemanController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\TemanController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\TemanController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\TemanController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('api/friends/add')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+ERROR - 2026-05-08 10:39:44 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'speakapp_db', 3306, '', 0)
+#1 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\app\Models\UserModel.php(41): CodeIgniter\BaseModel->first()
+#7 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\app\Controllers\AuthController.php(69): App\Models\UserModel->findByNim('20554')
+#8 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(951): App\Controllers\AuthController->register()
+#9 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#10 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\public\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\rewrite.php(44): require_once('D:\\Project_Mobi...')
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#4 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\app\Models\UserModel.php(41): CodeIgniter\BaseModel->first()
+#6 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\app\Controllers\AuthController.php(69): App\Models\UserModel->findByNim('20554')
+#7 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(951): App\Controllers\AuthController->register()
+#8 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#9 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\public\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\rewrite.php(44): require_once('D:\\Project_Mobi...')
+#14 {main}
+CRITICAL - 2026-05-08 10:39:44 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+[Method: POST, Route: api/register]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `users`
+WHERE `nim` = :nim:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 5 APPPATH\Models\UserModel.php(41): CodeIgniter\BaseModel->first()
+ 6 APPPATH\Controllers\AuthController.php(69): App\Models\UserModel->findByNim('20554')
+ 7 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\AuthController->register()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+ 9 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+ERROR - 2026-05-08 10:39:53 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'speakapp_db', 3306, '', 0)
+#1 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\app\Models\UserModel.php(41): CodeIgniter\BaseModel->first()
+#7 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\app\Controllers\AuthController.php(69): App\Models\UserModel->findByNim('20554')
+#8 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(951): App\Controllers\AuthController->register()
+#9 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#10 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\public\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\rewrite.php(44): require_once('D:\\Project_Mobi...')
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#4 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\app\Models\UserModel.php(41): CodeIgniter\BaseModel->first()
+#6 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\app\Controllers\AuthController.php(69): App\Models\UserModel->findByNim('20554')
+#7 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(951): App\Controllers\AuthController->register()
+#8 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#9 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\public\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\rewrite.php(44): require_once('D:\\Project_Mobi...')
+#14 {main}
+CRITICAL - 2026-05-08 10:39:53 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+[Method: POST, Route: api/register]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `users`
+WHERE `nim` = :nim:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 5 APPPATH\Models\UserModel.php(41): CodeIgniter\BaseModel->first()
+ 6 APPPATH\Controllers\AuthController.php(69): App\Models\UserModel->findByNim('20554')
+ 7 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\AuthController->register()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+ 9 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 11:09:10 --> TypeError: Illegal offset type
+[Method: GET, Route: api/chat/14/19]
+in SYSTEMPATH\Database\BaseBuilder.php on line 764.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(722): CodeIgniter\Database\BaseBuilder->whereHaving('QBWhere', Object(Closure), null, 'AND ', null)
+ 2 SYSTEMPATH\Model.php(759): CodeIgniter\Database\BaseBuilder->where(Object(Closure))
+ 3 APPPATH\Controllers\ChatController.php(33): CodeIgniter\Model->__call('where', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\ChatController->getMessages('14', '19')
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 11:09:17 --> TypeError: Illegal offset type
+[Method: GET, Route: api/chat/14/18]
+in SYSTEMPATH\Database\BaseBuilder.php on line 764.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(722): CodeIgniter\Database\BaseBuilder->whereHaving('QBWhere', Object(Closure), null, 'AND ', null)
+ 2 SYSTEMPATH\Model.php(759): CodeIgniter\Database\BaseBuilder->where(Object(Closure))
+ 3 APPPATH\Controllers\ChatController.php(33): CodeIgniter\Model->__call('where', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\ChatController->getMessages('14', '18')
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 11:09:52 --> TypeError: Illegal offset type
+[Method: GET, Route: api/chat/14/18]
+in SYSTEMPATH\Database\BaseBuilder.php on line 764.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(722): CodeIgniter\Database\BaseBuilder->whereHaving('QBWhere', Object(Closure), null, 'AND ', null)
+ 2 SYSTEMPATH\Model.php(759): CodeIgniter\Database\BaseBuilder->where(Object(Closure))
+ 3 APPPATH\Controllers\ChatController.php(33): CodeIgniter\Model->__call('where', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\ChatController->getMessages('14', '18')
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 11:09:54 --> TypeError: Illegal offset type
+[Method: GET, Route: api/chat/14/19]
+in SYSTEMPATH\Database\BaseBuilder.php on line 764.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(722): CodeIgniter\Database\BaseBuilder->whereHaving('QBWhere', Object(Closure), null, 'AND ', null)
+ 2 SYSTEMPATH\Model.php(759): CodeIgniter\Database\BaseBuilder->where(Object(Closure))
+ 3 APPPATH\Controllers\ChatController.php(33): CodeIgniter\Model->__call('where', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\ChatController->getMessages('14', '19')
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-05-08 11:10:11 --> TypeError: Illegal offset type
+[Method: GET, Route: api/chat/14/19]
+in SYSTEMPATH\Database\BaseBuilder.php on line 764.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(722): CodeIgniter\Database\BaseBuilder->whereHaving('QBWhere', Object(Closure), null, 'AND ', null)
+ 2 SYSTEMPATH\Model.php(759): CodeIgniter\Database\BaseBuilder->where(Object(Closure))
+ 3 APPPATH\Controllers\ChatController.php(33): CodeIgniter\Model->__call('where', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\ChatController->getMessages('14', '19')
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')

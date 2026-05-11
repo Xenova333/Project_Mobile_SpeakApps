@@ -1,201 +1,248 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../controllers/chat_controller.dart';
+import '../models/chat_model.dart';
 import 'user_info_page.dart';
 
 class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+  final int friendId;
+  final String friendName;
+  final String? friendProfilePic;
+
+  const ChatPage({
+    super.key,
+    required this.friendId,
+    required this.friendName,
+    this.friendProfilePic,
+  });
 
   @override
   State<ChatPage> createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
-  final TextEditingController _messageController = TextEditingController();
+  late final ChatController ctrl;
+
+  @override
+  void initState() {
+    super.initState();
+    ctrl = Get.find<ChatController>();
+
+    // Muat riwayat chat saat halaman dibuka
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ctrl.startChat(widget.friendId);
+    });
+  }
 
   @override
   void dispose() {
-    _messageController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final primaryOrange = const Color(0xFFF6A039);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = Theme.of(context).scaffoldBackgroundColor;
-    final cardColor = isDark ? const Color(0xFF111C44) : Colors.white;
-    final textColor = isDark ? Colors.white : Colors.black87;
-    final subTextColor = isDark ? Colors.white70 : Colors.black54;
+    final primaryBlue   = const Color(0xFF111C44);
+    final isDark       = Theme.of(context).brightness == Brightness.dark;
+    final bgColor      = isDark ? const Color(0xFF0A1128) : const Color(0xFFF4F7F6);
+    final cardColor    = isDark ? primaryBlue : Colors.white;
+    final textColor    = isDark ? Colors.white : const Color(0xFF1C1C1E);
+    final subTextColor = isDark ? Colors.white70 : const Color(0xFF8E8E93);
 
     return Scaffold(
       backgroundColor: bgColor,
       body: SafeArea(
         child: Column(
           children: [
-            // --- PREMIUM APP BAR ---
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-              decoration: BoxDecoration(
-                color: isDark ? const Color(0xFF111C44) : Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 10,
-                    offset: const Offset(0, 2),
+            // ── App Bar ─────────────────────────────────────────────
+            _buildAppBar(primaryOrange, isDark, cardColor, textColor, subTextColor),
+
+            // ── Chat Area ────────────────────────────────────────────
+            Expanded(
+              child: Obx(() {
+                if (ctrl.isLoading.value) {
+                  return const Center(
+                    child: CircularProgressIndicator(color: Color(0xFFF6A039)),
+                  );
+                }
+
+                if (ctrl.messages.isEmpty) {
+                  return Center(
+                    child: Text(
+                      'Belum ada pesan.\nKirim pesan pertamamu! 👋',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: subTextColor, fontSize: 14),
+                    ),
+                  );
+                }
+
+                return ListView.builder(
+                  controller: ctrl.scrollController,
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                  itemCount: ctrl.messages.length,
+                  itemBuilder: (_, i) {
+                    final msg    = ctrl.messages[i];
+                    final isMe   = msg.senderId == ctrl.myId;
+                    final time   = _formatTime(msg.createdAt);
+
+                    // ── Pemisah tanggal
+                    final showDate = i == 0 ||
+                        _isSameDay(ctrl.messages[i - 1].createdAt, msg.createdAt) == false;
+
+                    return Column(
+                      children: [
+                        if (showDate) ...[
+                          _buildDateDivider(_formatDate(msg.createdAt), isDark, primaryOrange),
+                          const SizedBox(height: 12),
+                        ],
+                        isMe
+                            ? _buildSentBubble(msg, time, primaryOrange)
+                            : _buildReceivedBubble(msg, time, primaryOrange, cardColor, textColor, subTextColor, isDark),
+                        const SizedBox(height: 8),
+                      ],
+                    );
+                  },
+                );
+              }),
+            ),
+
+            // ── Input Field ──────────────────────────────────────────
+            _buildInputField(primaryOrange, bgColor, cardColor, textColor, subTextColor, isDark),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ─── App Bar ─────────────────────────────────────────────────
+  Widget _buildAppBar(Color primaryOrange, bool isDark, Color cardColor,
+      Color textColor, Color subTextColor) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: isDark ? const Color(0xFF111C44) : Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(Icons.arrow_back_ios_new, size: 22, color: textColor),
+          ),
+          const SizedBox(width: 4),
+          GestureDetector(
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const UserInfoPage()),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 42,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: primaryOrange, width: 1.5),
+                    boxShadow: [
+                      if (isDark)
+                        BoxShadow(
+                          color: primaryOrange.withOpacity(0.3),
+                          blurRadius: 8,
+                          spreadRadius: 1,
+                        ),
+                    ],
                   ),
-                ],
-              ),
+                  child: CircleAvatar(
+                    backgroundColor: const Color(0xFFE0E0E0),
+                    backgroundImage: (widget.friendProfilePic != null &&
+                            widget.friendProfilePic!.isNotEmpty)
+                        ? NetworkImage(widget.friendProfilePic!)
+                        : const AssetImage('assets/default.png') as ImageProvider,
+                    onBackgroundImageError: (widget.friendProfilePic != null &&
+                            widget.friendProfilePic!.isNotEmpty) 
+                        ? (exception, stackTrace) {} // Biarkan kosong, fallback tidak bisa mudah di-catch di sini, tapi default aman
+                        : null,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.friendName,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: textColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const Spacer(),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.more_vert, color: textColor),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ─── Sent Bubble (Kanan – Orange Modern) ───────────────────────
+  Widget _buildSentBubble(ChatModel msg, String time, Color primaryOrange) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Container(
+        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.75),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [primaryOrange, const Color(0xFFE88A1A)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(4),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: primaryOrange.withOpacity(0.3),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Wrap(
+          alignment: WrapAlignment.end,
+          crossAxisAlignment: WrapCrossAlignment.end,
+          children: [
+            Text(
+              msg.message,
+              style: const TextStyle(color: Colors.white, fontSize: 15, height: 1.3),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0, top: 2.0),
               child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: Icon(Icons.arrow_back_ios_new, size: 22, color: textColor),
+                  Text(
+                    time,
+                    style: const TextStyle(color: Colors.white70, fontSize: 10),
                   ),
                   const SizedBox(width: 4),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const UserInfoPage()),
-                      );
-                    },
-                    child: Row(
-                      children: [
-                        // Avatar with Glow
-                        Container(
-                          width: 42,
-                          height: 42,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: primaryOrange, width: 1.5),
-                            boxShadow: [
-                              if (isDark)
-                                BoxShadow(
-                                  color: primaryOrange.withOpacity(0.3),
-                                  blurRadius: 8,
-                                  spreadRadius: 1,
-                                ),
-                            ],
-                          ),
-                          child: const CircleAvatar(
-                            backgroundColor: Color(0xFFE0E0E0),
-                            child: Icon(Icons.person, color: Colors.grey),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Nama User',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: textColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.more_vert, color: textColor),
-                  ),
-                ],
-              ),
-            ),
-
-            // --- CHAT AREA ---
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-                children: [
-                  // Date Divider
-                  _buildDateDivider('Hari Ini', isDark, primaryOrange),
-                  const SizedBox(height: 24),
-
-                  _buildReceivedChat('Halo! Apa kabar hari ini?', '09:41', primaryOrange, cardColor, textColor, subTextColor),
-                  _buildReceivedChat('Apakah event besok jadi dilaksanakan?', '09:42', primaryOrange, cardColor, textColor, subTextColor),
-                  
-                  _buildSentChat('Halo! Kabar baik. Iya, event tetap sesuai jadwal kok.', '09:45', primaryOrange),
-                  _buildSentChat('Jangan lupa bawa perlengkapannya ya!', '09:45', primaryOrange),
-
-                  _buildReceivedChatWithReply(
-                    'Siap, terima kasih infonya!', 
-                    'Jangan lupa bawa perlengkapannya ya!', 
-                    '09:48', 
-                    primaryOrange, cardColor, textColor, subTextColor, isDark
-                  ),
-                  
-                  _buildSentChatWithReply(
-                    'Oke, sampai jumpa di sana!', 
-                    'Siap, terima kasih infonya!', 
-                    '09:50', 
-                    primaryOrange
-                  ),
-                ],
-              ),
-            ),
-
-            // --- INPUT FIELD ---
-            Container(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
-              decoration: BoxDecoration(
-                color: bgColor,
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: cardColor,
-                        borderRadius: BorderRadius.circular(30.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: TextField(
-                        controller: _messageController,
-                        style: TextStyle(color: textColor),
-                        decoration: InputDecoration(
-                          hintText: 'Ketik pesan...',
-                          hintStyle: TextStyle(color: subTextColor, fontSize: 14),
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  GestureDetector(
-                    onTap: () {
-                      if (_messageController.text.isNotEmpty) {
-                        _messageController.clear();
-                      }
-                    },
-                    child: Container(
-                      width: 48,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: primaryOrange,
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: primaryOrange.withOpacity(0.4),
-                            blurRadius: 8,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: const Icon(Icons.send_rounded, color: Colors.white, size: 24),
-                    ),
-                  ),
+                  const Icon(Icons.done_all, color: Colors.white70, size: 14),
                 ],
               ),
             ),
@@ -205,215 +252,193 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
+  // ─── Received Bubble (Kiri – Soft Solid) ───────────────────
+  Widget _buildReceivedBubble(ChatModel msg, String time, Color primaryOrange,
+      Color cardColor, Color textColor, Color subTextColor, bool isDark) {
+    
+    final bubbleColor = isDark ? const Color(0xFF1A2652) : Colors.white;
+
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Container(
+        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.75),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: bubbleColor,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(4),
+            topRight: Radius.circular(20),
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.04),
+              blurRadius: 8,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Wrap(
+          alignment: WrapAlignment.end,
+          crossAxisAlignment: WrapCrossAlignment.end,
+          children: [
+            Text(
+              msg.message,
+              style: TextStyle(color: textColor, fontSize: 15, height: 1.3),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0, top: 2.0),
+              child: Text(
+                time,
+                style: TextStyle(color: subTextColor, fontSize: 10),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ─── Input Field ─────────────────────────────────────────────
+  Widget _buildInputField(Color primaryOrange, Color bgColor, Color cardColor,
+      Color textColor, Color subTextColor, bool isDark) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+      decoration: BoxDecoration(
+        color: cardColor,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 10,
+            offset: const Offset(0, -4),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // Attachment Button
+          IconButton(
+            icon: Icon(Icons.add_circle_outline, color: subTextColor, size: 28),
+            onPressed: () {},
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: isDark ? const Color(0xFF0A1128) : const Color(0xFFF0F2F5),
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: TextField(
+                controller: ctrl.chatController,
+                style: TextStyle(color: textColor, fontSize: 15),
+                maxLines: null,
+                textInputAction: TextInputAction.send,
+                decoration: InputDecoration(
+                  hintText: 'Ketik pesan...',
+                  hintStyle: TextStyle(color: subTextColor, fontSize: 15),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  border: InputBorder.none,
+                ),
+                onSubmitted: (_) => _doSend(),
+              ),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Obx(
+            () => GestureDetector(
+              onTap: ctrl.isSending.value ? null : _doSend,
+              child: Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: ctrl.isSending.value ? Colors.grey : primaryOrange,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: primaryOrange.withOpacity(0.4),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: ctrl.isSending.value
+                    ? const Padding(
+                        padding: EdgeInsets.all(12),
+                        child: CircularProgressIndicator(
+                            color: Colors.white, strokeWidth: 2),
+                      )
+                    : const Icon(Icons.send_rounded,
+                        color: Colors.white, size: 22),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _doSend() {
+    ctrl.sendChat(widget.friendId);
+  }
+
+  // ─── Date Divider ─────────────────────────────────────────────
   Widget _buildDateDivider(String label, bool isDark, Color primaryColor) {
     return Row(
       children: [
-        Expanded(child: Divider(color: primaryColor.withOpacity(0.2))),
+        Expanded(child: Divider(color: primaryColor.withOpacity(0.25))),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Text(
             label,
             style: TextStyle(
-              fontSize: 12,
-              color: primaryColor,
-              fontWeight: FontWeight.bold,
-            ),
+                fontSize: 11, color: primaryColor, fontWeight: FontWeight.bold),
           ),
         ),
-        Expanded(child: Divider(color: primaryColor.withOpacity(0.2))),
+        Expanded(child: Divider(color: primaryColor.withOpacity(0.25))),
       ],
     );
   }
 
-  Widget _buildReceivedChat(String message, String time, Color primaryColor, Color cardColor, Color textColor, Color subTextColor) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 280),
-          padding: const EdgeInsets.all(12.0),
-          decoration: BoxDecoration(
-            color: cardColor,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-              bottomLeft: Radius.circular(4),
-            ),
-            border: Border.all(color: primaryColor.withOpacity(0.3)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(message, style: TextStyle(color: textColor, fontSize: 14)),
-              const SizedBox(height: 4),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Text(time, style: TextStyle(color: subTextColor, fontSize: 10)),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  // ─── Helpers ──────────────────────────────────────────────────
+  String _formatTime(String createdAt) {
+    try {
+      final dt = DateTime.parse(createdAt);
+      return '${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}';
+    } catch (_) {
+      return createdAt;
+    }
   }
 
-  Widget _buildSentChat(String message, String time, Color primaryColor) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 280),
-          padding: const EdgeInsets.all(12.0),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [primaryColor, primaryColor.withOpacity(0.8)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(4),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: primaryColor.withOpacity(0.2),
-                blurRadius: 8,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(message, style: const TextStyle(color: Colors.white, fontSize: 14)),
-              const SizedBox(height: 4),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Text(time, style: const TextStyle(color: Colors.white70, fontSize: 10)),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  String _formatDate(String createdAt) {
+    try {
+      final dt  = DateTime.parse(createdAt);
+      final now = DateTime.now();
+      if (dt.year == now.year && dt.month == now.month && dt.day == now.day) {
+        return 'Hari Ini';
+      }
+      final yesterday = now.subtract(const Duration(days: 1));
+      if (dt.year == yesterday.year &&
+          dt.month == yesterday.month &&
+          dt.day == yesterday.day) {
+        return 'Kemarin';
+      }
+      return '${dt.day}/${dt.month}/${dt.year}';
+    } catch (_) {
+      return createdAt;
+    }
   }
 
-  Widget _buildReceivedChatWithReply(String message, String replyTo, String time, Color primaryColor, Color cardColor, Color textColor, Color subTextColor, bool isDark) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 280),
-          decoration: BoxDecoration(
-            color: cardColor,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: primaryColor.withOpacity(0.3)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Reply Box
-              Container(
-                margin: const EdgeInsets.all(6),
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: isDark ? primaryColor.withOpacity(0.1) : const Color(0xFFF5F5F5),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(left: BorderSide(color: primaryColor, width: 4)),
-                ),
-                child: Text(
-                  replyTo,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 12, color: subTextColor, fontStyle: FontStyle.italic),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(12, 4, 12, 12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(message, style: TextStyle(color: textColor, fontSize: 14)),
-                    const SizedBox(height: 4),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Text(time, style: TextStyle(color: subTextColor, fontSize: 10)),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSentChatWithReply(String message, String replyTo, String time, Color primaryColor) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 280),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [primaryColor, primaryColor.withOpacity(0.8)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: primaryColor.withOpacity(0.2),
-                blurRadius: 8,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Reply Box
-              Container(
-                margin: const EdgeInsets.all(6),
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(12),
-                  border: const Border(left: BorderSide(color: Colors.white, width: 4)),
-                ),
-                child: Text(
-                  replyTo,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontSize: 12, color: Colors.white70, fontStyle: FontStyle.italic),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(12, 4, 12, 12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(message, style: const TextStyle(color: Colors.white, fontSize: 14)),
-                    const SizedBox(height: 4),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Text(time, style: const TextStyle(color: Colors.white70, fontSize: 10)),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  bool _isSameDay(String a, String b) {
+    try {
+      final da = DateTime.parse(a);
+      final db = DateTime.parse(b);
+      return da.year == db.year && da.month == db.month && da.day == db.day;
+    } catch (_) {
+      return false;
+    }
   }
 }

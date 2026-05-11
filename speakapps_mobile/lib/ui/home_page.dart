@@ -6,13 +6,26 @@ import 'login_page.dart';
 import 'news_page.dart';
 import 'settings_page.dart';
 import 'widgets/custom_bottom_nav.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../controllers/contact_controller.dart';
+import '../controllers/chat_controller.dart';
+import '../models/contact_model.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  /// Data user yang diterima dari LoginPage setelah login berhasil.
+  final Map<String, dynamic>? userData;
+
+  final ContactController contactController = Get.put(ContactController()..loadFriends());
+  // Registrasikan ChatController agar tersedia saat membuka ChatPage
+  final ChatController _chatController = Get.put(ChatController());
+
+  HomePage({super.key, this.userData});
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final userName = userData?['name'] ?? 'Pengguna';
     final primaryOrange = const Color(0xFFF6A039);
     final bgColor = Theme.of(context).scaffoldBackgroundColor;
     final cardColor = isDark ? const Color(0xFF111C44) : Colors.white;
@@ -62,14 +75,26 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      // App Name
-                      Text(
-                        'SpeakApp',
-                        style: TextStyle(
-                          color: primaryOrange,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      // App Name + Greeting
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'SpeakApp',
+                            style: TextStyle(
+                              color: primaryOrange,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'Halo, $userName 👋',
+                            style: TextStyle(
+                              color: isDark ? Colors.white70 : Colors.black54,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ],
                       ),
                       const Spacer(),
                       // Menu Icon
@@ -142,7 +167,11 @@ class HomePage extends StatelessWidget {
                 ),
 
                 Expanded(
-                  child: SingleChildScrollView(
+                  child: RefreshIndicator(
+                    onRefresh: () => contactController.loadFriends(),
+                    color: primaryOrange,
+                    child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
                     padding: const EdgeInsets.only(
                       bottom: 100,
                     ), // add padding for bottom nav
@@ -165,16 +194,38 @@ class HomePage extends StatelessWidget {
                                       width: 1.0,
                                     ),
                             ),
-                            child: TextField(
-                              style: TextStyle(color: textColor),
-                              decoration: InputDecoration(
-                                hintText: 'Cari kontak....',
-                                hintStyle: TextStyle(
-                                  fontSize: 14,
-                                  color: subTextColor,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    onChanged: (val) => contactController.searchFriend(val),
+                                    style: TextStyle(color: textColor),
+                                    decoration: InputDecoration(
+                                      hintText: 'Cari kontak....',
+                                      hintStyle: TextStyle(
+                                        fontSize: 14,
+                                        color: subTextColor,
+                                      ),
+                                      border: InputBorder.none,
+                                    ),
+                                  ),
                                 ),
-                                border: InputBorder.none,
-                              ),
+                                GetBuilder<ContactController>(
+                                  builder: (c) {
+                                    if (c.isSearching && c.isLoading) {
+                                      return const Padding(
+                                        padding: EdgeInsets.only(left: 8.0),
+                                        child: SizedBox(
+                                          width: 16,
+                                          height: 16,
+                                          child: CircularProgressIndicator(strokeWidth: 2),
+                                        ),
+                                      );
+                                    }
+                                    return const SizedBox.shrink();
+                                  }
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -185,33 +236,44 @@ class HomePage extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: Row(
-                            children: [
-                              'Januari', 'Februari', 'Maret', 'April',
-                              'Mei', 'Juni', 'Juli', 'Agustus',
-                              'September', 'Oktober', 'November', 'Desember',
-                            ].asMap().entries.map((entry) {
-                              final label = entry.value;
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                  right: entry.key < 11 ? 12.0 : 0,
-                                ),
-                                child: GestureDetector(
-                                  onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const NewsPage(),
+                            children:
+                                [
+                                  'Januari',
+                                  'Februari',
+                                  'Maret',
+                                  'April',
+                                  'Mei',
+                                  'Juni',
+                                  'Juli',
+                                  'Agustus',
+                                  'September',
+                                  'Oktober',
+                                  'November',
+                                  'Desember',
+                                ].asMap().entries.map((entry) {
+                                  final label = entry.value;
+                                  return Padding(
+                                    padding: EdgeInsets.only(
+                                      right: entry.key < 11 ? 12.0 : 0,
                                     ),
-                                  ),
-                                  child: _buildEventFilter(
-                                    'event\n$label',
-                                    primaryOrange,
-                                    cardColor,
-                                    textColor,
-                                    isDark,
-                                  ),
-                                ),
-                              );
-                            }).toList(),
+                                    child: GestureDetector(
+                                      onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const NewsPage(),
+                                        ),
+                                      ),
+                                      child: _buildEventFilter(
+                                        'event\n$label',
+                                        primaryOrange,
+                                        cardColor,
+                                        textColor,
+                                        isDark,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
                           ),
                         ),
                         const SizedBox(height: 24),
@@ -255,21 +317,30 @@ class HomePage extends StatelessWidget {
                                         'assets/lomba_live_coding.png',
                                         width: double.infinity,
                                         fit: BoxFit.cover,
-                                        errorBuilder: (context, error, stackTrace) {
-                                          return Center(
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Icon(Icons.image_not_supported, color: Colors.grey, size: 40),
-                                                const SizedBox(height: 8),
-                                                Text(
-                                                  'Gambar tidak ditemukan',
-                                                  style: TextStyle(fontSize: 10, color: Colors.grey),
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                              return Center(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.image_not_supported,
+                                                      color: Colors.grey,
+                                                      size: 40,
+                                                    ),
+                                                    const SizedBox(height: 8),
+                                                    Text(
+                                                      'Gambar tidak ditemukan',
+                                                      style: TextStyle(
+                                                        fontSize: 10,
+                                                        color: Colors.grey,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
-                                          );
-                                        },
+                                              );
+                                            },
                                       ),
                                     ),
                                   ),
@@ -297,43 +368,67 @@ class HomePage extends StatelessWidget {
                         ),
                         const SizedBox(height: 24),
 
-                        // User List
+                        // User List from ContactController
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Column(
-                            children: [
-                              _buildUserCard(
-                                context,
-                                primaryOrange,
-                                cardColor,
-                                textColor,
-                                subTextColor,
-                              ),
-                              const SizedBox(height: 16),
-                              _buildUserCard(
-                                context,
-                                primaryOrange,
-                                cardColor,
-                                textColor,
-                                subTextColor,
-                              ),
-                              const SizedBox(height: 16),
-                              _buildUserCard(
-                                context,
-                                primaryOrange,
-                                cardColor,
-                                textColor,
-                                subTextColor,
-                              ),
-                              const SizedBox(height: 24),
-                            ],
+                          child: GetBuilder<ContactController>(
+                            builder: (controller) {
+                              if (controller.isLoading && !controller.isSearching) {
+                                return const Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                );
+                              }
+
+                              final displayList = controller.isSearching 
+                                  ? controller.filteredFriends 
+                                  : controller.acceptedFriends;
+
+                              if (displayList.isEmpty) {
+                                return const Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: Text(
+                                      'Belum ada teman, ayo tambah teman baru!',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+
+                              return ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: displayList.length,
+                                itemBuilder: (context, index) {
+                                  final contact = displayList[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 16.0),
+                                    child: _buildUserCard(
+                                      context: context,
+                                      contact: contact,
+                                      primaryColor: primaryOrange,
+                                      cardColor: cardColor,
+                                      textColor: textColor,
+                                      subTextColor: subTextColor,
+                                    ),
+                                  );
+                                },
+                              );
+                            },
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
-              ],
+              ),
+            ],
             ),
 
             // Bottom Navigation Bar
@@ -381,18 +476,39 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildUserCard(
-    BuildContext context,
-    Color primaryColor,
-    Color cardColor,
-    Color textColor,
-    Color subTextColor,
-  ) {
+  Widget _buildUserCard({
+    required BuildContext context,
+    required ContactModel contact,
+    required Color primaryColor,
+    required Color cardColor,
+    required Color textColor,
+    required Color subTextColor,
+  }) {
+    final name            = contact.name ?? 'Nama Tidak Diketahui';
+    final profilePic      = contact.profilePic;
+    final lastMessage     = contact.lastMessage;
+    final lastMessageTime = contact.lastMessageTime;
+
     return GestureDetector(
       onTap: () {
+        // Tentukan friendId: pilih sisi yang bukan myId
+        // Prioritaskan ID dari userData (sinkron) dibanding controller (asinkron)
+        final myIdFromData = userData != null ? int.tryParse(userData!['id'].toString()) : null;
+        final myId = myIdFromData ?? _chatController.myId;
+        
+        final friendId = (myId != null && contact.userId == myId)
+            ? contact.friendId
+            : contact.userId;
+
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const ChatPage()),
+          MaterialPageRoute(
+            builder: (_) => ChatPage(
+              friendId: friendId,
+              friendName: name,
+              friendProfilePic: profilePic,
+            ),
+          ),
         );
       },
       child: Container(
@@ -414,15 +530,24 @@ class HomePage extends StatelessWidget {
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                color: primaryColor,
+                color: profilePic == null ? primaryColor : Colors.transparent,
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              child: Center(
-                child: Text(
-                  'foto\nprofil',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 10, color: textColor),
-                ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12.0),
+                child: profilePic != null
+                    ? Image.network(
+                        profilePic,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => Image.asset(
+                          'assets/default.png',
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    : Image.asset(
+                        'assets/default.png',
+                        fit: BoxFit.cover,
+                      ),
               ),
             ),
             const SizedBox(width: 16),
@@ -431,7 +556,7 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'nama user',
+                    name,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -440,16 +565,61 @@ class HomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'klik untuk chat',
+                    lastMessage ?? 'Belum ada pesan',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 12, color: subTextColor),
                   ),
                 ],
               ),
             ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (lastMessageTime != null && lastMessageTime.isNotEmpty) ...[
+                  Text(
+                    _formatTime(lastMessageTime),
+                    style: TextStyle(fontSize: 10, color: subTextColor),
+                  ),
+                  const SizedBox(height: 6),
+                ],
+                Icon(Icons.chat_bubble_outline, color: primaryColor, size: 24),
+              ],
+            ),
           ],
         ),
       ),
     );
+  }
+
+  String _formatTime(String timeStr) {
+    try {
+      final dateTime = DateTime.parse(timeStr);
+      final now = DateTime.now();
+      
+      final today = DateTime(now.year, now.month, now.day);
+      final msgDate = DateTime(dateTime.year, dateTime.month, dateTime.day);
+      
+      final difference = today.difference(msgDate).inDays;
+
+      if (difference == 0) {
+        // Hari ini: Tampilkan jam saja
+        return '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}';
+      } else if (difference == 1) {
+        // Kemarin
+        return 'Kemarin';
+      } else {
+        // Lewat dari kemarin: Tampilkan tanggal dan bulan
+        const months = [
+          '', 'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
+          'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'
+        ];
+        return '${dateTime.day.toString().padLeft(2, '0')} ${months[dateTime.month]}';
+      }
+    } catch (e) {
+      return '';
+    }
   }
 
   void _showLogoutDialog(BuildContext context, Color primaryColor) {
@@ -496,15 +666,25 @@ class HomePage extends StatelessWidget {
                   children: [
                     // Ya, Keluar button
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
+                        // Hapus session
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.clear();
+
+                        // Hapus controller agar data bersih saat login kembali
+                        Get.delete<ContactController>();
+                        Get.delete<ChatController>();
+
                         // Close dialog and go to login page
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginPage(),
-                          ),
-                          (route) => false,
-                        );
+                        if (context.mounted) {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginPage(),
+                            ),
+                            (route) => false,
+                          );
+                        }
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
