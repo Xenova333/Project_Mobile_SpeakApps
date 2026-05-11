@@ -9,6 +9,7 @@ class ContactModel {
   final String? nim;
   final String? lastMessage;
   final String? lastMessageTime;
+  final int unreadCount;
 
   ContactModel({
     required this.id,
@@ -21,6 +22,7 @@ class ContactModel {
     this.nim,
     this.lastMessage,
     this.lastMessageTime,
+    this.unreadCount = 0,
   });
 
   factory ContactModel.fromJson(Map<String, dynamic> json) {
@@ -35,6 +37,7 @@ class ContactModel {
       nim: json['nim']?.toString(),
       lastMessage: json['latest_message'],
       lastMessageTime: json['latest_chat_time'],
+      unreadCount: int.tryParse(json['unread_count']?.toString() ?? '0') ?? 0,
     );
   }
 }

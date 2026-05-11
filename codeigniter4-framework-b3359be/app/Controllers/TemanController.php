@@ -51,7 +51,14 @@ class TemanController extends BaseController
                        OR (c.sender_id = u.id AND c.receiver_id = $userId)
                     ORDER BY c.created_at DESC 
                     LIMIT 1
-                ) as latest_chat_time
+                ) as latest_chat_time,
+                (
+                    SELECT COUNT(*)
+                    FROM chats c
+                    WHERE c.sender_id = u.id 
+                      AND c.receiver_id = $userId 
+                      AND c.is_read = 0
+                ) as unread_count
             FROM friends f
             LEFT JOIN users u ON u.id = IF(f.user_id = $userId, f.friend_id, f.user_id)
             WHERE (f.user_id = $userId OR f.friend_id = $userId)
@@ -117,7 +124,14 @@ class TemanController extends BaseController
                        OR (c.sender_id = u.id AND c.receiver_id = $myId)
                     ORDER BY c.created_at DESC 
                     LIMIT 1
-                ) as latest_chat_time
+                ) as latest_chat_time,
+                (
+                    SELECT COUNT(*)
+                    FROM chats c
+                    WHERE c.sender_id = u.id 
+                      AND c.receiver_id = $myId 
+                      AND c.is_read = 0
+                ) as unread_count
             FROM friends f
             JOIN users u ON u.id = IF(f.user_id = $myId, f.friend_id, f.user_id)
             WHERE (f.user_id = $myId OR f.friend_id = $myId)

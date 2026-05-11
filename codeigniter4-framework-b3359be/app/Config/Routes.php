@@ -21,6 +21,7 @@ $routes->post('api/login',    'AuthController::login');
 // Chat
 $routes->get('api/chat/(:num)/(:num)', 'ChatController::getMessages/$1/$2');
 $routes->post('api/chat/send', 'ChatController::sendMessage');
+$routes->post('api/chat/read/(:num)/(:num)', 'ChatController::readMessages/$1/$2');
 
 // Kontak / Teman
 $routes->get('api/kontak/(:num)', 'TemanController::getKontak/$1');

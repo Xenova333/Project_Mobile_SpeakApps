@@ -111,4 +111,27 @@ class ChatController extends BaseController
                 'data'    => array_merge($data, ['id' => $inserted]),
             ]);
     }
+
+    // ─────────────────────────────────────────────────────────────
+    //  POST /api/chat/read/{myId}/{friendId}
+    //  Menandai pesan dari teman sebagai sudah dibaca
+    // ─────────────────────────────────────────────────────────────
+    public function readMessages($myId, $friendId)
+    {
+        $this->setCorsHeaders();
+
+        $chatModel = new ChatModel();
+
+        // Update semua pesan di mana pengirim adalah teman dan penerima adalah saya
+        $chatModel->where('sender_id', $friendId)
+                  ->where('receiver_id', $myId)
+                  ->where('is_read', 0)
+                  ->set(['is_read' => 1])
+                  ->update();
+
+        return $this->response->setJSON([
+            'status'  => 'success',
+            'message' => 'Pesan telah dibaca',
+        ]);
+    }
 }

@@ -13,11 +13,27 @@ class ContactController extends GetxController {
   Timer? _debounce;
 
   final ContactService _contactService = ContactService();
+  Timer? _refreshTimer;
 
   @override
   void onInit() {
     super.onInit();
     // loadContacts();
+    startRefreshTimer();
+  }
+
+  void startRefreshTimer() {
+    _refreshTimer?.cancel();
+    _refreshTimer = Timer.periodic(const Duration(seconds: 10), (timer) {
+      loadContacts();
+    });
+  }
+
+  @override
+  void onClose() {
+    _debounce?.cancel();
+    _refreshTimer?.cancel();
+    super.onClose();
   }
 
   Future<void> loadContacts() async {
@@ -117,11 +133,5 @@ class ContactController extends GetxController {
         update();
       }
     });
-  }
-
-  @override
-  void onClose() {
-    _debounce?.cancel();
-    super.onClose();
   }
 }

@@ -86,10 +86,15 @@ class ChatController extends GetxController {
     // 1. Muat chat awal
     await loadChat(friendId);
 
-    // 2. Batalkan timer lama jika ada
+    // 2. Tandai sebagai dibaca di server
+    if (myId != null) {
+      _chatService.markAsRead(myId!, friendId);
+    }
+
+    // 3. Batalkan timer lama jika ada
     _timer?.cancel();
 
-    // 3. Mulai timer periodic setiap 2 detik
+    // 4. Mulai timer periodic setiap 2 detik
     _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
       fetchNewMessages(friendId);
     });
@@ -128,6 +133,9 @@ class ChatController extends GetxController {
         }
         
         if (hasNewMessage) {
+          // Tandai pesan baru sebagai dibaca karena chat sedang dibuka
+          _chatService.markAsRead(myId!, friendId);
+          
           // Tidak perlu update() karena sudah Obx
           Future.delayed(const Duration(milliseconds: 100), () => scrollToBottom());
         }

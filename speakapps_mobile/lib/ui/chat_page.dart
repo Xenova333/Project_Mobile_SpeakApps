@@ -158,16 +158,22 @@ class _ChatPageState extends State<ChatPage> {
                         ),
                     ],
                   ),
-                  child: CircleAvatar(
-                    backgroundColor: const Color(0xFFE0E0E0),
-                    backgroundImage: (widget.friendProfilePic != null &&
+                  child: ClipOval(
+                    child: (widget.friendProfilePic != null &&
                             widget.friendProfilePic!.isNotEmpty)
-                        ? NetworkImage(widget.friendProfilePic!)
-                        : const AssetImage('assets/default.png') as ImageProvider,
-                    onBackgroundImageError: (widget.friendProfilePic != null &&
-                            widget.friendProfilePic!.isNotEmpty) 
-                        ? (exception, stackTrace) {} // Biarkan kosong, fallback tidak bisa mudah di-catch di sini, tapi default aman
-                        : null,
+                        ? Image.network(
+                            widget.friendProfilePic!,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                Image.asset(
+                              'assets/default.png',
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        : Image.asset(
+                            'assets/default.png',
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ),
                 const SizedBox(width: 12),

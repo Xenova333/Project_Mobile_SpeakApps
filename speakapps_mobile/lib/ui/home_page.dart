@@ -490,7 +490,7 @@ class HomePage extends StatelessWidget {
     final lastMessageTime = contact.lastMessageTime;
 
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         // Tentukan friendId: pilih sisi yang bukan myId
         // Prioritaskan ID dari userData (sinkron) dibanding controller (asinkron)
         final myIdFromData = userData != null ? int.tryParse(userData!['id'].toString()) : null;
@@ -500,7 +500,7 @@ class HomePage extends StatelessWidget {
             ? contact.friendId
             : contact.userId;
 
-        Navigator.push(
+        await Navigator.push(
           context,
           MaterialPageRoute(
             builder: (_) => ChatPage(
@@ -510,6 +510,8 @@ class HomePage extends StatelessWidget {
             ),
           ),
         );
+        // Refresh data saat kembali
+        contactController.loadContacts();
       },
       child: Container(
         padding: const EdgeInsets.all(12.0),
@@ -584,7 +586,33 @@ class HomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 6),
                 ],
-                Icon(Icons.chat_bubble_outline, color: primaryColor, size: 24),
+                contact.unreadCount > 0
+                    ? Container(
+                        constraints: const BoxConstraints(minWidth: 24, minHeight: 24),
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: primaryColor.withOpacity(0.3),
+                              blurRadius: 4,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            contact.unreadCount > 99 ? '99+' : '${contact.unreadCount}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      )
+                    : const SizedBox.shrink(),
               ],
             ),
           ],

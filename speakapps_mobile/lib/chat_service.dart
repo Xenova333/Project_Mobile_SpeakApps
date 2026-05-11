@@ -104,4 +104,22 @@ class ChatService {
       return [];
     }
   }
+
+  // ─────────────────────────────────────────────────────────────
+  //  POST /api/chat/read/{myId}/{friendId}
+  //  Menandai pesan sebagai dibaca
+  // ─────────────────────────────────────────────────────────────
+  Future<void> markAsRead(int myId, int friendId) async {
+    try {
+      await http.post(
+        Uri.parse('${ApiConfig.baseUrl}/chat/read/$myId/$friendId'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      );
+    } catch (e) {
+      print('Error markAsRead: $e');
+    }
+  }
 }
