@@ -1,10 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../home_page.dart';
 import '../profile_page.dart';
 import '../add_contact_page.dart';
+import '../../user_service.dart';
 
-class CustomBottomNav extends StatelessWidget {
+class CustomBottomNav extends StatefulWidget {
   const CustomBottomNav({super.key});
+
+  @override
+  State<CustomBottomNav> createState() => _CustomBottomNavState();
+}
+
+class _CustomBottomNavState extends State<CustomBottomNav> {
+  String _userPic = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserPic();
+  }
+
+  Future<void> _loadUserPic() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _userPic = prefs.getString('user_pic') ?? '';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +61,7 @@ class CustomBottomNav extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const ProfilePage()),
-                );
+                ).then((_) => _loadUserPic());
               },
               child: Container(
                 width: 38,
@@ -57,12 +79,25 @@ class CustomBottomNav extends StatelessWidget {
                   ],
                 ),
                 child: ClipOval(
-                  child: Image.asset(
-                    'assets/rimuru.jpg',
-                    width: 38,
-                    height: 38,
-                    fit: BoxFit.cover,
-                  ),
+                  child: (_userPic.isNotEmpty && _userPic != 'default.png')
+                      ? Image.network(
+                          '${UserService.profilePicBaseUrl}$_userPic',
+                          width: 38,
+                          height: 38,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => Image.asset(
+                            'assets/default.png',
+                            width: 38,
+                            height: 38,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      : Image.asset(
+                          'assets/default.png',
+                          width: 38,
+                          height: 38,
+                          fit: BoxFit.cover,
+                        ),
                 ),
               ),
             ),
@@ -99,7 +134,7 @@ class CustomBottomNav extends StatelessWidget {
               onTap: () {
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
+                  MaterialPageRoute(builder: (context) => const HomePage()),
                   (route) => false,
                 );
               },

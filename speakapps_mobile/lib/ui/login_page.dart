@@ -54,8 +54,11 @@ class _LoginPageState extends State<LoginPage> {
 
         final prefs = await SharedPreferences.getInstance();
         await prefs.setInt('user_id', int.parse(userData['id'].toString()));
-        await prefs.setString('user_nim', userData['nim'].toString());
-        await prefs.setString('user_name', userData['name'].toString());
+        await prefs.setString('user_nim',      userData['nim'].toString());
+        await prefs.setString('user_name',     userData['name'].toString());
+        await prefs.setString('user_semester', userData['semester']?.toString()   ?? '');
+        await prefs.setString('user_gender',   userData['gender']?.toString()     ?? '');
+        await prefs.setString('user_pic',      userData['profile_pic']?.toString() ?? '');
 
         _showSnackBar('Selamat datang, ${userData['name']}!', isError: false);
 

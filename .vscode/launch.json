@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "speakapps_mobile",
+            "cwd": "speakapps_mobile",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "speakapps_mobile (profile mode)",
+            "cwd": "speakapps_mobile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "speakapps_mobile (release mode)",
+            "cwd": "speakapps_mobile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

@@ -12,20 +12,44 @@ import '../controllers/contact_controller.dart';
 import '../controllers/chat_controller.dart';
 import '../models/contact_model.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   /// Data user yang diterima dari LoginPage setelah login berhasil.
   final Map<String, dynamic>? userData;
 
+  const HomePage({super.key, this.userData});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final ContactController contactController = Get.put(ContactController()..loadFriends());
   // Registrasikan ChatController agar tersedia saat membuka ChatPage
   final ChatController _chatController = Get.put(ChatController());
 
-  HomePage({super.key, this.userData});
+  String _userName = 'Pengguna';
+
+  @override
+  void initState() {
+    super.initState();
+    _userName = widget.userData?['name'] ?? 'Pengguna';
+    _loadUserName();
+  }
+
+  Future<void> _loadUserName() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedName = prefs.getString('user_name');
+    if (savedName != null && savedName.isNotEmpty) {
+      setState(() {
+        _userName = savedName;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final userName = userData?['name'] ?? 'Pengguna';
+    final userName = _userName;
     final primaryOrange = const Color(0xFFF6A039);
     final bgColor = Theme.of(context).scaffoldBackgroundColor;
     final cardColor = isDark ? const Color(0xFF111C44) : Colors.white;
@@ -116,7 +140,7 @@ class HomePage extends StatelessWidget {
                               MaterialPageRoute(
                                 builder: (context) => const ProfilePage(),
                               ),
-                            );
+                            ).then((_) => _loadUserName());
                           } else if (value == 'setelan') {
                             Navigator.push(
                               context,
@@ -493,7 +517,7 @@ class HomePage extends StatelessWidget {
       onTap: () async {
         // Tentukan friendId: pilih sisi yang bukan myId
         // Prioritaskan ID dari userData (sinkron) dibanding controller (asinkron)
-        final myIdFromData = userData != null ? int.tryParse(userData!['id'].toString()) : null;
+        final myIdFromData = widget.userData != null ? int.tryParse(widget.userData!['id'].toString()) : null;
         final myId = myIdFromData ?? _chatController.myId;
         
         final friendId = (myId != null && contact.userId == myId)
