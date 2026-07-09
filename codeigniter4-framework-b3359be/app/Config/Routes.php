@@ -33,6 +33,7 @@ $routes->post('api/kontak/add', 'TemanController::addTeman');
 
 // Permintaan Pertemanan (Friend Requests)
 $routes->get('api/friends/pending/(:num)', 'TemanController::getIncomingRequests/$1');
+$routes->get('api/friends/sent/(:num)',    'TemanController::getSentRequests/$1');
 $routes->post('api/friends/add', 'TemanController::addFriendByNim');
 $routes->post('api/friends/status', 'TemanController::updateStatus');
 

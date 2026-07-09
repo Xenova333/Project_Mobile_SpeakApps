@@ -719,9 +719,15 @@ class _HomePageState extends State<HomePage> {
                     // Ya, Keluar button
                     GestureDetector(
                       onTap: () async {
-                        // Hapus session
+                        // Hapus session HANYA untuk data user
+                        // Jangan gunakan prefs.clear() karena akan menghapus wallpaper milik akun lain!
                         final prefs = await SharedPreferences.getInstance();
-                        await prefs.clear();
+                        await prefs.remove('user_id');
+                        await prefs.remove('user_nim');
+                        await prefs.remove('user_name');
+                        await prefs.remove('user_semester');
+                        await prefs.remove('user_gender');
+                        await prefs.remove('user_pic');
 
                         // Hapus controller agar data bersih saat login kembali
                         Get.delete<ContactController>();

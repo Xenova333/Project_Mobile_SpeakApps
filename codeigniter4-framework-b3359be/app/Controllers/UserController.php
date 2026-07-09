@@ -7,9 +7,10 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class UserController extends BaseController
 {
-    // ─────────────────────────────────────────────────────────────
-    //  CORS Helper – dipanggil di setiap method
-    // ─────────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────────────────────────
+    //  CORS Helper — dipanggil di setiap method publik
+    // ─────────────────────────────────────────────────────────────────────
+
     private function setCorsHeaders(): void
     {
         $this->response->setHeader('Access-Control-Allow-Origin', '*');
@@ -18,45 +19,67 @@ class UserController extends BaseController
         $this->response->setHeader('Access-Control-Allow-Credentials', 'true');
     }
 
-    // ─────────────────────────────────────────────────────────────
-    //  POST /api/user/update/:id
-    //  Update profile user (name, semester, gender, profile_pic)
-    //  NIM tidak dapat diubah
-    // ─────────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────────────────────────
+    //  Konstanta path upload foto profil (absolut via FCPATH)
+    //  FCPATH = path ke folder /public tempat index.php berada
+    //  Contoh Windows: D:\Project\...\public\uploads\profile\
+    // ─────────────────────────────────────────────────────────────────────
+
+    private function uploadPath(): string
+    {
+        return FCPATH . 'uploads' . DIRECTORY_SEPARATOR . 'profile' . DIRECTORY_SEPARATOR;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  POST  /api/user/update/{userId}
+    //
+    //  Memperbarui profil user: name, semester, gender, dan profile_pic.
+    //  NIM tidak dapat diubah — dijaga read-only di Flutter maupun di sini.
+    // ─────────────────────────────────────────────────────────────────────
+
     public function updateProfile(int $userId): ResponseInterface
     {
         $this->setCorsHeaders();
 
         $model = new UserModel();
 
-        // Cek apakah user dengan ID tersebut ada
+        // ── 1. Pastikan user dengan ID ini ada di database ──────────────
         $existingUser = $model->find($userId);
-        if (!$existingUser) {
+        if (! $existingUser) {
             return $this->response
                 ->setStatusCode(ResponseInterface::HTTP_NOT_FOUND)
                 ->setJSON([
                     'status'  => 'error',
-                    'message' => 'User tidak ditemukan.',
+                    'message' => "User dengan ID {$userId} tidak ditemukan.",
                 ]);
         }
 
-        // Ambil data dari form-data (multipart/form-data)
+        // ── 2. Ambil field teks dari multipart/form-data ─────────────────
         $name     = trim($this->request->getPost('name')     ?? '');
-        $semester = $this->request->getPost('semester')      ?? null;
-        $gender   = trim($this->request->getPost('gender')   ?? '');
+        $semester = trim($this->request->getPost('semester') ?? '');
+        $gender   = trim(strtolower($this->request->getPost('gender') ?? ''));
 
-        // Validasi field wajib
-        if (empty($name) || empty($semester) || empty($gender)) {
+        // ── 3. Validasi field teks wajib ─────────────────────────────────
+        if (empty($name)) {
             return $this->response
                 ->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST)
                 ->setJSON([
                     'status'  => 'error',
-                    'message' => 'Field name, semester, dan gender wajib diisi.',
+                    'message' => 'Field "name" wajib diisi dan tidak boleh kosong.',
                 ]);
         }
 
-        // Validasi nilai semester
-        if (!is_numeric($semester) || (int) $semester < 1 || (int) $semester > 14) {
+        if (empty($semester) || ! is_numeric($semester)) {
+            return $this->response
+                ->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST)
+                ->setJSON([
+                    'status'  => 'error',
+                    'message' => 'Field "semester" wajib diisi dan harus berupa angka.',
+                ]);
+        }
+
+        $semesterInt = (int) $semester;
+        if ($semesterInt < 1 || $semesterInt > 14) {
             return $this->response
                 ->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST)
                 ->setJSON([
@@ -65,8 +88,8 @@ class UserController extends BaseController
                 ]);
         }
 
-        // Validasi gender
-        if (!in_array(strtolower($gender), ['male', 'female', 'laki-laki', 'perempuan'])) {
+        $validGenders = ['male', 'female', 'laki-laki', 'perempuan'];
+        if (empty($gender) || ! in_array($gender, $validGenders)) {
             return $this->response
                 ->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST)
                 ->setJSON([
@@ -75,84 +98,154 @@ class UserController extends BaseController
                 ]);
         }
 
-        // ── Proses Upload Foto Profile ────────────────────────────
-        $profilePicName = $existingUser['profile_pic']; // gunakan foto lama jika tidak ada unggahan baru
+        // ── 4. Proses Upload Foto Profil ─────────────────────────────────
+        // Default: pertahankan foto lama jika tidak ada file baru dikirim
+        $profilePicName = $existingUser['profile_pic'] ?? null;
 
-        $uploadedFile = $this->request->getFile('profile_pic');
+        $file = $this->request->getFile('profile_pic');
 
-        if ($uploadedFile !== null && $uploadedFile->isValid() && !$uploadedFile->hasMoved()) {
-
-            // Validasi ukuran file (maks 2MB = 2048 KB)
-            if ($uploadedFile->getSizeByUnit('kb') > 2048) {
+        if ($file !== null && $file->isValid() && ! $file->hasMoved()) {
+            // ── 4a. Validasi ukuran file — maks 5 MB (5120 KB) ───────────
+            // imageQuality:30 di Flutter menghasilkan ~30–100 KB.
+            // Batas 5120 KB (5 MB) cukup longgar untuk mencegah false rejection.
+            $fileSizeKB = $file->getSizeByUnit('kb');
+            if ($fileSizeKB > 5120) {
                 return $this->response
                     ->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST)
                     ->setJSON([
                         'status'  => 'error',
-                        'message' => 'Ukuran foto profil tidak boleh melebihi 2MB.',
+                        'message' => "Foto terlalu besar ({$fileSizeKB} KB). Maksimal 5120 KB (5 MB).",
                     ]);
             }
 
-            // Validasi format/ekstensi file
-            $allowedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
-            $allowedExts  = ['png', 'jpg', 'jpeg'];
-            $mimeType     = $uploadedFile->getMimeType();
-            $extension    = strtolower($uploadedFile->getClientExtension());
+            // ── 4b. Validasi tipe file (ekstensi + MIME) ──────────────────
+            // getMimeType() memakai deteksi konten aktual (lebih andal dari header klien).
+            // getClientExtension() sebagai konfirmasi tambahan.
+            $allowedMimes = ['image/jpeg', 'image/jpg', 'image/png', 'image/pjpeg'];
+            $allowedExts  = ['jpg', 'jpeg', 'png'];
 
-            if (!in_array($mimeType, $allowedTypes) || !in_array($extension, $allowedExts)) {
+            $mimeType  = $file->getMimeType();
+            $clientExt = strtolower($file->getClientExtension());
+
+            // Fallback jika getClientExtension() kosong (terjadi di beberapa versi Android)
+            if (empty($clientExt)) {
+                $clientExt = strtolower($file->getExtension());
+            }
+
+            if (! in_array($mimeType, $allowedMimes) || ! in_array($clientExt, $allowedExts)) {
                 return $this->response
                     ->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST)
                     ->setJSON([
                         'status'  => 'error',
-                        'message' => 'Format foto tidak valid. Gunakan format: png, jpg, atau jpeg.',
+                        // Sertakan nilai aktual agar Flutter bisa debug di SnackBar
+                        'message' => "Format foto tidak valid. "
+                            . "Ekstensi yang diterima: jpg, jpeg, png. "
+                            . "Diterima ext={$clientExt}, mime={$mimeType}.",
                     ]);
             }
 
-            // Hapus foto lama jika bukan default.png
-            $uploadPath = FCPATH . 'uploads/profile/';
+            // ── 4c. Siapkan direktori upload ──────────────────────────────
+            $uploadPath = $this->uploadPath();
+
+            if (! is_dir($uploadPath)) {
+                if (! mkdir($uploadPath, 0755, true)) {
+                    return $this->response
+                        ->setStatusCode(ResponseInterface::HTTP_INTERNAL_SERVER_ERROR)
+                        ->setJSON([
+                            'status'  => 'error',
+                            'message' => 'Gagal membuat direktori upload. Periksa permission folder di server.',
+                        ]);
+                }
+            }
+
+            if (! is_writable($uploadPath)) {
+                return $this->response
+                    ->setStatusCode(ResponseInterface::HTTP_INTERNAL_SERVER_ERROR)
+                    ->setJSON([
+                        'status'  => 'error',
+                        'message' => "Direktori upload tidak dapat ditulis: {$uploadPath}",
+                    ]);
+            }
+
+            // ── 4d. Hapus foto lama agar folder tidak menumpuk ───────────
+            $oldPic = $existingUser['profile_pic'] ?? '';
             if (
-                !empty($existingUser['profile_pic']) &&
-                $existingUser['profile_pic'] !== 'default.png'
+                ! empty($oldPic)
+                && $oldPic !== 'default.png'
+                && strpos($oldPic, '..') === false  // cegah path traversal
             ) {
-                $oldFilePath = $uploadPath . $existingUser['profile_pic'];
+                $oldFilePath = $uploadPath . $oldPic;
                 if (file_exists($oldFilePath)) {
                     unlink($oldFilePath);
                 }
             }
 
-            // Pastikan folder upload tersedia
-            if (!is_dir($uploadPath)) {
-                mkdir($uploadPath, 0755, true);
+            // ── 4e. Pindahkan file baru dengan nama acak ──────────────────
+            $newFileName = $file->getRandomName();
+
+            try {
+                $file->move($uploadPath, $newFileName);
+            } catch (\Exception $e) {
+                return $this->response
+                    ->setStatusCode(ResponseInterface::HTTP_INTERNAL_SERVER_ERROR)
+                    ->setJSON([
+                        'status'  => 'error',
+                        'message' => 'Gagal memindahkan file upload: ' . $e->getMessage(),
+                    ]);
             }
 
-            // Simpan file baru dengan nama acak
-            $newFileName = $uploadedFile->getRandomName();
-            $uploadedFile->move($uploadPath, $newFileName);
+            // Verifikasi file benar-benar ada setelah move()
+            if (! file_exists($uploadPath . $newFileName)) {
+                return $this->response
+                    ->setStatusCode(ResponseInterface::HTTP_INTERNAL_SERVER_ERROR)
+                    ->setJSON([
+                        'status'  => 'error',
+                        'message' => 'File berhasil diproses namun tidak ditemukan setelah disimpan. Coba lagi.',
+                    ]);
+            }
 
             $profilePicName = $newFileName;
-        }
 
-        // ── Update ke Database ────────────────────────────────────
+        } elseif ($file !== null && ! $file->isValid()) {
+            // File dikirim tapi ditolak sistem (rusak, ukuran 0, dll.)
+            return $this->response
+                ->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST)
+                ->setJSON([
+                    'status'  => 'error',
+                    'message' => 'File yang dikirim tidak valid: ' . $file->getErrorString(),
+                ]);
+        }
+        // Jika $file === null → tidak ada file dikirim → lanjut hanya update teks
+
+        // ── 5. Simpan perubahan ke database ──────────────────────────────
         $updateData = [
             'name'        => $name,
-            'semester'    => (int) $semester,
-            'gender'      => strtolower($gender),
+            'semester'    => $semesterInt,
+            'gender'      => $gender,
             'profile_pic' => $profilePicName,
         ];
 
         $updated = $model->update($userId, $updateData);
 
-        if (!$updated) {
+        if (! $updated) {
+            $modelErrors = $model->errors();
+            $errDetail   = ! empty($modelErrors)
+                ? implode('; ', $modelErrors)
+                : 'Tidak ada detail error dari model.';
+
             return $this->response
                 ->setStatusCode(ResponseInterface::HTTP_INTERNAL_SERVER_ERROR)
                 ->setJSON([
                     'status'  => 'error',
-                    'message' => 'Gagal memperbarui profil. Silakan coba lagi.',
+                    'message' => 'Gagal update ke database: ' . $errDetail,
                 ]);
         }
 
-        // Ambil data user terbaru (tanpa password)
+        // ── 6. Kembalikan data user terbaru (tanpa password) ─────────────
         $updatedUser = $model->find($userId);
-        unset($updatedUser['password']);
+        if (isset($updatedUser['password'])) {
+            unset($updatedUser['password']);
+        }
 
         return $this->response
             ->setStatusCode(ResponseInterface::HTTP_OK)
@@ -160,6 +253,39 @@ class UserController extends BaseController
                 'status'  => 'success',
                 'message' => 'Profil berhasil diperbarui.',
                 'data'    => $updatedUser,
+            ]);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  GET  /api/user/{userId}
+    //  Ambil data profil user berdasarkan ID (tanpa password)
+    // ─────────────────────────────────────────────────────────────────────
+
+    public function getProfile(int $userId): ResponseInterface
+    {
+        $this->setCorsHeaders();
+
+        $model = new UserModel();
+        $user  = $model->find($userId);
+
+        if (! $user) {
+            return $this->response
+                ->setStatusCode(ResponseInterface::HTTP_NOT_FOUND)
+                ->setJSON([
+                    'status'  => 'error',
+                    'message' => "User dengan ID {$userId} tidak ditemukan.",
+                ]);
+        }
+
+        if (isset($user['password'])) {
+            unset($user['password']);
+        }
+
+        return $this->response
+            ->setStatusCode(ResponseInterface::HTTP_OK)
+            ->setJSON([
+                'status' => 'success',
+                'data'   => $user,
             ]);
     }
 }

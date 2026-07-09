@@ -1,9 +1,12 @@
-import 'dart:io';
+// dart:io diimport untuk FileImage (hanya dipanggil di Android lewat !kIsWeb guard)
+import 'dart:io' show File;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../controllers/edit_profile_controller.dart';
 import '../user_service.dart';
+import '../controllers/global_user_controller.dart';
 import 'widgets/custom_bottom_nav.dart';
 
 class EditProfilePage extends StatelessWidget {
@@ -83,15 +86,11 @@ class EditProfilePage extends StatelessWidget {
                             child: Stack(
                               alignment: Alignment.bottomRight,
                               children: [
-                                // Foto (CircleAvatar preview baru atau dari NetworkImage server)
+                                // Foto: preview gambar baru (Web/Android) atau foto lama dari server
                                 CircleAvatar(
                                   radius: 60,
                                   backgroundColor: Colors.white,
-                                  backgroundImage: c.selectedImage != null
-                                      ? FileImage(c.selectedImage!)
-                                      : (c.userPic.isNotEmpty && c.userPic != 'default.png')
-                                          ? NetworkImage('${UserService.profilePicBaseUrl}${c.userPic}') as ImageProvider
-                                          : const AssetImage('assets/default.png') as ImageProvider,
+                                  backgroundImage: _resolveProfileImage(c),
                                 ),
 
                                 // Badge kamera di pojok kanan bawah avatar
@@ -448,5 +447,36 @@ class EditProfilePage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  /// Memilih [ImageProvider] yang tepat berdasarkan platform dan state controller:
+  /// 1. Web     + webImage ada         → MemoryImage (bytes dari Web picker)
+  /// 2. Android + selectedImagePath ada → FileImage  (File dari path String)
+  /// 3. Ada foto dari server            → NetworkImage
+  /// 4. Fallback                        → AssetImage default
+  ///
+  /// PENTING: File() hanya dipanggil di dalam blok !kIsWeb sehingga aman
+  /// di Web meskipun dart:io diimport — Flutter tidak akan memanggil
+  /// kode tersebut di runtime Web.
+  ImageProvider _resolveProfileImage(EditProfileController c) {
+    // ── Web (Chrome): tampilkan dari bytes pembacaan readAsBytes() ─────────
+    if (kIsWeb && c.webImage != null) {
+      return MemoryImage(c.webImage!);
+    }
+    // ── Android: buat FileImage dari path String ─────────────────────────
+    // Guard !kIsWeb memastikan File() TIDAK pernah dieksekusi di Web
+    if (!kIsWeb &&
+        c.selectedImagePath != null &&
+        c.selectedImagePath!.isNotEmpty) {
+      return FileImage(File(c.selectedImagePath!));
+    }
+    // ── Foto lama dari server ────────────────────────────────────────
+    if (c.userPic.isNotEmpty && c.userPic != 'default.png') {
+      final globalUser = Get.isRegistered<GlobalUserController>() ? Get.find<GlobalUserController>() : null;
+      final timestamp = globalUser?.imageTimestamp.value ?? DateTime.now().millisecondsSinceEpoch;
+      return NetworkImage('${UserService.profilePicBaseUrl}${c.userPic}?v=$timestamp');
+    }
+    // ── Fallback: gambar default lokal ────────────────────────────────
+    return const AssetImage('assets/default.png');
   }
 }

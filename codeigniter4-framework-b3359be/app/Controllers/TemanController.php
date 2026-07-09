@@ -247,6 +247,25 @@ class TemanController extends BaseController
         ]);
     }
 
+    // Mengambil permintaan pertemanan yang SUDAH DIKIRIM oleh user (sebagai pengirim)
+    public function getSentRequests(int $myId)
+    {
+        $this->setCorsHeaders();
+        $temanModel = new TemanModel();
+
+        // user_id = myId (pengirim), friend_id = target, status = pending
+        $requests = $temanModel->select('friends.*, users.name, users.profile_pic, users.nim')
+            ->where('friends.user_id', $myId)
+            ->where('friends.status', 'pending')
+            ->join('users', 'users.id = friends.friend_id') // join ke user yang menjadi target
+            ->findAll();
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'data'   => $requests
+        ]);
+    }
+
     public function addFriendByNim()
     {
         $this->setCorsHeaders();

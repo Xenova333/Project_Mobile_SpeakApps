@@ -1,53 +1,98 @@
-import 'dart:io';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:http/http.dart' as http;
 import 'api_services.dart';
 
 class UserService {
   static String get _baseUrl => ApiConfig.baseUrl;
-  static String get profilePicBaseUrl => ApiConfig.baseUrl.replaceAll('/api', '/uploads/profile/');
 
-  /// Mengirim data pembaruan profil ke backend CI4.
-  /// Menggunakan [http.MultipartRequest] karena ada kemungkinan upload file gambar.
-  ///
-  /// - [userId]    : ID user yang sedang login (dari SharedPreferences)
-  /// - [body]      : Map berisi field teks: 'name', 'semester', 'gender'
-  /// - [imageFile] : File gambar baru (nullable). Jika null, foto lama tetap dipakai.
+  /// URL dasar untuk menampilkan foto profil dari server CI4.
+  /// Contoh hasil: http://192.168.1.6:8080/uploads/profile/foto.jpg
+  static String get profilePicBaseUrl =>
+      ApiConfig.baseUrl.replaceAll('/api', '/uploads/profile/');
+
+  // ─────────────────────────────────────────────────────────────────────────
+  //  updateProfile()
+  //
+  //  Mengirim pembaruan profil ke CI4 via HTTP MultipartRequest.
+  //
+  //  Catatan desain: parameter gambar sengaja TIDAK menggunakan class File
+  //  dari dart:io agar file ini aman dicompile di platform Web (Chrome).
+  //  Class File tidak tersedia di Web — maka:
+  //   • Android → terima String path → http package yang baca file-nya
+  //   • Web     → terima Uint8List bytes → langsung kirim via fromBytes()
+  //
+  //  Parameters:
+  //  • [userId]    : ID user yang sedang login
+  //  • [body]      : Map berisi 'name', 'semester', 'gender'
+  //  • [imagePath] : Path file gambar di Android. Null = tidak ganti foto.
+  //  • [webImage]  : Bytes gambar dari Web picker. Null = tidak ganti foto.
+  // ─────────────────────────────────────────────────────────────────────────
+
   Future<Map<String, dynamic>> updateProfile(
     int userId,
     Map<String, String> body,
-    File? imageFile,
+    String? imagePath,    // path untuk Android (String saja, bukan File)
+    Uint8List? webImage,  // bytes untuk Web
   ) async {
     try {
       final uri = Uri.parse('$_baseUrl/user/update/$userId');
 
-      // Buat MultipartRequest agar bisa mengirim field teks + file sekaligus
+      // MultipartRequest agar field teks + file gambar bisa dikirim bersamaan
       final request = http.MultipartRequest('POST', uri);
+      request.headers['Accept'] = 'application/json';
 
-      // Tambahkan header (opsional, tapi disarankan)
-      request.headers.addAll({
-        'Accept': 'application/json',
-      });
-
-      // Tambahkan field teks (name, semester, gender)
+      // ── Field teks (NIM tidak dikirim — read-only di UI) ─────────────
       request.fields.addAll(body);
 
-      // Jika ada file gambar baru yang dipilih, lampirkan sebagai multipart
-      if (imageFile != null) {
+      // ── Sisipkan file gambar hanya jika user memilih foto baru ───────
+      if (kIsWeb && webImage != null) {
+        // ── Web (Chrome): gunakan fromBytes() karena tidak ada path file ─
+        request.files.add(
+          http.MultipartFile.fromBytes(
+            'profile_pic',
+            webImage,
+            filename: 'profile_${DateTime.now().millisecondsSinceEpoch}.jpg',
+          ),
+        );
+      } else if (!kIsWeb && imagePath != null && imagePath.isNotEmpty) {
+        // ── Android / iOS: baca file dari path via fromPath() ─────────
+        // http.MultipartFile.fromPath() membaca dart:io.File secara internal
+        // sehingga kita tidak perlu import dart:io di sini
         final multipartFile = await http.MultipartFile.fromPath(
-          'profile_pic',       // harus sama dengan nama field di CI4 backend
-          imageFile.path,
+          'profile_pic', // nama field harus sama dengan yang diharapkan CI4
+          imagePath,
         );
         request.files.add(multipartFile);
       }
+      // Jika keduanya null → request tetap dikirim tanpa file gambar
+      // CI4 akan mempertahankan foto lama yang ada di database
 
-      // Kirim request dan tunggu response dengan timeout 10 detik
-      final streamedResponse = await request.send().timeout(const Duration(seconds: 10));
-      final responseBody = await streamedResponse.stream.bytesToString().timeout(const Duration(seconds: 10));
+      // ── Kirim request + baca response (timeout 20 detik untuk upload) ─
+      final streamedResponse = await request.send()
+          .timeout(const Duration(seconds: 20));
+      final responseBody = await streamedResponse.stream
+          .bytesToString()
+          .timeout(const Duration(seconds: 20));
 
-      // Decode JSON response dari CI4
-      return json.decode(responseBody) as Map<String, dynamic>;
+      // ── Decode JSON response dari CI4 ─────────────────────────────────
+      final decoded = json.decode(responseBody);
+      if (decoded is Map<String, dynamic>) {
+        return decoded;
+      }
+      return {
+        'status': 'error',
+        'message': 'Format response tidak dikenal: $responseBody',
+      };
+    } on FormatException catch (e) {
+      // CI4 mengembalikan HTML (misal: error 500) bukan JSON
+      return {
+        'status': 'error',
+        'message': 'Server mengembalikan bukan JSON. Detail: $e',
+      };
     } catch (e) {
+      // Error jaringan, timeout, permission, dll.
       return {
         'status': 'error',
         'message': 'Gagal terhubung ke server: $e',

@@ -4,6 +4,8 @@ import '../home_page.dart';
 import '../profile_page.dart';
 import '../add_contact_page.dart';
 import '../../user_service.dart';
+import 'package:get/get.dart';
+import '../../controllers/global_user_controller.dart';
 
 class CustomBottomNav extends StatefulWidget {
   const CustomBottomNav({super.key});
@@ -30,6 +32,9 @@ class _CustomBottomNavState extends State<CustomBottomNav> {
 
   @override
   Widget build(BuildContext context) {
+    // Pastikan controller sudah terdaftar, jika belum fallback kosong
+    final globalUser = Get.isRegistered<GlobalUserController>() ? Get.find<GlobalUserController>() : null;
+
     final isDark = Theme.of(context).brightness == Brightness.dark;
     const primaryOrange = Color(0xFFF6A039);
     final navBgColor = isDark ? const Color(0xFF111C44) : Colors.white;
@@ -79,25 +84,21 @@ class _CustomBottomNavState extends State<CustomBottomNav> {
                   ],
                 ),
                 child: ClipOval(
-                  child: (_userPic.isNotEmpty && _userPic != 'default.png')
-                      ? Image.network(
-                          '${UserService.profilePicBaseUrl}$_userPic',
-                          width: 38,
-                          height: 38,
-                          fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) => Image.asset(
-                            'assets/default.png',
-                            width: 38,
-                            height: 38,
-                            fit: BoxFit.cover,
-                          ),
-                        )
-                      : Image.asset(
-                          'assets/default.png',
-                          width: 38,
-                          height: 38,
-                          fit: BoxFit.cover,
-                        ),
+                  child: globalUser == null ? _buildStaticImage() : Obx(() {
+                    final userPic = globalUser.userPic.value;
+                    final timestamp = globalUser.imageTimestamp.value;
+                    
+                    if (userPic.isNotEmpty && userPic != 'default.png') {
+                      return Image.network(
+                        '${UserService.profilePicBaseUrl}$userPic?v=$timestamp',
+                        width: 38,
+                        height: 38,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => _buildFallbackImage(),
+                      );
+                    }
+                    return _buildFallbackImage();
+                  }),
                 ),
               ),
             ),
@@ -156,9 +157,31 @@ class _CustomBottomNavState extends State<CustomBottomNav> {
                 child: Icon(Icons.home, color: isDark ? Colors.white : primaryOrange, size: 22),
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+              ],
+            ),
+          ),
+        );
+      }
+
+      Widget _buildStaticImage() {
+        if (_userPic.isNotEmpty && _userPic != 'default.png') {
+          return Image.network(
+            '${UserService.profilePicBaseUrl}$_userPic',
+            width: 38,
+            height: 38,
+            fit: BoxFit.cover,
+            errorBuilder: (_, __, ___) => _buildFallbackImage(),
+          );
+        }
+        return _buildFallbackImage();
+      }
+
+      Widget _buildFallbackImage() {
+        return Image.asset(
+          'assets/default.png',
+          width: 38,
+          height: 38,
+          fit: BoxFit.cover,
+        );
+      }
+    }

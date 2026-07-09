@@ -88,6 +88,34 @@ class ContactService {
     }
   }
 
+  /// Fungsi untuk mengambil permintaan pertemanan yang sudah DIKIRIM user (status pending)
+  Future<List<ContactModel>> getSentRequests(int userId) async {
+    try {
+      final response = await http.get(
+        Uri.parse(ApiConfig.sentRequestsUrl(userId)),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final decodedData = json.decode(response.body);
+        if (decodedData['status'] == 'success') {
+          final List<dynamic> dataList = decodedData['data'] ?? [];
+          return dataList.map((json) => ContactModel.fromJson(json)).toList();
+        } else {
+          throw Exception(decodedData['message'] ?? 'Gagal mengambil permintaan terkirim');
+        }
+      } else {
+        throw Exception('Server error. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print("Error fetching sent requests: $e");
+      return [];
+    }
+  }
+
   /// Fungsi untuk menambahkan teman baru (berdasarkan NIM)
   Future<Map<String, dynamic>> sendFriendRequest(int userId, String nim) async {
     try {

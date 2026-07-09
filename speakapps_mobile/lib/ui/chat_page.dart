@@ -1,6 +1,9 @@
+import 'dart:io' show File;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/chat_controller.dart';
+import '../controllers/chat_background_controller.dart';
 import '../models/chat_model.dart';
 import 'user_info_page.dart';
 
@@ -28,6 +31,9 @@ class _ChatPageState extends State<ChatPage> {
     super.initState();
     ctrl = Get.find<ChatController>();
 
+    // ChatBackgroundController sudah terdaftar permanent dari main.dart.
+    // Tidak perlu Get.put lagi di sini.
+
     // Muat riwayat chat saat halaman dibuka
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ctrl.startChat(widget.friendId);
@@ -54,64 +60,113 @@ class _ChatPageState extends State<ChatPage> {
       body: SafeArea(
         child: Column(
           children: [
-            // ── App Bar ─────────────────────────────────────────────
+            // ── App Bar ────────────────────────────────────────────────
             _buildAppBar(primaryOrange, isDark, cardColor, textColor, subTextColor),
 
-            // ── Chat Area ────────────────────────────────────────────
+            // ── Chat Area dengan Background Wallpaper ───────────────────────
             Expanded(
-              child: Obx(() {
-                if (ctrl.isLoading.value) {
-                  return const Center(
-                    child: CircularProgressIndicator(color: Color(0xFFF6A039)),
-                  );
-                }
-
-                if (ctrl.messages.isEmpty) {
-                  return Center(
-                    child: Text(
-                      'Belum ada pesan.\nKirim pesan pertamamu! 👋',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: subTextColor, fontSize: 14),
-                    ),
-                  );
-                }
-
-                return ListView.builder(
-                  controller: ctrl.scrollController,
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-                  itemCount: ctrl.messages.length,
-                  itemBuilder: (_, i) {
-                    final msg    = ctrl.messages[i];
-                    final isMe   = msg.senderId == ctrl.myId;
-                    final time   = _formatTime(msg.createdAt);
-
-                    // ── Pemisah tanggal
-                    final showDate = i == 0 ||
-                        _isSameDay(ctrl.messages[i - 1].createdAt, msg.createdAt) == false;
-
-                    return Column(
-                      children: [
-                        if (showDate) ...[
-                          _buildDateDivider(_formatDate(msg.createdAt), isDark, primaryOrange),
-                          const SizedBox(height: 12),
-                        ],
-                        isMe
-                            ? _buildSentBubble(msg, time, primaryOrange)
-                            : _buildReceivedBubble(msg, time, primaryOrange, cardColor, textColor, subTextColor, isDark),
-                        const SizedBox(height: 8),
-                      ],
+              child: Stack(
+                children: [
+                  // ── Layer 1: Background Wallpaper (Obx = reaktif) ────────
+                  Obx(() {
+                    final bgCtrl = Get.find<ChatBackgroundController>();
+                    if (!bgCtrl.hasBackground) {
+                      return ColoredBox(color: bgColor);
+                    }
+                    return SizedBox.expand(
+                      child: InteractiveViewer(
+                        panEnabled: false,
+                        scaleEnabled: false,
+                        transformationController: TransformationController()
+                          ..value = bgCtrl.bgMatrix.value,
+                        child: _buildWallpaperImage(bgCtrl),
+                      ),
                     );
-                  },
-                );
-              }),
+                  }),
+
+                  // ── Layer 2: Pesan Chat ───────────────────────────────────
+                  Obx(() {
+                    if (ctrl.isLoading.value) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                            color: Color(0xFFF6A039)),
+                      );
+                    }
+                    if (ctrl.messages.isEmpty) {
+                      return Center(
+                        child: Text(
+                          'Belum ada pesan.\nKirim pesan pertamamu! 👋',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: subTextColor, fontSize: 14),
+                        ),
+                      );
+                    }
+                    return ListView.builder(
+                      controller: ctrl.scrollController,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 20),
+                      itemCount: ctrl.messages.length,
+                      itemBuilder: (_, i) {
+                        final msg = ctrl.messages[i];
+                        final isMe = msg.senderId == ctrl.myId;
+                        final time = _formatTime(msg.createdAt);
+                        final showDate = i == 0 ||
+                            _isSameDay(ctrl.messages[i - 1].createdAt,
+                                    msg.createdAt) ==
+                                false;
+                        return Column(
+                          children: [
+                            if (showDate) ...[
+                              _buildDateDivider(
+                                  _formatDate(msg.createdAt),
+                                  isDark,
+                                  primaryOrange),
+                              const SizedBox(height: 12),
+                            ],
+                            isMe
+                                ? _buildSentBubble(msg, time, primaryOrange)
+                                : _buildReceivedBubble(msg, time, primaryOrange,
+                                    cardColor, textColor, subTextColor, isDark),
+                            const SizedBox(height: 8),
+                          ],
+                        );
+                      },
+                    );
+                  }),
+                ],
+              ),
             ),
 
-            // ── Input Field ──────────────────────────────────────────
-            _buildInputField(primaryOrange, bgColor, cardColor, textColor, subTextColor, isDark),
+            // ── Input Field ────────────────────────────────────────────────
+            _buildInputField(
+                primaryOrange, bgColor, cardColor, textColor, subTextColor, isDark),
           ],
         ),
       ),
     );
+  }
+
+  // ── Helper: render wallpaper sesuai platform ───────────────────────────────
+  Widget _buildWallpaperImage(ChatBackgroundController bgCtrl) {
+    if (kIsWeb && bgCtrl.bgImageBytes.value != null) {
+      return Image.memory(
+        bgCtrl.bgImageBytes.value!,
+        fit: BoxFit.cover,
+        width: double.infinity,
+        height: double.infinity,
+      );
+    }
+    if (!kIsWeb &&
+        bgCtrl.bgImagePath.value != null &&
+        bgCtrl.bgImagePath.value!.isNotEmpty) {
+      return Image.file(
+        File(bgCtrl.bgImagePath.value!),
+        fit: BoxFit.cover,
+        width: double.infinity,
+        height: double.infinity,
+      );
+    }
+    return const SizedBox.shrink();
   }
 
   // ─── App Bar ─────────────────────────────────────────────────

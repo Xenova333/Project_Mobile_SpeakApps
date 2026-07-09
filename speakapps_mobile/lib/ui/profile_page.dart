@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'edit_profile_page.dart';
 import '../user_service.dart';
 import 'widgets/custom_bottom_nav.dart';
+import 'package:get/get.dart';
+import '../controllers/global_user_controller.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -39,6 +41,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final globalUser = Get.isRegistered<GlobalUserController>() ? Get.find<GlobalUserController>() : null;
     final primaryOrange = const Color(0xFFF6A039);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
@@ -108,25 +111,21 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ],
                                 ),
                                 child: ClipOval(
-                                  child: (_userPic.isNotEmpty && _userPic != 'default.png')
-                                      ? Image.network(
-                                          '${UserService.profilePicBaseUrl}$_userPic',
-                                          width: 120,
-                                          height: 120,
-                                          fit: BoxFit.cover,
-                                          errorBuilder: (_, __, ___) => Image.asset(
-                                            'assets/default.png',
-                                            width: 120,
-                                            height: 120,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        )
-                                      : Image.asset(
-                                          'assets/default.png',
-                                          width: 120,
-                                          height: 120,
-                                          fit: BoxFit.cover,
-                                        ),
+                                  child: globalUser == null ? _buildStaticImage() : Obx(() {
+                                    final userPic = globalUser.userPic.value;
+                                    final timestamp = globalUser.imageTimestamp.value;
+                                    
+                                    if (userPic.isNotEmpty && userPic != 'default.png') {
+                                      return Image.network(
+                                        '${UserService.profilePicBaseUrl}$userPic?v=$timestamp',
+                                        width: 120,
+                                        height: 120,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (_, __, ___) => _buildFallbackImage(),
+                                      );
+                                    }
+                                    return _buildFallbackImage();
+                                  }),
                                 ),
                               ),
                               
@@ -239,4 +238,27 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+
+  Widget _buildStaticImage() {
+    if (_userPic.isNotEmpty && _userPic != 'default.png') {
+      return Image.network(
+        '${UserService.profilePicBaseUrl}$_userPic',
+        width: 120,
+        height: 120,
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) => _buildFallbackImage(),
+      );
+    }
+    return _buildFallbackImage();
+  }
+
+  Widget _buildFallbackImage() {
+    return Image.asset(
+      'assets/default.png',
+      width: 120,
+      height: 120,
+      fit: BoxFit.cover,
+    );
+  }
 }
+

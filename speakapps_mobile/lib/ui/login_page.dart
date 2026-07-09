@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../auth_service.dart';
+import '../controllers/chat_background_controller.dart';
 import 'home_page.dart';
 import 'register_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,6 +63,12 @@ class _LoginPageState extends State<LoginPage> {
         await prefs.setString('user_pic',      userData['profile_pic']?.toString() ?? '');
 
         _showSnackBar('Selamat datang, ${userData['name']}!', isError: false);
+
+        // Muat wallpaper untuk akun yang baru login
+        final userId = int.parse(userData['id'].toString());
+        if (Get.isRegistered<ChatBackgroundController>()) {
+          await Get.find<ChatBackgroundController>().reloadForUser(userId);
+        }
 
         await Future.delayed(const Duration(milliseconds: 800));
 

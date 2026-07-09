@@ -1,9 +1,11 @@
-import 'dart:io';
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../user_service.dart';
+import 'global_user_controller.dart';
 
 class EditProfileController extends GetxController {
   // ─────────────────────────────────────────────────────────────────────────
@@ -13,26 +15,33 @@ class EditProfileController extends GetxController {
   /// Controller untuk field Nama
   final TextEditingController nameController = TextEditingController();
 
-  /// Controller untuk field NIM (read-only)
+  /// Controller untuk field NIM (read-only – tidak dikirim ke backend)
   final TextEditingController nimController = TextEditingController();
 
   /// Controller untuk field Semester
   final TextEditingController semesterController = TextEditingController();
 
   // ─────────────────────────────────────────────────────────────────────────
-  //  Reactive State (menggunakan .obs agar UI auto-update via GetBuilder/Obx)
+  //  State gambar (disimpan terpisah per platform untuk menghindari crash)
   // ─────────────────────────────────────────────────────────────────────────
 
-  /// Gender yang dipilih user ('male' / 'female' / 'laki-laki' / 'perempuan')
-  String selectedGender = '';
+  /// [Android] Path file gambar terpilih (String, bukan File — aman di semua platform)
+  String? selectedImagePath;
 
-  /// File gambar yang dipilih dari galeri (null = belum memilih foto baru)
-  File? selectedImage;
+  /// [Web / Chrome] Data biner gambar yang dipilih (Uint8List, tidak ada path di Web)
+  Uint8List? webImage;
 
-  /// File nama gambar profil saat ini (dari backend)
+  /// Nama file foto profil saat ini (dari backend / SharedPreferences)
   String userPic = '';
 
-  /// State loading saat proses submit berlangsung
+  // ─────────────────────────────────────────────────────────────────────────
+  //  State lain
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /// Gender yang dipilih user ('male' / 'female')
+  String selectedGender = '';
+
+  /// State loading — true = tombol dikunci + tampil spinner
   bool isLoading = false;
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -61,15 +70,16 @@ class EditProfileController extends GetxController {
   }
 
   // ─────────────────────────────────────────────────────────────────────────
-  //  Load data profil saat ini dari SharedPreferences
+  //  Load data profil dari SharedPreferences saat halaman dibuka
   // ─────────────────────────────────────────────────────────────────────────
 
   Future<void> _loadCurrentUserData() async {
     final prefs = await SharedPreferences.getInstance();
     nameController.text     = prefs.getString('user_name')     ?? '';
     nimController.text      = prefs.getString('user_nim')      ?? '';
-    semesterController.text = prefs.getString('user_semester')  ?? '';
-    final rawGender         = (prefs.getString('user_gender')  ?? '').toLowerCase();
+    semesterController.text = prefs.getString('user_semester') ?? '';
+
+    final rawGender = (prefs.getString('user_gender') ?? '').toLowerCase();
     if (rawGender == 'laki-laki' || rawGender == 'male') {
       selectedGender = 'male';
     } else if (rawGender == 'perempuan' || rawGender == 'female') {
@@ -77,40 +87,60 @@ class EditProfileController extends GetxController {
     } else {
       selectedGender = '';
     }
-    userPic                 = prefs.getString('user_pic')       ?? '';
+
+    userPic = prefs.getString('user_pic') ?? '';
     update();
   }
 
   // ─────────────────────────────────────────────────────────────────────────
-  //  pickImage() – membuka galeri HP dan menyimpan file yang dipilih
+  //  pickImage()
+  //
+  //  Membuka galeri dan menyimpan hasil pilihan sesuai platform:
+  //  • Android  → simpan path ke [selectedImagePath]
+  //  • Web      → baca bytes ke [webImage]
+  //
+  //  Anti-crash:
+  //  • imageQuality: 30 + maxWidth: 800 → kompres di sisi klien sebelum upload
+  //  • if (pickedFile == null) return   → aman jika user cancel
+  //  • try-catch                        → aman jika galeri crash / permission ditolak
   // ─────────────────────────────────────────────────────────────────────────
 
   Future<void> pickImage() async {
     try {
-      final XFile? picked = await _imagePicker.pickImage(
+      final XFile? pickedFile = await _imagePicker.pickImage(
         source: ImageSource.gallery,
-        imageQuality: 85,      // Kompres sedikit agar tidak terlalu besar
-        maxWidth: 1024,
-        maxHeight: 1024,
+        imageQuality: 30,  // Kompres 70% → file kecil, aman untuk CI4
+        maxWidth: 800,     // Batasi lebar maksimum 800px
       );
 
-      if (picked != null) {
-        selectedImage = File(picked.path);
-        update(); // Perbarui UI agar preview foto baru tampil
+      // ── Null-check ketat: user membatalkan → return tanpa error ─────────
+      if (pickedFile == null) return;
+
+      if (kIsWeb) {
+        // ── Mode WEB (Chrome) ─────────────────────────────────────────────
+        // Di Web tidak ada path file nyata → baca sebagai bytes
+        webImage = await pickedFile.readAsBytes();
+        selectedImagePath = null; // bersihkan state Android
+      } else {
+        // ── Mode ANDROID ──────────────────────────────────────────────────
+        // Simpan path sebagai String saja — File() dibuat di UserService
+        // agar tidak ada referensi class File di scope bersama Web
+        selectedImagePath = pickedFile.path;
+        webImage = null; // bersihkan state Web
       }
+
+      update(); // Perbarui UI: preview foto baru tampil
     } catch (e) {
-      Get.snackbar(
-        'Gagal',
-        'Tidak dapat membuka galeri: $e',
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      _showSnackBar('Tidak dapat membuka galeri: $e', isError: true);
     }
   }
 
   // ─────────────────────────────────────────────────────────────────────────
-  //  submitUpdate() – validasi → kirim ke backend → update lokal → navigasi
+  //  submitUpdate()
+  //
+  //  Alur: Validasi → isLoading=true → MultipartRequest → SharedPrefs update
+  //        → SnackBar sukses → Get.back()
+  //        → catch error → SnackBar dengan detail error untuk debugging
   // ─────────────────────────────────────────────────────────────────────────
 
   Future<void> submitUpdate() async {
@@ -122,68 +152,100 @@ class EditProfileController extends GetxController {
       _showSnackBar('Nama tidak boleh kosong', isError: true);
       return;
     }
-
     if (semester.isEmpty || int.tryParse(semester) == null) {
       _showSnackBar('Semester harus berupa angka', isError: true);
       return;
     }
-
     if (selectedGender.isEmpty) {
       _showSnackBar('Pilih jenis kelamin terlebih dahulu', isError: true);
       return;
     }
 
-    // ── 2. Ambil userId dari SharedPreferences ────────────────────────────
+    // ── 2. Ambil userId dari SharedPreferences ───────────────────────────
     final prefs  = await SharedPreferences.getInstance();
     final userId = prefs.getInt('user_id');
-
     if (userId == null) {
       _showSnackBar('Sesi login tidak valid. Silakan login ulang.', isError: true);
       return;
     }
 
-    // ── 3. Tampilkan loading & kirim ke backend ──────────────────────────
+    // ── 3. Kunci tombol + tampilkan spinner ──────────────────────────────
     isLoading = true;
     update();
 
     try {
+      // Field teks (NIM TIDAK dikirim — dijaga read-only)
       final body = {
         'name'    : name,
         'semester': semester,
         'gender'  : selectedGender,
       };
 
-      final result = await _userService.updateProfile(userId, body, selectedImage);
+      // Kirim ke UserService yang menangani multipart + platform check
+      final result = await _userService.updateProfile(
+        userId,
+        body,
+        selectedImagePath, // String path untuk Android (null = tidak ganti foto)
+        webImage,          // Uint8List untuk Web      (null = tidak ganti foto)
+      );
 
       if (result['status'] == 'success') {
         // ── 4a. Update data lokal di SharedPreferences ─────────────────
-        final updatedData = result['data'] as Map<String, dynamic>? ?? {};
+        final updated = result['data'] as Map<String, dynamic>? ?? {};
+        await prefs.setString('user_name',    updated['name']?.toString()        ?? name);
+        await prefs.setString('user_semester', updated['semester']?.toString()   ?? semester);
+        await prefs.setString('user_gender',   updated['gender']?.toString()     ?? selectedGender);
+        
+        // Update foto profil ke GlobalUserController
+        final newPic = updated['profile_pic']?.toString() ?? userPic;
+        if (Get.isRegistered<GlobalUserController>()) {
+          await Get.find<GlobalUserController>().updateUserPic(newPic);
+        } else {
+          await prefs.setString('user_pic', newPic);
+        }
+        
+        userPic = newPic;
+        selectedImagePath = null;
+        webImage = null;
 
-        await prefs.setString('user_name',     updatedData['name']?.toString()        ?? name);
-        await prefs.setString('user_semester',  updatedData['semester']?.toString()    ?? semester);
-        await prefs.setString('user_gender',    updatedData['gender']?.toString()      ?? selectedGender);
-        await prefs.setString('user_pic',       updatedData['profile_pic']?.toString() ?? '');
-
-        // ── 4b. Tampilkan SnackBar sukses ──────────────────────────────
+        // ── 4b. Buka kunci tombol + tampilkan sukses ───────────────────────────────────
+        isLoading = false;
+        update();
         _showSnackBar('Profil berhasil diperbarui!', isError: false);
 
-        // ── 4c. Kembali ke halaman sebelumnya (profil / halaman utama) ─
-        await Future.delayed(const Duration(milliseconds: 800));
-        Get.back();
+        // ── 4c. Kembali ke halaman profil ───────────────────────────────────────
+        // Tunggu sedikit agar SnackBar selesai render sebelum navigasi
+        // Ini mencegah crash animasi di Chrome Web.
+        await Future.delayed(const Duration(milliseconds: 1200));
+        
+        // Gunakan Navigator native Flutter sebagai metode paling aman.
+        // Get.back() bergantung pada GetMaterialApp, tapi sebagai fallback
+        // tambahkan Navigator.pop via Get.key.currentContext.
+        final ctx = Get.key.currentContext;
+        if (ctx != null && Navigator.canPop(ctx)) {
+          Navigator.of(ctx).pop();
+        } else {
+          // Fallback: Get.back() jika context tidak tersedia
+          Get.back();
+        }
       } else {
-        // Backend mengembalikan error
-        _showSnackBar(result['message'] ?? 'Gagal memperbarui profil', isError: true);
+        // Backend error → tampilkan detail pesan untuk debugging
+        final errMsg = result['message']
+            ?? 'Server error (status: ${result['status']})';
+        _showSnackBar('Gagal dari server: $errMsg', isError: true);
       }
     } catch (e) {
-      _showSnackBar('Terjadi kesalahan: $e', isError: true);
+      // Error jaringan / timeout / JSON parsing → tampilkan detail
+      _showSnackBar('Upload gagal: $e', isError: true);
     } finally {
+      // Pastikan spinner SELALU berhenti meski ada error apapun
       isLoading = false;
       update();
     }
   }
 
   // ─────────────────────────────────────────────────────────────────────────
-  //  Helper: set gender dari dropdown / pilihan UI
+  //  Helper: set gender dari dropdown
   // ─────────────────────────────────────────────────────────────────────────
 
   void setGender(String gender) {
@@ -192,19 +254,26 @@ class EditProfileController extends GetxController {
   }
 
   // ─────────────────────────────────────────────────────────────────────────
-  //  Helper: SnackBar menggunakan GetX
+  //  Helper: tampilkan SnackBar via GetX
   // ─────────────────────────────────────────────────────────────────────────
 
   void _showSnackBar(String message, {required bool isError}) {
+    // Tutup SnackBar yang masih tampil agar tidak menumpuk
+    if (Get.isSnackbarOpen) Get.closeCurrentSnackbar();
+
     Get.snackbar(
       isError ? 'Gagal' : 'Berhasil',
       message,
-      backgroundColor: isError ? Colors.red : Colors.green,
+      backgroundColor: isError ? const Color(0xFFB00020) : const Color(0xFF2E7D32),
       colorText: Colors.white,
       snackPosition: SnackPosition.BOTTOM,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 5),
       margin: const EdgeInsets.all(12),
       borderRadius: 10,
+      icon: Icon(
+        isError ? Icons.error_outline : Icons.check_circle_outline,
+        color: Colors.white,
+      ),
     );
   }
 }
