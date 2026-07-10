@@ -1,10 +1,134 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:get/get.dart';
+import '../api_services.dart';
 import 'account_page.dart';
 import 'theme_page.dart';
 import 'widgets/custom_bottom_nav.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
+
+  Future<void> _showResetPasswordDialog(BuildContext context) async {
+    final nimController = TextEditingController();
+    final passwordController = TextEditingController();
+    bool isLoading = false;
+    bool obscurePass = true;
+
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: const Text('Reset Password Mahasiswa'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: nimController,
+                    decoration: const InputDecoration(
+                      labelText: 'NIM Mahasiswa',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  TextField(
+                    controller: passwordController,
+                    obscureText: obscurePass,
+                    decoration: InputDecoration(
+                      labelText: 'Password Baru',
+                      border: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: Icon(obscurePass ? Icons.visibility_off : Icons.visibility),
+                        onPressed: () {
+                          setState(() {
+                            obscurePass = !obscurePass;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: isLoading ? null : () => Navigator.pop(context),
+                  child: const Text('Batal'),
+                ),
+                ElevatedButton(
+                  onPressed: isLoading
+                      ? null
+                      : () async {
+                          final nim = nimController.text.trim();
+                          final newPassword = passwordController.text.trim();
+
+                          if (nim.isEmpty || newPassword.isEmpty) {
+                            Get.snackbar(
+                              'Error',
+                              'NIM dan Password Baru tidak boleh kosong',
+                              backgroundColor: Colors.red,
+                              colorText: Colors.white,
+                            );
+                            return;
+                          }
+
+                          setState(() => isLoading = true);
+                          try {
+                            final response = await http.post(
+                              Uri.parse('${ApiConfig.baseUrl}/admin/reset-password'),
+                              headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                              body: {
+                                'nim': nim,
+                                'new_password': newPassword,
+                              },
+                            );
+                            
+                            final result = json.decode(response.body);
+                            if (response.statusCode == 200 && result['status'] == 200) {
+                              Get.snackbar(
+                                'Sukses',
+                                result['message'] ?? 'Password berhasil direset',
+                                backgroundColor: Colors.green,
+                                colorText: Colors.white,
+                              );
+                              Navigator.pop(context);
+                            } else {
+                              Get.snackbar(
+                                'Error',
+                                result['message'] ?? 'Gagal mereset password',
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                              );
+                            }
+                          } catch (e) {
+                            Get.snackbar(
+                              'Error',
+                              'Terjadi kesalahan: $e',
+                              backgroundColor: Colors.red,
+                              colorText: Colors.white,
+                            );
+                          } finally {
+                            setState(() => isLoading = false);
+                          }
+                        },
+                  child: isLoading
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : const Text('Terapkan Reset'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +197,27 @@ class SettingsPage extends StatelessWidget {
                             MaterialPageRoute(builder: (context) => const ThemePage()),
                           );
                         }),
+                        FutureBuilder<SharedPreferences>(
+                          future: SharedPreferences.getInstance(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              final role = snapshot.data!.getString('user_role');
+                              if (role == 'admin') {
+                                return Column(
+                                  children: [
+                                    const SizedBox(height: 16),
+                                    _buildSettingItem(
+                                      'Reset Password Mahasiswa',
+                                      icon: Icons.security,
+                                      onTap: () => _showResetPasswordDialog(context),
+                                    ),
+                                  ],
+                                );
+                              }
+                            }
+                            return const SizedBox.shrink();
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -93,7 +238,7 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildSettingItem(String title, {VoidCallback? onTap}) {
+  Widget _buildSettingItem(String title, {IconData? icon, VoidCallback? onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -103,12 +248,20 @@ class SettingsPage extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(8.0),
         ),
-        child: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 14,
-            color: Colors.black87,
-          ),
+        child: Row(
+          children: [
+            if (icon != null) ...[
+              Icon(icon, color: Colors.black87, size: 20),
+              const SizedBox(width: 12),
+            ],
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.black87,
+              ),
+            ),
+          ],
         ),
       ),
     );

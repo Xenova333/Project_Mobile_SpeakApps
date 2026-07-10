@@ -288,4 +288,57 @@ class UserController extends BaseController
                 'data'   => $user,
             ]);
     }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  POST  /api/admin/reset-password
+    //  Reset password user (mahasiswa) oleh admin berdasarkan NIM
+    // ─────────────────────────────────────────────────────────────────────
+
+    public function adminResetPassword(): ResponseInterface
+    {
+        $this->setCorsHeaders();
+
+        $nim = trim($this->request->getPost('nim') ?? '');
+        $newPassword = trim($this->request->getPost('new_password') ?? '');
+
+        if (empty($nim) || empty($newPassword)) {
+            return $this->response
+                ->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST)
+                ->setJSON([
+                    'status'  => 'error',
+                    'message' => 'NIM dan Password baru wajib diisi.',
+                ]);
+        }
+
+        $model = new UserModel();
+        $user = $model->where('nim', $nim)->first();
+
+        if (! $user) {
+            return $this->response
+                ->setStatusCode(ResponseInterface::HTTP_NOT_FOUND)
+                ->setJSON([
+                    'status'  => 'error',
+                    'message' => "User dengan NIM {$nim} tidak ditemukan.",
+                ]);
+        }
+
+        $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+        $updated = $model->update($user['id'], ['password' => $hashedPassword]);
+
+        if (! $updated) {
+            return $this->response
+                ->setStatusCode(ResponseInterface::HTTP_INTERNAL_SERVER_ERROR)
+                ->setJSON([
+                    'status'  => 'error',
+                    'message' => 'Gagal mengubah password.',
+                ]);
+        }
+
+        return $this->response
+            ->setStatusCode(ResponseInterface::HTTP_OK)
+            ->setJSON([
+                'status'  => 200,
+                'message' => 'Password berhasil direset'
+            ]);
+    }
 }

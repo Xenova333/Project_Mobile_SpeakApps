@@ -5,6 +5,7 @@ import '../controllers/chat_background_controller.dart';
 import 'home_page.dart';
 import 'register_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -61,6 +62,7 @@ class _LoginPageState extends State<LoginPage> {
         await prefs.setString('user_semester', userData['semester']?.toString()   ?? '');
         await prefs.setString('user_gender',   userData['gender']?.toString()     ?? '');
         await prefs.setString('user_pic',      userData['profile_pic']?.toString() ?? '');
+        await prefs.setString('user_role',     userData['role']?.toString()       ?? 'user');
 
         _showSnackBar('Selamat datang, ${userData['name']}!', isError: false);
 
@@ -89,6 +91,22 @@ class _LoginPageState extends State<LoginPage> {
       if (mounted) _showSnackBar('Terjadi kesalahan: $e', isError: true);
     } finally {
       if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  // ─── Fungsi Lupa Password ───────────────────────────────────────
+  Future<void> _launchWhatsAppAdmin() async {
+    const phoneNumber = '6287816752808';
+    final message = "Halo Admin SpeakApps, saya ingin mengajukan reset password karena lupa. Berikut data akun saya:\nNIM: [User tinggal isi NIM]\nNama: [User tinggal isi Nama]\nMohon bantuannya, terima kasih!";
+    
+    final url = Uri.parse('https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}');
+    
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } else {
+      if (mounted) {
+        _showSnackBar('Gagal membuka WhatsApp. Pastikan WhatsApp terinstal atau buka di browser.', isError: true);
+      }
     }
   }
 
@@ -252,6 +270,20 @@ class _LoginPageState extends State<LoginPage> {
                                           ),
                                         ),
                                 ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+
+                          // ── Tombol Lupa Password ─────────────────
+                          GestureDetector(
+                            onTap: _launchWhatsAppAdmin,
+                            child: const Text(
+                              'Lupa Password? Hubungi Admin',
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.black54,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ),

@@ -21,6 +21,9 @@ $routes->post('api/login',    'AuthController::login');
 // User Profile
 $routes->post('api/user/update/(:num)', 'UserController::updateProfile/$1');
 
+// Admin Reset Password
+$routes->post('api/admin/reset-password', 'UserController::adminResetPassword');
+
 // Chat
 $routes->get('api/chat/(:num)/(:num)', 'ChatController::getMessages/$1/$2');
 $routes->post('api/chat/send', 'ChatController::sendMessage');

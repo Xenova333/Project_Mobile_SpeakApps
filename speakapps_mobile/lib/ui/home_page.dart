@@ -728,6 +728,7 @@ class _HomePageState extends State<HomePage> {
                         await prefs.remove('user_semester');
                         await prefs.remove('user_gender');
                         await prefs.remove('user_pic');
+                        await prefs.remove('user_role');
 
                         // Hapus controller agar data bersih saat login kembali
                         Get.delete<ContactController>();
