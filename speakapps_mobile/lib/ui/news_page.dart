@@ -1,31 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../api_services.dart';
+import '../controllers/event_controller.dart';
+import '../models/event_model.dart';
 import 'news_detail_page.dart';
+import 'add_event_page.dart';
 import 'widgets/custom_bottom_nav.dart';
 
-class NewsPage extends StatelessWidget {
+class NewsPage extends StatefulWidget {
   const NewsPage({super.key});
 
-  // Dummy data untuk berita/event
-  static const List<Map<String, String>> _newsList = [
-    {
-      'title': 'Lomba Live Coding',
-      'date': '20 Mei 2024',
-      'image': 'assets/lomba_live_coding.png',
-      'desc': 'Ikuti keseruan Lomba Live Coding tingkat nasional! Tunjukkan kemampuan coding kamu dan menangkan hadiah jutaan rupiah. Lomba ini terbuka untuk umum dan akan dilaksanakan secara online. Persiapkan diri kamu untuk tantangan algoritma dan problem solving yang menarik!'
-    },
-    {
-      'title': 'Tips Mahir Flutter dalam 30 Hari',
-      'date': '15 April 2024',
-      'image': '',
-      'desc': 'Pelajari langkah-langkah sistematis untuk menguasai Flutter dari dasar hingga tingkat lanjut hanya dalam satu bulan.'
-    },
-    {
-      'title': 'Seminar Teknologi AI 2024',
-      'date': '10 Maret 2024',
-      'image': '',
-      'desc': 'Seminar eksklusif mengenai perkembangan Artificial Intelligence terbaru dan bagaimana AI mengubah cara kita bekerja di masa depan.'
-    },
-  ];
+  @override
+  State<NewsPage> createState() => _NewsPageState();
+}
+
+class _NewsPageState extends State<NewsPage> {
+  final EventController eventController = Get.put(EventController());
+  String _userRole = 'user';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadRole();
+    eventController.loadEvents();
+  }
+
+  Future<void> _loadRole() async {
+    final prefs = await SharedPreferences.getInstance();
+    final role = prefs.getString('user_role') ?? 'user';
+    setState(() => _userRole = role);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,39 +79,78 @@ class NewsPage extends StatelessWidget {
                   ),
                 ),
 
-                // News List
+                // Search Bar
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    decoration: BoxDecoration(
+                      color: isDark ? const Color(0xFF111C44) : Colors.white,
+                      borderRadius: BorderRadius.circular(20.0),
+                      border: isDark ? null : Border.all(color: primaryOrange, width: 1.0),
+                    ),
+                    child: TextField(
+                      onChanged: (val) => eventController.searchEvent(val),
+                      style: TextStyle(color: isDark ? Colors.white : Colors.black87),
+                      decoration: InputDecoration(
+                        hintText: 'Cari event...',
+                        hintStyle: TextStyle(fontSize: 14, color: isDark ? Colors.white54 : Colors.black38),
+                        border: InputBorder.none,
+                        icon: Icon(Icons.search, color: primaryOrange, size: 20),
+                      ),
+                    ),
+                  ),
+                ),
+
+                // Event List
                 Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(20.0).copyWith(bottom: 100),
-                    itemCount: _newsList.length,
-                    itemBuilder: (context, index) {
-                      final news = _newsList[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 16.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => NewsDetailPage(
-                                  title: news['title']!,
-                                  date: news['date']!,
-                                  imagePath: news['image']!,
-                                  description: news['desc']!,
-                                ),
-                              ),
-                            );
-                          },
-                          child: _buildNewsCard(
-                            news['title']!,
-                            news['date']!,
-                            news['image']!,
-                            primaryOrange,
+                  child: Obx(() {
+                    if (eventController.isLoading.value) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    final displayEvents = eventController.filteredEvents;
+
+                    if (displayEvents.isEmpty) {
+                      return const Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: Text(
+                            'Belum ada event tersedia.',
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                           ),
                         ),
                       );
-                    },
-                  ),
+                    }
+
+                    return RefreshIndicator(
+                      onRefresh: () => eventController.loadEvents(),
+                      color: primaryOrange,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0).copyWith(bottom: 100),
+                        itemCount: displayEvents.length,
+                        itemBuilder: (context, index) {
+                          final event = displayEvents[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NewsDetailPage(
+                                      event: event,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: _buildEventCard(event, primaryOrange, isDark),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }),
                 ),
               ],
             ),
@@ -124,10 +168,12 @@ class NewsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildNewsCard(String title, String date, String imagePath, Color primaryColor) {
+  Widget _buildEventCard(EventModel event, Color primaryColor, bool isDark) {
+    final imageUrl = ApiConfig.eventImage(event.image);
+
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isDark ? const Color(0xFF111C44) : Colors.white,
         borderRadius: BorderRadius.circular(12.0),
         boxShadow: [
           BoxShadow(
@@ -150,24 +196,19 @@ class NewsPage extends StatelessWidget {
               height: 160,
               width: double.infinity,
               color: Colors.grey[200],
-              child: imagePath.isNotEmpty
-                  ? Image.asset(
-                      imagePath,
+              child: imageUrl.isNotEmpty
+                  ? Image.network(
+                      imageUrl,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
+                        debugPrint('IMAGE ERROR: url=$imageUrl, error=$error');
                         return const Center(
                           child: Icon(Icons.image_not_supported, color: Colors.grey),
                         );
                       },
                     )
                   : const Center(
-                      child: Text(
-                        'gambar',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black54,
-                        ),
-                      ),
+                      child: Icon(Icons.event, color: Colors.grey, size: 50),
                     ),
             ),
           ),
@@ -179,21 +220,22 @@ class NewsPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
-                  style: const TextStyle(
+                  event.title,
+                  style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    color: isDark ? Colors.white : Colors.black87,
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  date,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.black54,
+                if (event.eventDate != null && event.eventDate!.isNotEmpty)
+                  Text(
+                    event.eventDate!,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: isDark ? Colors.white54 : Colors.black54,
+                    ),
                   ),
-                ),
               ],
             ),
           ),
@@ -201,6 +243,4 @@ class NewsPage extends StatelessWidget {
       ),
     );
   }
-
-
 }

@@ -2,40 +2,32 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use CodeIgniter\Model;
 
-class Event extends Model
+class EventModel extends Model
 {
-    use HasFactory;
+    protected $table            = 'events';
+    protected $primaryKey       = 'id';
+    protected $useAutoIncrement = true;
+    protected $returnType       = 'array';
+    protected $useSoftDeletes   = false;
 
-    /**
-     * Nama tabel di database.
-     */
-    protected $table = 'events';
-
-    /**
-     * Kolom yang dapat diisi secara massal.
-     */
-    protected $fillable = [
+    protected $allowedFields = [
         'title',
         'description',
         'image',
         'event_date',
         'event_link',
+        'created_by',
     ];
 
-    /**
-     * Casting tipe data.
-     * Memastikan 'event_date' diperlakukan sebagai objek Carbon/Tanggal.
-     */
-    protected $casts = [
-        'event_date' => 'date',
-    ];
+    // Timestamps
+    protected $useTimestamps = true;
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
 
-    /**
-     * Karena di tabel Anda hanya ada 'created_at' dan bukan 'updated_at',
-     * kita perlu mematikan fitur updated_at otomatis dari Laravel.
-     */
-    const UPDATED_AT = null;
+    // Validation
+    protected $validationRules    = [];
+    protected $validationMessages = [];
+    protected $skipValidation     = false;
 }

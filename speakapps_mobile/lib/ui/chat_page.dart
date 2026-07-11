@@ -194,7 +194,13 @@ class _ChatPageState extends State<ChatPage> {
           GestureDetector(
             onTap: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const UserInfoPage()),
+              MaterialPageRoute(
+                builder: (_) => UserInfoPage(
+                  friendId: widget.friendId,
+                  friendName: widget.friendName,
+                  friendProfilePic: widget.friendProfilePic,
+                ),
+              ),
             ),
             child: Row(
               children: [

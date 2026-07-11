@@ -494,4 +494,101 @@ class TemanController extends BaseController
             ]);
         }
     }
+
+    // ─────────────────────────────────────────────────────────────
+    //  GET  /api/friends/blocked/{userId}
+    //  Ambil daftar user yang diblokir oleh userId
+    // ─────────────────────────────────────────────────────────────
+
+    public function getBlockedUsers(int $userId)
+    {
+        $this->setCorsHeaders();
+
+        $db = \Config\Database::connect();
+
+        $sql = "SELECT 
+                    f.id,
+                    f.user_id,
+                    f.friend_id,
+                    f.status,
+                    f.blocked_by,
+                    u.name,
+                    u.profile_pic,
+                    u.nim
+                FROM friends f
+                JOIN users u ON u.id = IF(f.user_id = $userId, f.friend_id, f.user_id)
+                WHERE f.blocked_by = $userId
+                  AND f.status = 'blocked'
+                ORDER BY f.created_at DESC";
+
+        try {
+            $query = $db->query($sql);
+            $results = $query->getResultArray();
+
+            return $this->response
+                ->setStatusCode(ResponseInterface::HTTP_OK)
+                ->setJSON([
+                    'status'  => 'success',
+                    'data'    => $results,
+                ]);
+        } catch (\Exception $e) {
+            return $this->response
+                ->setStatusCode(ResponseInterface::HTTP_INTERNAL_SERVER_ERROR)
+                ->setJSON([
+                    'status'  => 'error',
+                    'message' => 'Gagal mengambil data: ' . $e->getMessage(),
+                ]);
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    //  POST  /api/friends/unblock
+    //  Membuka blokir user
+    // ─────────────────────────────────────────────────────────────
+
+    public function unblockFriend()
+    {
+        $this->setCorsHeaders();
+
+        $json = $this->request->getJSON();
+
+        if (!$json || !isset($json->user_id) || !isset($json->friend_id)) {
+            return $this->response->setStatusCode(400)->setJSON([
+                'status' => 'error',
+                'message' => 'Data tidak lengkap (user_id dan friend_id diperlukan)',
+            ]);
+        }
+
+        $myId = $json->user_id;
+        $friendId = $json->friend_id;
+
+        $db = \Config\Database::connect();
+
+        $sql = "DELETE FROM friends 
+                WHERE blocked_by = ? 
+                  AND status = 'blocked'
+                  AND ((user_id = ? AND friend_id = ?) 
+                       OR (user_id = ? AND friend_id = ?))";
+
+        try {
+            $db->query($sql, [$myId, $myId, $friendId, $friendId, $myId]);
+
+            if ($db->affectedRows() > 0) {
+                return $this->response->setJSON([
+                    'status'  => 'success',
+                    'message' => 'Blokir berhasil dibuka',
+                ]);
+            }
+
+            return $this->response->setStatusCode(404)->setJSON([
+                'status'  => 'error',
+                'message' => 'Data blokir tidak ditemukan',
+            ]);
+        } catch (\Exception $e) {
+            return $this->response->setStatusCode(500)->setJSON([
+                'status'  => 'error',
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage(),
+            ]);
+        }
+    }
 }

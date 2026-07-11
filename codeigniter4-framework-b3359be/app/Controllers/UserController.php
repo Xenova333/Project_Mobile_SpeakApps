@@ -341,4 +341,62 @@ class UserController extends BaseController
                 'message' => 'Password berhasil direset'
             ]);
     }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  DELETE  /api/user/{userId}
+    //  Hapus akun user beserta semua data terkait (chat, friends, profile pic)
+    // ─────────────────────────────────────────────────────────────────────
+
+    public function deleteUser(int $userId): ResponseInterface
+    {
+        $this->setCorsHeaders();
+
+        $model = new UserModel();
+        $user = $model->find($userId);
+
+        if (! $user) {
+            return $this->response
+                ->setStatusCode(ResponseInterface::HTTP_NOT_FOUND)
+                ->setJSON([
+                    'status'  => 'error',
+                    'message' => "User dengan ID {$userId} tidak ditemukan.",
+                ]);
+        }
+
+        $db = \Config\Database::connect();
+
+        // Hapus profile pic kecuali default
+        $profilePic = $user['profile_pic'] ?? '';
+        if (! empty($profilePic) && $profilePic !== 'default.png' && strpos($profilePic, '..') === false) {
+            $picPath = FCPATH . 'uploads' . DIRECTORY_SEPARATOR . 'profile' . DIRECTORY_SEPARATOR . $profilePic;
+            if (file_exists($picPath)) {
+                unlink($picPath);
+            }
+        }
+
+        // Hapus data chat terkait
+        $db->query("DELETE FROM chats WHERE sender_id = ? OR receiver_id = ?", [$userId, $userId]);
+
+        // Hapus data friends terkait
+        $db->query("DELETE FROM friends WHERE user_id = ? OR friend_id = ?", [$userId, $userId]);
+
+        // Hapus user
+        $deleted = $model->delete($userId);
+
+        if (! $deleted) {
+            return $this->response
+                ->setStatusCode(ResponseInterface::HTTP_INTERNAL_SERVER_ERROR)
+                ->setJSON([
+                    'status'  => 'error',
+                    'message' => 'Gagal menghapus akun.',
+                ]);
+        }
+
+        return $this->response
+            ->setStatusCode(ResponseInterface::HTTP_OK)
+            ->setJSON([
+                'status'  => 'success',
+                'message' => 'Akun berhasil dihapus.',
+            ]);
+    }
 }
