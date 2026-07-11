@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'dart:typed_data';
 import 'dart:io';
 import '../controllers/event_controller.dart';
 import '../models/event_model.dart';
@@ -254,26 +255,39 @@ class _EventPageState extends State<EventPage> {
                                         elevation: 2,
                                       ),
                                       onPressed: () async {
-                                        bool success;
+                                        Uint8List? imgBytes;
+                                        String? imgPath;
+                                        if (selectedImage != null) {
+                                          if (kIsWeb) {
+                                            imgBytes = await selectedImage!.readAsBytes();
+                                          } else {
+                                            imgPath = selectedImage!.path;
+                                          }
+                                        }
+
+                                        Map<String, dynamic> result;
                                         if (!isEdit) {
-                                          success = await controller.createEvent(
-                                            titleController.text,
-                                            descriptionController.text,
-                                            dateController.text,
-                                            linkController.text,
-                                            imageFile: selectedImage,
+                                          result = await controller.createEvent(
+                                            title: titleController.text,
+                                            description: descriptionController.text,
+                                            eventDate: dateController.text,
+                                            eventLink: linkController.text.isNotEmpty ? linkController.text : null,
+                                            createdBy: 0,
+                                            imagePath: imgPath,
+                                            imageBytes: imgBytes,
                                           );
                                         } else {
-                                          success = await controller.updateEvent(
-                                            event.id,
-                                            titleController.text,
-                                            descriptionController.text,
-                                            dateController.text,
-                                            linkController.text,
-                                            imageFile: selectedImage,
+                                          result = await controller.updateEvent(
+                                            id: event.id,
+                                            title: titleController.text,
+                                            description: descriptionController.text,
+                                            eventDate: dateController.text,
+                                            eventLink: linkController.text.isNotEmpty ? linkController.text : null,
+                                            imagePath: imgPath,
+                                            imageBytes: imgBytes,
                                           );
                                         }
-                                        if (success) {
+                                        if (result['status'] == 'success') {
                                           Navigator.pop(sheetContext);
                                           Get.snackbar(
                                             'Sukses', 'Data event berhasil disimpan',
@@ -387,9 +401,9 @@ class _EventPageState extends State<EventPage> {
                           elevation: 0,
                         ),
                         onPressed: () async {
-                          bool success = await controller.deleteEvent(id);
+                          final result = await controller.deleteEvent(id);
                           Navigator.pop(context);
-                          if (success) {
+                          if (result['status'] == 'success') {
                             Get.snackbar(
                               'Dihapus', 'Event berhasil dihapus',
                               backgroundColor: Colors.red,

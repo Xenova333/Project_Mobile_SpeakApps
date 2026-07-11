@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'chat_page.dart';
 import 'profile_page.dart';
-import 'add_contact_page.dart';
 import 'login_page.dart';
-import 'news_page.dart';
-import 'news_detail_page.dart';
 import 'settings_page.dart';
 import 'widgets/custom_bottom_nav.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../api_services.dart';
 import '../controllers/contact_controller.dart';
 import '../controllers/chat_controller.dart';
 import '../controllers/event_controller.dart';
@@ -17,6 +13,8 @@ import '../controllers/global_user_controller.dart';
 import '../models/contact_model.dart';
 import 'event_page.dart';
 import 'event_detail_page.dart';
+import '../user_service.dart';
+import '../controllers/auth_controller.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -41,7 +39,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _userName = widget.userData?['name'] ?? 'Pengguna';
     _loadUserName();
-    _eventController.loadEvents();
+    eventController.loadEvents();
   }
 
   Future<void> _loadUserName() async {
@@ -308,6 +306,30 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         const SizedBox(height: 24),
+
+                        // Kelola Event (Khusus Admin)
+                        Obx(() {
+                          if (Get.isRegistered<AuthController>()) {
+                            final authController = Get.find<AuthController>();
+                            if (authController.currentUser.value.role.toString().trim().toLowerCase() == 'admin') {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 16.0),
+                                child: Card(
+                                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                                  elevation: 2,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                  child: ListTile(
+                                    leading: const Icon(Icons.event_note, color: Colors.amber),
+                                    title: const Text('Kelola Event Aplikasi', style: TextStyle(fontWeight: FontWeight.bold)),
+                                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                                    onTap: () => Get.to(() => EventPage()),
+                                  ),
+                                ),
+                              );
+                            }
+                          }
+                          return const SizedBox.shrink();
+                        }),
 
                         // Main Event Card
                         Obx(() {
@@ -606,18 +628,18 @@ class _HomePageState extends State<HomePage> {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
-                child: profilePic != null
+                child: (profilePic != null && profilePic.isNotEmpty && profilePic != 'default.png')
                     ? Image.network(
-                        profilePic,
+                        profilePic.startsWith('http') ? profilePic : '${UserService.profilePicBaseUrl}$profilePic',
                         fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => Image.asset(
-                          'assets/default.png',
-                          fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => const CircleAvatar(
+                          backgroundColor: Colors.grey,
+                          child: Icon(Icons.person, color: Colors.white, size: 24),
                         ),
                       )
-                    : Image.asset(
-                        'assets/default.png',
-                        fit: BoxFit.cover,
+                    : const CircleAvatar(
+                        backgroundColor: Colors.grey,
+                        child: Icon(Icons.person, color: Colors.white, size: 24),
                       ),
               ),
             ),

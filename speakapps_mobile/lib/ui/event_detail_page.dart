@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import '../models/event_model.dart';
 import '../controllers/event_controller.dart';
 
@@ -214,15 +216,26 @@ class EventDetailPage extends StatelessWidget {
                                     elevation: 2,
                                   ),
                                   onPressed: () async {
-                                    bool success = await controller.updateEvent(
-                                      event.id,
-                                      titleController.text,
-                                      descriptionController.text,
-                                      dateController.text,
-                                      linkController.text,
-                                      imageFile: selectedImage,
+                                    Uint8List? imgBytes;
+                                    String? imgPath;
+                                    if (selectedImage != null) {
+                                      if (kIsWeb) {
+                                        imgBytes = await selectedImage!.readAsBytes();
+                                      } else {
+                                        imgPath = selectedImage!.path;
+                                      }
+                                    }
+
+                                    final result = await controller.updateEvent(
+                                      id: event.id,
+                                      title: titleController.text,
+                                      description: descriptionController.text,
+                                      eventDate: dateController.text,
+                                      eventLink: linkController.text.isNotEmpty ? linkController.text : null,
+                                      imagePath: imgPath,
+                                      imageBytes: imgBytes,
                                     );
-                                    if (success) {
+                                    if (result['status'] == 'success') {
                                       Navigator.pop(sheetContext);
                                       Get.back();
                                       Get.snackbar(

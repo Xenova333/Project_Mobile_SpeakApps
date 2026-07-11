@@ -5,6 +5,7 @@ import 'theme_notifier.dart';
 import 'package:get/get.dart';
 import 'controllers/global_user_controller.dart';
 import 'controllers/chat_background_controller.dart';
+import 'controllers/auth_controller.dart';
 
 void main() {
   // Pastikan binding Flutter siap sebelum memanggil API platform
@@ -38,6 +39,7 @@ void main() {
 
   // Inisialisasi State Management global sebelum runApp
   Get.put(GlobalUserController());
+  Get.put(AuthController(), permanent: true);
   // permanent: true → controller TIDAK pernah di-dispose saat halaman pop
   // Tanpa ini, BackgroundPesanPage yang juga memanggil Get.put akan
   // men-dispose controller saat halaman ditutup → data wallpaper hilang.
@@ -59,6 +61,20 @@ class SpeakApp extends StatelessWidget {
         return GetMaterialApp(
           title: 'SpeakApp',
           debugShowCheckedModeBanner: false,
+          builder: (context, child) {
+            final mediaQueryData = MediaQuery.of(context);
+            return MediaQuery(
+              data: mediaQueryData.copyWith(
+                viewInsets: EdgeInsets.fromLTRB(
+                  mediaQueryData.viewInsets.left.clamp(0.0, double.infinity),
+                  mediaQueryData.viewInsets.top.clamp(0.0, double.infinity),
+                  mediaQueryData.viewInsets.right.clamp(0.0, double.infinity),
+                  mediaQueryData.viewInsets.bottom.clamp(0.0, double.infinity),
+                ),
+              ),
+              child: child!,
+            );
+          },
           theme: ThemeData(
             brightness: Brightness.light,
             colorScheme: ColorScheme.fromSeed(

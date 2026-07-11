@@ -5,6 +5,7 @@ import '../models/contact_model.dart';
 import '../controllers/contact_controller.dart';
 import 'package:get/get.dart';
 import 'widgets/custom_bottom_nav.dart';
+import '../user_service.dart';
 
 class BlacklistPage extends StatefulWidget {
   const BlacklistPage({super.key});
@@ -239,9 +240,9 @@ class _BlacklistPageState extends State<BlacklistPage> {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
-              child: (profilePic != null && profilePic.isNotEmpty)
+              child: (profilePic != null && profilePic.isNotEmpty && profilePic != 'default.png')
                   ? Image.network(
-                      profilePic,
+                      profilePic.startsWith('http') ? profilePic : '${UserService.profilePicBaseUrl}$profilePic',
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Container(

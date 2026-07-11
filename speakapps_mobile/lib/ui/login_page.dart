@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../auth_service.dart';
 import '../controllers/chat_background_controller.dart';
 import '../controllers/global_user_controller.dart';
+import '../controllers/auth_controller.dart';
 import 'home_page.dart';
 import 'register_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -71,6 +72,9 @@ class _LoginPageState extends State<LoginPage> {
         // langsung menampilkan foto milik akun yang baru saja login
         if (Get.isRegistered<GlobalUserController>()) {
           await Get.find<GlobalUserController>().loadUserPic();
+        }
+        if (Get.isRegistered<AuthController>()) {
+          await Get.find<AuthController>().loadUserRole();
         }
 
         _showSnackBar('Selamat datang, ${userData['name']}!', isError: false);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../user_service.dart';
 import '../auth_service.dart';
 import '../controllers/profile_friend_controller.dart';
 import 'widgets/custom_bottom_nav.dart';
@@ -123,7 +124,9 @@ class _UserInfoPageState extends State<UserInfoPage> {
     final bgColor = Theme.of(context).scaffoldBackgroundColor;
 
     final profilePic = _friendProfile?['profile_pic'] ?? widget.friendProfilePic ?? '';
-    final imageUrl = (profilePic.isNotEmpty) ? profilePic : '';
+    final imageUrl = (profilePic.isNotEmpty && profilePic != 'default.png') 
+        ? (profilePic.startsWith('http') ? profilePic : '${UserService.profilePicBaseUrl}$profilePic') 
+        : '';
 
     final name = _friendProfile?['name'] ?? widget.friendName;
     final nim = _friendProfile?['nim']?.toString() ?? '-';
@@ -209,19 +212,15 @@ class _UserInfoPageState extends State<UserInfoPage> {
                                           height: 120,
                                           fit: BoxFit.cover,
                                           errorBuilder: (context, error, stackTrace) {
-                                            return Image.asset(
-                                              'assets/default.png',
-                                              width: 120,
-                                              height: 120,
-                                              fit: BoxFit.cover,
+                                            return const CircleAvatar(
+                                              backgroundColor: Colors.grey,
+                                              child: Icon(Icons.person, color: Colors.white, size: 60),
                                             );
                                           },
                                         )
-                                      : Image.asset(
-                                          'assets/default.png',
-                                          width: 120,
-                                          height: 120,
-                                          fit: BoxFit.cover,
+                                      : const CircleAvatar(
+                                          backgroundColor: Colors.grey,
+                                          child: Icon(Icons.person, color: Colors.white, size: 60),
                                         ),
                                 ),
                               ),

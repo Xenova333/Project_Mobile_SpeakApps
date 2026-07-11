@@ -253,11 +253,9 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _buildFallbackImage() {
-    return Image.asset(
-      'assets/default.png',
-      width: 120,
-      height: 120,
-      fit: BoxFit.cover,
+    return const CircleAvatar(
+      backgroundColor: Colors.grey,
+      child: Icon(Icons.person, color: Colors.white, size: 60),
     );
   }
 }

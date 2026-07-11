@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../controllers/chat_controller.dart';
 import '../controllers/chat_background_controller.dart';
 import '../models/chat_model.dart';
+import '../user_service.dart';
 import 'user_info_page.dart';
 
 class ChatPage extends StatefulWidget {
@@ -220,21 +221,21 @@ class _ChatPageState extends State<ChatPage> {
                     ],
                   ),
                   child: ClipOval(
-                    child: (widget.friendProfilePic != null &&
-                            widget.friendProfilePic!.isNotEmpty)
-                        ? Image.network(
-                            widget.friendProfilePic!,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                Image.asset(
-                              'assets/default.png',
+                      child: (widget.friendProfilePic != null &&
+                              widget.friendProfilePic!.isNotEmpty && widget.friendProfilePic != 'default.png')
+                          ? Image.network(
+                              widget.friendProfilePic!.startsWith('http') ? widget.friendProfilePic! : '${UserService.profilePicBaseUrl}${widget.friendProfilePic}',
                               fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const CircleAvatar(
+                                backgroundColor: Colors.grey,
+                                child: Icon(Icons.person, color: Colors.white, size: 20),
+                              ),
+                            )
+                          : const CircleAvatar(
+                              backgroundColor: Colors.grey,
+                              child: Icon(Icons.person, color: Colors.white, size: 20),
                             ),
-                          )
-                        : Image.asset(
-                            'assets/default.png',
-                            fit: BoxFit.cover,
-                          ),
                   ),
                 ),
                 const SizedBox(width: 12),

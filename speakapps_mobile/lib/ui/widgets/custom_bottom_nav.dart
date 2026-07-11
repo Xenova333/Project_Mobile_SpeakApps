@@ -177,11 +177,9 @@ class _CustomBottomNavState extends State<CustomBottomNav> {
       }
 
       Widget _buildFallbackImage() {
-        return Image.asset(
-          'assets/default.png',
-          width: 38,
-          height: 38,
-          fit: BoxFit.cover,
+        return const CircleAvatar(
+          backgroundColor: Colors.grey,
+          child: Icon(Icons.person, color: Colors.white, size: 20),
         );
       }
     }
