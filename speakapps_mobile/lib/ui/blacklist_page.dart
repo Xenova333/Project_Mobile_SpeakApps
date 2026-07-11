@@ -80,14 +80,17 @@ class _BlacklistPageState extends State<BlacklistPage> {
                     GestureDetector(
                       onTap: () async {
                         Navigator.pop(context);
-                        final result = await _contactService.unblockFriend(_userId, user.friendId);
+                        final blockedId = (user.userId == _userId)
+                            ? user.friendId
+                            : user.userId;
+                        final result = await _contactService.unblockFriend(_userId, blockedId);
                         if (result['status'] == 'success') {
                           Get.snackbar('Berhasil', 'Blokir berhasil dibuka',
                               backgroundColor: Colors.green, colorText: Colors.white);
                           _loadBlockedUsers();
                           // Refresh contact list di home
                           if (Get.isRegistered<ContactController>()) {
-                            Get.find<ContactController>().loadFriends();
+                            Get.find<ContactController>().loadContacts();
                           }
                         } else {
                           Get.snackbar('Error', result['message'] ?? 'Gagal membuka blokir',

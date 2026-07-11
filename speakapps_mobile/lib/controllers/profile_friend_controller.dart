@@ -46,7 +46,7 @@ class ProfileFriendController extends GetxController {
         
         // Refresh daftar kontak di halaman Home agar nama terhapus secara real-time
         if (Get.isRegistered<ContactController>()) {
-          Get.find<ContactController>().loadFriends();
+          Get.find<ContactController>().loadContacts();
         }
 
         // Kembali ke halaman Home. Menggunakan pushAndRemoveUntil agar memastikan tumpukan ChatPage juga tertutup
@@ -129,7 +129,7 @@ class ProfileFriendController extends GetxController {
 
         // Refresh daftar kontak di halaman Home agar nama hilang secara real-time
         if (Get.isRegistered<ContactController>()) {
-          Get.find<ContactController>().loadFriends();
+          Get.find<ContactController>().loadContacts();
         }
 
         // Kembali ke halaman Home dan buang sisa tumpukan page

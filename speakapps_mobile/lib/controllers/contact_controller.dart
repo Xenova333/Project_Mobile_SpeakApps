@@ -49,10 +49,13 @@ class ContactController extends GetxController {
         contacts.clear();
         filteredFriends.clear();
 
-        // Ambil data kontak yang sudah ada chat-nya (untuk chat list)
+        // Ambil data kontak dengan chat terakhir & unread count
         contacts = await _contactService.fetchContacts(userId);
         
-        // Ambil data semua teman (tanpa chat) jika diperlukan
+        // Sinkronkan acceptedFriends dengan data terbaru 
+        acceptedFriends = List.from(contacts);
+        
+        // Ambil data semua teman sebagai cadangan
         final allFriends = await _contactService.fetchFriends(userId);
         
         if (!isSearching) {

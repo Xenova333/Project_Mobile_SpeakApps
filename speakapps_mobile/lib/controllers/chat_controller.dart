@@ -83,18 +83,24 @@ class ChatController extends GetxController {
   //  Memulai chat dan menjalankan timer untuk update otomatis
   // ─────────────────────────────────────────────────────────────
   Future<void> startChat(int friendId) async {
-    // 1. Muat chat awal
+    // 1. Batalkan timer LAMA dulu sebelum ngapa-ngapain
+    _timer?.cancel();
+
+    // 2. Bersihkan pesan lama
+    messages.clear();
+
+    // 3. Muat chat awal
     await loadChat(friendId);
 
-    // 2. Tandai sebagai dibaca di server
+    // 4. Scroll ke bawah agar pesan terbaru terlihat
+    Future.delayed(const Duration(milliseconds: 150), () => scrollToBottom());
+
+    // 5. Tandai sebagai dibaca di server
     if (myId != null) {
       _chatService.markAsRead(myId!, friendId);
     }
 
-    // 3. Batalkan timer lama jika ada
-    _timer?.cancel();
-
-    // 4. Mulai timer periodic setiap 2 detik
+    // 6. Mulai timer periodic setiap 2 detik
     _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
       fetchNewMessages(friendId);
     });
@@ -184,15 +190,13 @@ class ChatController extends GetxController {
 
       if (result['status'] == 'success') {
         // ✅ Tambahkan pesan ke list secara lokal (instan, tanpa harus reload)
-        final now = DateTime.now();
         final newMsg = ChatModel(
-          id        : result['data']?['id'] ?? now.millisecondsSinceEpoch,
+          id        : result['data']?['id'] ?? DateTime.now().millisecondsSinceEpoch,
           senderId  : myId!,
           receiverId: friendId,
           message   : text,
           isRead    : false,
-          createdAt : '${now.year}-${_pad(now.month)}-${_pad(now.day)} '
-                      '${_pad(now.hour)}:${_pad(now.minute)}:${_pad(now.second)}',
+          createdAt : result['data']?['created_at'] ?? DateTime.now().toIso8601String(),
         );
 
         messages.add(newMsg);

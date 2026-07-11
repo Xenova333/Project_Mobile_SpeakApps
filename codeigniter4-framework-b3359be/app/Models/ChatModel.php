@@ -49,7 +49,7 @@ class ChatModel extends Model
                         ->where('sender_id', $user2)
                         ->where('receiver_id', $user1)
                     ->groupEnd()
-                    ->orderBy('created_at', 'ASC')
+                    ->orderBy('id', 'ASC')
                     ->findAll();
     }
 }

@@ -58,6 +58,7 @@ class ChatService {
       final decoded = json.decode(response.body);
 
       if (response.statusCode == 201) {
+        print('=== POST RESPONSE: ${response.body}');
         return {'status': 'success', 'data': decoded['data']};
       } else {
         return {

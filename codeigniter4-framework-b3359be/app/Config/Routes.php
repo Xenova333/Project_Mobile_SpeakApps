@@ -19,6 +19,7 @@ $routes->post('api/register', 'AuthController::register');
 $routes->post('api/login',    'AuthController::login');
 
 // User Profile
+$routes->get('api/user/(:num)', 'UserController::getProfile/$1');
 $routes->post('api/user/update/(:num)', 'UserController::updateProfile/$1');
 $routes->delete('api/user/(:num)', 'UserController::deleteUser/$1');
 

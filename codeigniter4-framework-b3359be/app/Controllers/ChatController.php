@@ -48,8 +48,8 @@ class ChatController extends BaseController
             $chatModel->where('id >', $lastId);
         }
 
-        // 4. Urutkan berdasarkan created_at ASC agar seperti WhatsApp
-        $messages = $chatModel->orderBy('created_at', 'ASC')->findAll();
+        // 4. Urutkan berdasarkan id ASC (id auto-increment = kronologis)
+        $messages = $chatModel->orderBy('id', 'ASC')->findAll();
 
         return $this->response
             ->setStatusCode(ResponseInterface::HTTP_OK)
@@ -89,7 +89,7 @@ class ChatController extends BaseController
             'sender_id'   => $senderId,
             'receiver_id' => $receiverId,
             'message'     => $message,
-            'created_at'  => date('Y-m-d H:i:s'),
+            'created_at'  => gmdate('Y-m-d H:i:s'),
         ];
 
         $inserted = $chatModel->insert($data);

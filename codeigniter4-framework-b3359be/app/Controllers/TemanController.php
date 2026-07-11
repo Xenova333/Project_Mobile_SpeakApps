@@ -41,7 +41,7 @@ class TemanController extends BaseController
                     FROM chats c 
                     WHERE (c.sender_id = $userId AND c.receiver_id = u.id) 
                        OR (c.sender_id = u.id AND c.receiver_id = $userId)
-                    ORDER BY c.created_at DESC 
+                    ORDER BY c.id DESC 
                     LIMIT 1
                 ) as latest_message,
                 (
@@ -49,7 +49,7 @@ class TemanController extends BaseController
                     FROM chats c 
                     WHERE (c.sender_id = $userId AND c.receiver_id = u.id) 
                        OR (c.sender_id = u.id AND c.receiver_id = $userId)
-                    ORDER BY c.created_at DESC 
+                    ORDER BY c.id DESC 
                     LIMIT 1
                 ) as latest_chat_time,
                 (
@@ -211,7 +211,7 @@ class TemanController extends BaseController
             'user_id' => $userId,
             'friend_id' => $friendId,
             'status' => 'accepted',
-            'created_at' => date('Y-m-d H:i:s')
+            'created_at' => gmdate('Y-m-d H:i:s')
         ];
 
         if ($temanModel->insert($data)) {
@@ -325,7 +325,7 @@ class TemanController extends BaseController
             'user_id' => $userId,
             'friend_id' => $friendId,
             'status' => 'pending',
-            'created_at' => date('Y-m-d H:i:s')
+            'created_at' => gmdate('Y-m-d H:i:s')
         ];
 
         if ($temanModel->insert($data)) {
@@ -564,7 +564,8 @@ class TemanController extends BaseController
 
         $db = \Config\Database::connect();
 
-        $sql = "DELETE FROM friends 
+        $sql = "UPDATE friends 
+                SET status = 'accepted', blocked_by = NULL 
                 WHERE blocked_by = ? 
                   AND status = 'blocked'
                   AND ((user_id = ? AND friend_id = ?) 

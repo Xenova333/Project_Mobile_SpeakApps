@@ -2,10 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/add_contact_controller.dart';
 
-class AddContactPage extends StatelessWidget {
-  final AddContactController controller = Get.put(AddContactController());
+class AddContactPage extends StatefulWidget {
+  const AddContactPage({super.key});
 
-  AddContactPage({super.key});
+  @override
+  State<AddContactPage> createState() => _AddContactPageState();
+}
+
+class _AddContactPageState extends State<AddContactPage> {
+  late final AddContactController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    if (Get.isRegistered<AddContactController>()) {
+      controller = Get.find<AddContactController>();
+    } else {
+      controller = Get.put(AddContactController());
+    }
+    controller.loadIncomingRequests();
+  }
 
   @override
   Widget build(BuildContext context) {

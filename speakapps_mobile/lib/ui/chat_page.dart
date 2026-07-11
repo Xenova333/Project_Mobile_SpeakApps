@@ -472,9 +472,18 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   // ─── Helpers ──────────────────────────────────────────────────
+  DateTime _parseUtc(String createdAt) {
+    try {
+      // Server mengirim UTC tanpa timezone info, parse sebagai UTC lalu konversi ke lokal
+      return DateTime.parse('${createdAt.replaceFirst(' ', 'T')}Z').toLocal();
+    } catch (_) {
+      return DateTime.now();
+    }
+  }
+
   String _formatTime(String createdAt) {
     try {
-      final dt = DateTime.parse(createdAt);
+      final dt = _parseUtc(createdAt);
       return '${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}';
     } catch (_) {
       return createdAt;
@@ -483,7 +492,7 @@ class _ChatPageState extends State<ChatPage> {
 
   String _formatDate(String createdAt) {
     try {
-      final dt  = DateTime.parse(createdAt);
+      final dt  = _parseUtc(createdAt);
       final now = DateTime.now();
       if (dt.year == now.year && dt.month == now.month && dt.day == now.day) {
         return 'Hari Ini';
@@ -502,8 +511,8 @@ class _ChatPageState extends State<ChatPage> {
 
   bool _isSameDay(String a, String b) {
     try {
-      final da = DateTime.parse(a);
-      final db = DateTime.parse(b);
+      final da = _parseUtc(a);
+      final db = _parseUtc(b);
       return da.year == db.year && da.month == db.month && da.day == db.day;
     } catch (_) {
       return false;

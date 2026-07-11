@@ -15,6 +15,7 @@ import 'event_page.dart';
 import 'event_detail_page.dart';
 import '../user_service.dart';
 import '../controllers/auth_controller.dart';
+import '../controllers/add_contact_controller.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -28,7 +29,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final ContactController contactController = Get.put(ContactController()..loadFriends());
+  final ContactController contactController = Get.put(ContactController()..loadContacts());
   final ChatController _chatController = Get.put(ChatController());
   final EventController eventController = Get.put(EventController());
 
@@ -198,7 +199,7 @@ class _HomePageState extends State<HomePage> {
 
                 Expanded(
                   child: RefreshIndicator(
-                    onRefresh: () => contactController.loadFriends(),
+                    onRefresh: () => contactController.loadContacts(),
                     color: primaryOrange,
                     child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(),
@@ -475,7 +476,7 @@ class _HomePageState extends State<HomePage> {
 
                               final displayList = controller.isSearching 
                                   ? controller.filteredFriends 
-                                  : controller.acceptedFriends;
+                                  : controller.contacts;
 
                               if (displayList.isEmpty) {
                                 return const Center(
@@ -712,9 +713,17 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  DateTime _parseUtc(String timeStr) {
+    try {
+      return DateTime.parse('${timeStr.replaceFirst(' ', 'T')}Z').toLocal();
+    } catch (_) {
+      return DateTime.now();
+    }
+  }
+
   String _formatTime(String timeStr) {
     try {
-      final dateTime = DateTime.parse(timeStr);
+      final dateTime = _parseUtc(timeStr);
       final now = DateTime.now();
       
       final today = DateTime(now.year, now.month, now.day);
@@ -801,6 +810,9 @@ class _HomePageState extends State<HomePage> {
                         Get.delete<ContactController>();
                         Get.delete<ChatController>();
                         Get.delete<EventController>();
+                        if (Get.isRegistered<AddContactController>()) {
+                          Get.delete<AddContactController>();
+                        }
                         // Reset foto profil di GlobalUserController agar tidak bocor ke akun lain
                         if (Get.isRegistered<GlobalUserController>()) {
                           final globalUser = Get.find<GlobalUserController>();
