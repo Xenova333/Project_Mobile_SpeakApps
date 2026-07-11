@@ -1,0 +1,827 @@
+ERROR - 2026-07-10 05:30:52 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'speakapp_db', 3306, '', 0)
+#1 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#4 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#5 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+#6 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#7 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Commands\Database\Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CLI\SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#9 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Commands\Database\Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked(Object(Closure))
+#10 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#11 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#12 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Boot.php(442): CodeIgniter\CLI\Console->run()
+#13 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#14 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#3 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#4 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+#5 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#6 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Commands\Database\Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#7 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CLI\SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#8 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Commands\Database\Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked(Object(Closure))
+#9 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#10 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#11 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Boot.php(442): CodeIgniter\CLI\Console->run()
+#12 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#13 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-07-10 05:40:18 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'speakapp_db', 3306, '', 0)
+#1 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\app\Models\UserModel.php(41): CodeIgniter\BaseModel->first()
+#7 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\app\Controllers\AuthController.php(139): App\Models\UserModel->findByNim('240302024')
+#8 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(951): App\Controllers\AuthController->login()
+#9 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#10 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\public\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\public\router.php(63): require('D:\\Project_Mobi...')
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#4 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\app\Models\UserModel.php(41): CodeIgniter\BaseModel->first()
+#6 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\app\Controllers\AuthController.php(139): App\Models\UserModel->findByNim('240302024')
+#7 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(951): App\Controllers\AuthController->login()
+#8 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#9 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\public\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 D:\Project_Mobile_Speakapps - Copy\codeigniter4-framework-b3359be\public\router.php(63): require('D:\\Project_Mobi...')
+#14 {main}
+CRITICAL - 2026-07-10 05:40:18 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+[Method: POST, Route: api/login]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `users`
+WHERE `nim` = :nim:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 5 APPPATH\Models\UserModel.php(41): CodeIgniter\BaseModel->first()
+ 6 APPPATH\Controllers\AuthController.php(139): App\Models\UserModel->findByNim('240302024')
+ 7 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\AuthController->login()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+ 9 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+ERROR - 2026-07-10 05:41:28 --> Unknown column 'date' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', [], false)
+ 5 SYSTEMPATH\Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\EventController.php(16): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 05:41:28 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'date' in 'order clause'
+[Method: GET, Route: api/events]
+in SYSTEMPATH\Database\BaseConnection.php on line 865.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', [], false)
+ 2 SYSTEMPATH\Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\EventController.php(16): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+ 7 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 05:41:28 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'date' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', [], false)
+ 4 SYSTEMPATH\Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\EventController.php(16): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+ 9 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 05:41:28 --> [Caused by] mysqli_sql_exception: Unknown column 'date' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', [], false)
+ 5 SYSTEMPATH\Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\EventController.php(16): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+ERROR - 2026-07-10 05:49:59 --> Unknown column 'date' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', [], false)
+ 5 SYSTEMPATH\Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\EventController.php(16): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 05:49:59 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'date' in 'order clause'
+[Method: GET, Route: api/events]
+in SYSTEMPATH\Database\BaseConnection.php on line 865.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', [], false)
+ 2 SYSTEMPATH\Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\EventController.php(16): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+ 7 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 05:49:59 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'date' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', [], false)
+ 4 SYSTEMPATH\Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\EventController.php(16): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+ 9 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 05:49:59 --> [Caused by] mysqli_sql_exception: Unknown column 'date' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', [], false)
+ 5 SYSTEMPATH\Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\EventController.php(16): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+ERROR - 2026-07-10 05:50:00 --> Unknown column 'date' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', [], false)
+ 5 SYSTEMPATH\Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\EventController.php(16): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 05:50:00 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'date' in 'order clause'
+[Method: GET, Route: api/events]
+in SYSTEMPATH\Database\BaseConnection.php on line 865.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', [], false)
+ 2 SYSTEMPATH\Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\EventController.php(16): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+ 7 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 05:50:00 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'date' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', [], false)
+ 4 SYSTEMPATH\Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\EventController.php(16): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+ 9 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 05:50:00 --> [Caused by] mysqli_sql_exception: Unknown column 'date' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', [], false)
+ 5 SYSTEMPATH\Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\EventController.php(16): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+ERROR - 2026-07-10 05:50:47 --> Unknown column 'date' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', [], false)
+ 5 SYSTEMPATH\Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\EventController.php(16): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 05:50:47 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'date' in 'order clause'
+[Method: GET, Route: api/events]
+in SYSTEMPATH\Database\BaseConnection.php on line 865.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', [], false)
+ 2 SYSTEMPATH\Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\EventController.php(16): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+ 7 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 05:50:47 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'date' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', [], false)
+ 4 SYSTEMPATH\Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\EventController.php(16): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+ 9 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 05:50:47 --> [Caused by] mysqli_sql_exception: Unknown column 'date' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `events`
+ORDER BY `date` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `events`
+ORDER BY `date` ASC', [], false)
+ 5 SYSTEMPATH\Model.php(253): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\EventController.php(16): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+ERROR - 2026-07-10 07:02:37 --> Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'\', \'1783666957_38ef0092d9522f60f4c0.png\', \'2026-07-10 07:02:37\', \'2026-07-10 07:02:37\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'\', \'1783666957_38ef0092d9522f60f4c0.png\', \'2026-07-10 07:02:37\', \'2026-07-10 07:02:37\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'\', \'1783666957_38ef0092d9522f60f4c0.png\', \'2026-07-10 07:02:37\', \'2026-07-10 07:02:37\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\EventController.php(60): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 07:02:37 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'updated_at' in 'field list'
+[Method: POST, Route: api/events]
+in SYSTEMPATH\Database\BaseConnection.php on line 865.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\EventController.php(60): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 07:02:37 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'\', \'1783666957_38ef0092d9522f60f4c0.png\', \'2026-07-10 07:02:37\', \'2026-07-10 07:02:37\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'\', \'1783666957_38ef0092d9522f60f4c0.png\', \'2026-07-10 07:02:37\', \'2026-07-10 07:02:37\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 4 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\EventController.php(60): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 07:02:37 --> [Caused by] mysqli_sql_exception: Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'\', \'1783666957_38ef0092d9522f60f4c0.png\', \'2026-07-10 07:02:37\', \'2026-07-10 07:02:37\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'\', \'1783666957_38ef0092d9522f60f4c0.png\', \'2026-07-10 07:02:37\', \'2026-07-10 07:02:37\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'\', \'1783666957_38ef0092d9522f60f4c0.png\', \'2026-07-10 07:02:37\', \'2026-07-10 07:02:37\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\EventController.php(60): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+ERROR - 2026-07-10 07:02:39 --> Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'\', \'1783666959_ac6cbb9771b35b0e4c04.png\', \'2026-07-10 07:02:39\', \'2026-07-10 07:02:39\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'\', \'1783666959_ac6cbb9771b35b0e4c04.png\', \'2026-07-10 07:02:39\', \'2026-07-10 07:02:39\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'\', \'1783666959_ac6cbb9771b35b0e4c04.png\', \'2026-07-10 07:02:39\', \'2026-07-10 07:02:39\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\EventController.php(60): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 07:02:39 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'updated_at' in 'field list'
+[Method: POST, Route: api/events]
+in SYSTEMPATH\Database\BaseConnection.php on line 865.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\EventController.php(60): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 07:02:39 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'\', \'1783666959_ac6cbb9771b35b0e4c04.png\', \'2026-07-10 07:02:39\', \'2026-07-10 07:02:39\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'\', \'1783666959_ac6cbb9771b35b0e4c04.png\', \'2026-07-10 07:02:39\', \'2026-07-10 07:02:39\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 4 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\EventController.php(60): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 07:02:39 --> [Caused by] mysqli_sql_exception: Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'\', \'1783666959_ac6cbb9771b35b0e4c04.png\', \'2026-07-10 07:02:39\', \'2026-07-10 07:02:39\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'\', \'1783666959_ac6cbb9771b35b0e4c04.png\', \'2026-07-10 07:02:39\', \'2026-07-10 07:02:39\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'\', \'1783666959_ac6cbb9771b35b0e4c04.png\', \'2026-07-10 07:02:39\', \'2026-07-10 07:02:39\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\EventController.php(60): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+ERROR - 2026-07-10 07:03:45 --> Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'https://youtube.com/shorts/zNXNYulib88?si=Kxms7RItlzJmsK11\', \'1783667025_2362ffc13bea013ee334.png\', \'2026-07-10 07:03:45\', \'2026-07-10 07:03:45\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'https://youtube.com/shorts/zNXNYulib88?si=Kxms7RItlzJmsK11\', \'1783667025_2362ffc13bea013ee334.png\', \'2026-07-10 07:03:45\', \'2026-07-10 07:03:45\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'https://youtube.com/shorts/zNXNYulib88?si=Kxms7RItlzJmsK11\', \'1783667025_2362ffc13bea013ee334.png\', \'2026-07-10 07:03:45\', \'2026-07-10 07:03:45\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\EventController.php(60): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 07:03:45 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'updated_at' in 'field list'
+[Method: POST, Route: api/events]
+in SYSTEMPATH\Database\BaseConnection.php on line 865.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\EventController.php(60): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 07:03:45 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'https://youtube.com/shorts/zNXNYulib88?si=Kxms7RItlzJmsK11\', \'1783667025_2362ffc13bea013ee334.png\', \'2026-07-10 07:03:45\', \'2026-07-10 07:03:45\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'https://youtube.com/shorts/zNXNYulib88?si=Kxms7RItlzJmsK11\', \'1783667025_2362ffc13bea013ee334.png\', \'2026-07-10 07:03:45\', \'2026-07-10 07:03:45\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 4 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\EventController.php(60): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 07:03:45 --> [Caused by] mysqli_sql_exception: Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'https://youtube.com/shorts/zNXNYulib88?si=Kxms7RItlzJmsK11\', \'1783667025_2362ffc13bea013ee334.png\', \'2026-07-10 07:03:45\', \'2026-07-10 07:03:45\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'https://youtube.com/shorts/zNXNYulib88?si=Kxms7RItlzJmsK11\', \'1783667025_2362ffc13bea013ee334.png\', \'2026-07-10 07:03:45\', \'2026-07-10 07:03:45\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cihuyyyy\', \'2026-06-26 14:00\', \'https://youtube.com/shorts/zNXNYulib88?si=Kxms7RItlzJmsK11\', \'1783667025_2362ffc13bea013ee334.png\', \'2026-07-10 07:03:45\', \'2026-07-10 07:03:45\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\EventController.php(60): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+ERROR - 2026-07-10 07:10:32 --> Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cosplay\', \'2026-06-26\', \'https://youtu.be/weO-otW4Vvs?si=U2_j_DHHWbOMf7Ew\', \'1783667432_36406e7a139f141eb1c0.png\', \'2026-07-10 07:10:32\', \'2026-07-10 07:10:32\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cosplay\', \'2026-06-26\', \'https://youtu.be/weO-otW4Vvs?si=U2_j_DHHWbOMf7Ew\', \'1783667432_36406e7a139f141eb1c0.png\', \'2026-07-10 07:10:32\', \'2026-07-10 07:10:32\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cosplay\', \'2026-06-26\', \'https://youtu.be/weO-otW4Vvs?si=U2_j_DHHWbOMf7Ew\', \'1783667432_36406e7a139f141eb1c0.png\', \'2026-07-10 07:10:32\', \'2026-07-10 07:10:32\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\EventController.php(65): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 07:10:32 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'updated_at' in 'field list'
+[Method: POST, Route: api/events]
+in SYSTEMPATH\Database\BaseConnection.php on line 865.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\EventController.php(65): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 07:10:32 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cosplay\', \'2026-06-26\', \'https://youtu.be/weO-otW4Vvs?si=U2_j_DHHWbOMf7Ew\', \'1783667432_36406e7a139f141eb1c0.png\', \'2026-07-10 07:10:32\', \'2026-07-10 07:10:32\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cosplay\', \'2026-06-26\', \'https://youtu.be/weO-otW4Vvs?si=U2_j_DHHWbOMf7Ew\', \'1783667432_36406e7a139f141eb1c0.png\', \'2026-07-10 07:10:32\', \'2026-07-10 07:10:32\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 4 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\EventController.php(65): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 07:10:32 --> [Caused by] mysqli_sql_exception: Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cosplay\', \'2026-06-26\', \'https://youtu.be/weO-otW4Vvs?si=U2_j_DHHWbOMf7Ew\', \'1783667432_36406e7a139f141eb1c0.png\', \'2026-07-10 07:10:32\', \'2026-07-10 07:10:32\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cosplay\', \'2026-06-26\', \'https://youtu.be/weO-otW4Vvs?si=U2_j_DHHWbOMf7Ew\', \'1783667432_36406e7a139f141eb1c0.png\', \'2026-07-10 07:10:32\', \'2026-07-10 07:10:32\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'cosplay\', \'cosplay\', \'2026-06-26\', \'https://youtu.be/weO-otW4Vvs?si=U2_j_DHHWbOMf7Ew\', \'1783667432_36406e7a139f141eb1c0.png\', \'2026-07-10 07:10:32\', \'2026-07-10 07:10:32\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\EventController.php(65): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+ERROR - 2026-07-10 07:19:51 --> Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'fdghfgjk\', \'fdgnhmj\', \'3036-06-26\', \'https://www.figma.com/design/hxUojjm4deqVUOOx0ghJWL/SpeakApp?node-id=0-1&p=f\', \'1783667990_a63ffbaf222c971473ee.png\', \'2026-07-10 07:19:50\', \'2026-07-10 07:19:50\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'fdghfgjk\', \'fdgnhmj\', \'3036-06-26\', \'https://www.figma.com/design/hxUojjm4deqVUOOx0ghJWL/SpeakApp?node-id=0-1&p=f\', \'1783667990_a63ffbaf222c971473ee.png\', \'2026-07-10 07:19:50\', \'2026-07-10 07:19:50\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'fdghfgjk\', \'fdgnhmj\', \'3036-06-26\', \'https://www.figma.com/design/hxUojjm4deqVUOOx0ghJWL/SpeakApp?node-id=0-1&p=f\', \'1783667990_a63ffbaf222c971473ee.png\', \'2026-07-10 07:19:50\', \'2026-07-10 07:19:50\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\EventController.php(72): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 07:19:51 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'updated_at' in 'field list'
+[Method: POST, Route: api/events]
+in SYSTEMPATH\Database\BaseConnection.php on line 865.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\EventController.php(72): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 07:19:51 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'fdghfgjk\', \'fdgnhmj\', \'3036-06-26\', \'https://www.figma.com/design/hxUojjm4deqVUOOx0ghJWL/SpeakApp?node-id=0-1&p=f\', \'1783667990_a63ffbaf222c971473ee.png\', \'2026-07-10 07:19:50\', \'2026-07-10 07:19:50\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'fdghfgjk\', \'fdgnhmj\', \'3036-06-26\', \'https://www.figma.com/design/hxUojjm4deqVUOOx0ghJWL/SpeakApp?node-id=0-1&p=f\', \'1783667990_a63ffbaf222c971473ee.png\', \'2026-07-10 07:19:50\', \'2026-07-10 07:19:50\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 4 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\EventController.php(72): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+CRITICAL - 2026-07-10 07:19:51 --> [Caused by] mysqli_sql_exception: Unknown column 'updated_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'fdghfgjk\', \'fdgnhmj\', \'3036-06-26\', \'https://www.figma.com/design/hxUojjm4deqVUOOx0ghJWL/SpeakApp?node-id=0-1&p=f\', \'1783667990_a63ffbaf222c971473ee.png\', \'2026-07-10 07:19:50\', \'2026-07-10 07:19:50\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'fdghfgjk\', \'fdgnhmj\', \'3036-06-26\', \'https://www.figma.com/design/hxUojjm4deqVUOOx0ghJWL/SpeakApp?node-id=0-1&p=f\', \'1783667990_a63ffbaf222c971473ee.png\', \'2026-07-10 07:19:50\', \'2026-07-10 07:19:50\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (\'fdghfgjk\', \'fdgnhmj\', \'3036-06-26\', \'https://www.figma.com/design/hxUojjm4deqVUOOx0ghJWL/SpeakApp?node-id=0-1&p=f\', \'1783667990_a63ffbaf222c971473ee.png\', \'2026-07-10 07:19:50\', \'2026-07-10 07:19:50\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `events` (`title`, `description`, `event_date`, `event_link`, `image`, `created_at`, `updated_at`) VALUES (:title:, :description:, :event_date:, :event_link:, :image:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(668): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\EventController.php(72): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->createEvent()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')
+ERROR - 2026-07-10 08:05:24 --> Table 'events' already exists
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('CREATE TABLE `events` (
+	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`title` VARCHAR(255) NOT NULL,
+	`description` TEXT NULL,
+	`image` VARCHAR(255) NULL,
+	`event_date` DATETIME NULL,
+	`event_link` VARCHAR(255) NULL,
+	`created_at` DATETIME NULL,
+	`updated_at` DATETIME NULL,
+	CONSTRAINT `pk_events` PRIMARY KEY(`id`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `events` (
+	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`title` VARCHAR(255) NOT NULL,
+	`description` TEXT NULL,
+	`image` VARCHAR(255) NULL,
+	`event_date` DATETIME NULL,
+	`event_link` VARCHAR(255) NULL,
+	`created_at` DATETIME NULL,
+	`updated_at` DATETIME NULL,
+	CONSTRAINT `pk_events` PRIMARY KEY(`id`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `events` (
+	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`title` VARCHAR(255) NOT NULL,
+	`description` TEXT NULL,
+	`image` VARCHAR(255) NULL,
+	`event_date` DATETIME NULL,
+	`event_link` VARCHAR(255) NULL,
+	`created_at` DATETIME NULL,
+	`updated_at` DATETIME NULL,
+	CONSTRAINT `pk_events` PRIMARY KEY(`id`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 4 SYSTEMPATH\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `events` (
+	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`title` VARCHAR(255) NOT NULL,
+	`description` TEXT NULL,
+	`image` VARCHAR(255) NULL,
+	`event_date` DATETIME NULL,
+	`event_link` VARCHAR(255) NULL,
+	`created_at` DATETIME NULL,
+	`updated_at` DATETIME NULL,
+	CONSTRAINT `pk_events` PRIMARY KEY(`id`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 5 APPPATH\Database\Migrations\2026-07-10-120000_CreateEventsTable.php(50): CodeIgniter\Database\Forge->createTable('events')
+ 6 SYSTEMPATH\Database\MigrationRunner.php(1014): App\Database\Migrations\CreateEventsTable->up()
+ 7 SYSTEMPATH\Database\MigrationRunner.php(202): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+ 8 SYSTEMPATH\Commands\Database\Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest(null)
+ 9 SYSTEMPATH\CLI\SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+10 SYSTEMPATH\Commands\Database\Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked(Object(Closure))
+11 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run([])
+12 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', [])
+13 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+14 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+15 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+CRITICAL - 2026-07-10 08:08:57 --> CodeIgniter\Database\Exceptions\DataException: There is no data to update.
+[Method: POST, Route: api/events/main/10]
+in SYSTEMPATH\BaseModel.php on line 1057.
+ 1 SYSTEMPATH\BaseModel.php(1057): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH\Model.php(709): CodeIgniter\BaseModel->update(null, [])
+ 3 APPPATH\Controllers\EventController.php(178): CodeIgniter\Model->update()
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EventController->setMainEvent('10')
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EventController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(66): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 FCPATH\router.php(63): require('D:\\Project_Mobile_Speakapps - Copy\\codeigniter4-framework-b3359be\\public\\index.php')

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../auth_service.dart';
 import '../controllers/chat_background_controller.dart';
+import '../controllers/global_user_controller.dart';
 import 'home_page.dart';
 import 'register_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -62,7 +63,15 @@ class _LoginPageState extends State<LoginPage> {
         await prefs.setString('user_semester', userData['semester']?.toString()   ?? '');
         await prefs.setString('user_gender',   userData['gender']?.toString()     ?? '');
         await prefs.setString('user_pic',      userData['profile_pic']?.toString() ?? '');
-        await prefs.setString('user_role',     userData['role']?.toString()       ?? 'user');
+        final rawRole = userData['role']?.toString().trim() ?? '';
+        final finalRole = rawRole.isEmpty ? 'user' : rawRole;
+        await prefs.setString('user_role', finalRole);
+
+        // 🔄 Update foto profil ke GlobalUserController agar semua widget
+        // langsung menampilkan foto milik akun yang baru saja login
+        if (Get.isRegistered<GlobalUserController>()) {
+          await Get.find<GlobalUserController>().loadUserPic();
+        }
 
         _showSnackBar('Selamat datang, ${userData['name']}!', isError: false);
 

@@ -10,7 +10,12 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../controllers/contact_controller.dart';
 import '../controllers/chat_controller.dart';
+import '../controllers/event_controller.dart';
+import '../controllers/global_user_controller.dart';
 import '../models/contact_model.dart';
+import 'event_page.dart';
+import 'event_detail_page.dart';
+
 
 class HomePage extends StatefulWidget {
   /// Data user yang diterima dari LoginPage setelah login berhasil.
@@ -26,6 +31,7 @@ class _HomePageState extends State<HomePage> {
   final ContactController contactController = Get.put(ContactController()..loadFriends());
   // Registrasikan ChatController agar tersedia saat membuka ChatPage
   final ChatController _chatController = Get.put(ChatController());
+  final EventController eventController = Get.put(EventController());
 
   String _userName = 'Pengguna';
 
@@ -284,8 +290,7 @@ class _HomePageState extends State<HomePage> {
                                       onTap: () => Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) =>
-                                              const NewsPage(),
+                                          builder: (context) => EventPage(selectedMonth: entry.key + 1),
                                         ),
                                       ),
                                       child: _buildEventFilter(
@@ -303,93 +308,94 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(height: 24),
 
                         // Main Event Card
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const NewsPage(),
+                        Obx(() {
+                          final mainEvent = eventController.mainEvent.value;
+                          if (mainEvent == null) {
+                            return const SizedBox.shrink();
+                          }
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.to(() => EventPage());
+                              },
+                              child: Container(
+                                height: 200,
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(20.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.05),
+                                      blurRadius: 10,
+                                      offset: const Offset(0, 4),
+                                    ),
+                                  ],
                                 ),
-                              );
-                            },
-                            child: Container(
-                              height: 200,
-                              width: double.infinity,
-                              padding: const EdgeInsets.all(20.0),
-                              decoration: BoxDecoration(
-                                color:
-                                    Colors.white, // Always white as per design
-                                borderRadius: BorderRadius.circular(20.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(12),
-                                      child: Image.asset(
-                                        'assets/lomba_live_coding.png',
-                                        width: double.infinity,
-                                        fit: BoxFit.cover,
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                              return Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: (mainEvent.image != null && mainEvent.image!.isNotEmpty)
+                                            ? Image.network(
+                                                mainEvent.image!,
+                                                width: double.infinity,
+                                                fit: BoxFit.cover,
+                                                errorBuilder: (context, error, stackTrace) {
+                                                  return Center(
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: const [
+                                                        Icon(Icons.image_not_supported, color: Colors.grey, size: 40),
+                                                        SizedBox(height: 8),
+                                                        Text('Gambar tidak ditemukan', style: TextStyle(fontSize: 10, color: Colors.grey)),
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                              )
+                                            : Center(
                                                 child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.image_not_supported,
-                                                      color: Colors.grey,
-                                                      size: 40,
-                                                    ),
-                                                    const SizedBox(height: 8),
-                                                    Text(
-                                                      'Gambar tidak ditemukan',
-                                                      style: TextStyle(
-                                                        fontSize: 10,
-                                                        color: Colors.grey,
-                                                      ),
-                                                    ),
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: const [
+                                                    Icon(Icons.image_not_supported, color: Colors.grey, size: 40),
+                                                    SizedBox(height: 8),
+                                                    Text('Gambar tidak ditemukan', style: TextStyle(fontSize: 10, color: Colors.grey)),
                                                   ],
                                                 ),
-                                              );
-                                            },
+                                              ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 12),
-                                  const Text(
-                                    'Lomba Live Coding',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black87,
+                                    const SizedBox(height: 12),
+                                    Text(
+                                      mainEvent.title,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black87,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  const Text(
-                                    '20 Mei 2024 - 09:00 WIB',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.black54,
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      mainEvent.eventDate ?? '-',
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.black54,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ),
+                          );
+                        }),
                         const SizedBox(height: 24),
 
                         // User List from ContactController
@@ -733,6 +739,13 @@ class _HomePageState extends State<HomePage> {
                         // Hapus controller agar data bersih saat login kembali
                         Get.delete<ContactController>();
                         Get.delete<ChatController>();
+                        Get.delete<EventController>();
+                        // Reset foto profil di GlobalUserController agar tidak bocor ke akun lain
+                        if (Get.isRegistered<GlobalUserController>()) {
+                          final globalUser = Get.find<GlobalUserController>();
+                          globalUser.userPic.value = '';
+                          globalUser.imageTimestamp.value = DateTime.now().millisecondsSinceEpoch;
+                        }
 
                         // Close dialog and go to login page
                         if (context.mounted) {

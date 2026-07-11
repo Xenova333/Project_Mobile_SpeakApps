@@ -46,3 +46,12 @@ $routes->get('api/my-friends/search/(:num)/(:any)', 'TemanController::searchMyFr
 // Hapus & Blokir Teman
 $routes->delete('api/friends/delete/(:num)/(:num)', 'TemanController::deleteFriend/$1/$2');
 $routes->post('api/friends/block', 'TemanController::blacklistFriend');
+
+// Events
+$routes->get('api/events', 'EventController::index');
+$routes->post('api/events', 'EventController::createEvent');
+$routes->get('api/events/main-active', 'EventController::getMainEvent');
+$routes->get('api/events/month/(:num)', 'EventController::getEventsByMonth/$1');
+$routes->put('api/events/(:num)', 'EventController::updateEvent/$1');
+$routes->delete('api/events/(:num)', 'EventController::deleteEvent/$1');
+$routes->post('api/events/main/(:num)', 'EventController::setMainEvent/$1');

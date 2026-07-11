@@ -8,7 +8,7 @@ class UserService {
   static String get _baseUrl => ApiConfig.baseUrl;
 
   /// URL dasar untuk menampilkan foto profil dari server CI4.
-  /// Contoh hasil: http://192.168.1.6:8080/uploads/profile/foto.jpg
+  /// Contoh hasil: http://192.168.1.4:8080/uploads/profile/foto.jpg
   static String get profilePicBaseUrl =>
       ApiConfig.baseUrl.replaceAll('/api', '/uploads/profile/');
 
