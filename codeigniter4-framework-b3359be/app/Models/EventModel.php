@@ -18,7 +18,8 @@ class EventModel extends Model
         'image',
         'event_date',
         'event_link',
-        'is_main'
+        'is_main',
+        'created_by'
     ];
 
     // Dates

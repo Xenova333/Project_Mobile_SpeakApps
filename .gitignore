@@ -1,0 +1,21 @@
+# CI4 writable
+codeigniter4-framework-b3359be/writable/
+
+# Uploads (runtime files)
+codeigniter4-framework-b3359be/public/uploads/
+
+# Flutter
+speakapps_mobile/.dart_tool/
+speakapps_mobile/.packages
+speakapps_mobile/build/
+speakapps_mobile/.flutter-plugins
+speakapps_mobile/.flutter-plugins-dependencies
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db

@@ -4,10 +4,12 @@ import 'profile_page.dart';
 import 'add_contact_page.dart';
 import 'login_page.dart';
 import 'news_page.dart';
+import 'news_detail_page.dart';
 import 'settings_page.dart';
 import 'widgets/custom_bottom_nav.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../api_services.dart';
 import '../controllers/contact_controller.dart';
 import '../controllers/chat_controller.dart';
 import '../controllers/event_controller.dart';
@@ -29,7 +31,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ContactController contactController = Get.put(ContactController()..loadFriends());
-  // Registrasikan ChatController agar tersedia saat membuka ChatPage
   final ChatController _chatController = Get.put(ChatController());
   final EventController eventController = Get.put(EventController());
 
@@ -40,6 +41,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _userName = widget.userData?['name'] ?? 'Pengguna';
     _loadUserName();
+    _eventController.loadEvents();
   }
 
   Future<void> _loadUserName() async {
@@ -311,13 +313,50 @@ class _HomePageState extends State<HomePage> {
                         Obx(() {
                           final mainEvent = eventController.mainEvent.value;
                           if (mainEvent == null) {
-                            return const SizedBox.shrink();
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: GestureDetector(
+                                onTap: () => Get.to(() => EventPage()),
+                                child: Container(
+                                  height: 200,
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(20.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.05),
+                                        blurRadius: 10,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.event, size: 50, color: Colors.grey[400]),
+                                      const SizedBox(height: 12),
+                                      Text(
+                                        'Belum ada main event',
+                                        style: TextStyle(fontSize: 14, color: Colors.grey[500]),
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        'Ketuk untuk melihat semua event',
+                                        style: TextStyle(fontSize: 11, color: Colors.grey[400]),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
                           }
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20.0),
                             child: GestureDetector(
                               onTap: () {
-                                Get.to(() => EventPage());
+                                Get.to(() => EventDetailPage(event: mainEvent));
                               },
                               child: Container(
                                 height: 200,
@@ -359,13 +398,13 @@ class _HomePageState extends State<HomePage> {
                                                   );
                                                 },
                                               )
-                                            : Center(
+                                            : const Center(
                                                 child: Column(
                                                   mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: const [
-                                                    Icon(Icons.image_not_supported, color: Colors.grey, size: 40),
+                                                  children: [
+                                                    Icon(Icons.event, color: Colors.grey, size: 50),
                                                     SizedBox(height: 8),
-                                                    Text('Gambar tidak ditemukan', style: TextStyle(fontSize: 10, color: Colors.grey)),
+                                                    Text('Belum ada gambar', style: TextStyle(fontSize: 10, color: Colors.grey)),
                                                   ],
                                                 ),
                                               ),

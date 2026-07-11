@@ -1,8 +1,116 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../contact_service.dart';
+import '../models/contact_model.dart';
+import '../controllers/contact_controller.dart';
+import 'package:get/get.dart';
 import 'widgets/custom_bottom_nav.dart';
 
-class BlacklistPage extends StatelessWidget {
+class BlacklistPage extends StatefulWidget {
   const BlacklistPage({super.key});
+
+  @override
+  State<BlacklistPage> createState() => _BlacklistPageState();
+}
+
+class _BlacklistPageState extends State<BlacklistPage> {
+  final ContactService _contactService = ContactService();
+  List<ContactModel> _blockedUsers = [];
+  bool _isLoading = true;
+  int _userId = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBlockedUsers();
+  }
+
+  Future<void> _loadBlockedUsers() async {
+    final prefs = await SharedPreferences.getInstance();
+    _userId = prefs.getInt('user_id') ?? 0;
+
+    setState(() => _isLoading = true);
+    final blocked = await _contactService.getBlockedUsers(_userId);
+    setState(() {
+      _blockedUsers = blocked;
+      _isLoading = false;
+    });
+  }
+
+  void _showUnblockDialog(ContactModel user) {
+    final primaryOrange = const Color(0xFFF6A039);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Buka Blokir',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  'Buka blokir ${user.name ?? 'pengguna ini'}?',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 13, color: Colors.black54),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        child: const Text('Tidak', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black87)),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () async {
+                        Navigator.pop(context);
+                        final result = await _contactService.unblockFriend(_userId, user.friendId);
+                        if (result['status'] == 'success') {
+                          Get.snackbar('Berhasil', 'Blokir berhasil dibuka',
+                              backgroundColor: Colors.green, colorText: Colors.white);
+                          _loadBlockedUsers();
+                          // Refresh contact list di home
+                          if (Get.isRegistered<ContactController>()) {
+                            Get.find<ContactController>().loadFriends();
+                          }
+                        } else {
+                          Get.snackbar('Error', result['message'] ?? 'Gagal membuka blokir',
+                              backgroundColor: Colors.red, colorText: Colors.white);
+                        }
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
+                        decoration: BoxDecoration(
+                          color: primaryOrange,
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        child: const Text('Ya', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white)),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,130 +163,37 @@ class BlacklistPage extends StatelessWidget {
                 ),
 
                 Expanded(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.all(20.0).copyWith(bottom: 100),
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 20),
-
-                        // Cari Kontak Card
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(20.0),
-                          decoration: BoxDecoration(
-                            color: cardColor,
-                            borderRadius: BorderRadius.circular(12.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
-                                blurRadius: 8,
-                                offset: const Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                'Cari Kontak',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: textColor,
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              Row(
+                  child: _isLoading
+                      ? const Center(child: CircularProgressIndicator(color: Color(0xFFF6A039)))
+                      : _blockedUsers.isEmpty
+                          ? Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Expanded(
-                                    child: Container(
-                                      height: 36,
-                                      decoration: BoxDecoration(
-                                        color: isDark ? Colors.white : const Color(0xFFF5F5F5),
-                                        borderRadius: BorderRadius.circular(8.0),
-                                      ),
-                                      child: const TextField(
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(fontSize: 12, color: Colors.black87),
-                                        decoration: InputDecoration(
-                                          hintText: 'Masukkan Nama teman',
-                                          hintStyle: TextStyle(
-                                            color: Colors.black38,
-                                            fontSize: 11,
-                                          ),
-                                          border: InputBorder.none,
-                                          contentPadding: EdgeInsets.symmetric(
-                                            horizontal: 12.0,
-                                            vertical: 10.0,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  GestureDetector(
-                                    onTap: () {
-                                      // Search action
-                                    },
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 16.0,
-                                        vertical: 8.0,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: isDark ? Colors.white : const Color(0xFFE0E0E0),
-                                        borderRadius: BorderRadius.circular(8.0),
-                                      ),
-                                      child: const Text(
-                                        'Cari',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.black87,
-                                        ),
-                                      ),
-                                    ),
+                                  Icon(Icons.block, size: 60, color: Colors.grey[400]),
+                                  const SizedBox(height: 16),
+                                  Text(
+                                    'Tidak ada pengguna yang diblokir',
+                                    style: TextStyle(fontSize: 14, color: Colors.grey[500]),
                                   ),
                                 ],
                               ),
-                            ],
-                          ),
-                        ),
-
-                        const SizedBox(height: 16),
-
-                        // Daftar Blokir Card
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(20.0),
-                          decoration: BoxDecoration(
-                            color: cardColor,
-                            borderRadius: BorderRadius.circular(12.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
-                                blurRadius: 8,
-                                offset: const Offset(0, 3),
+                            )
+                          : RefreshIndicator(
+                              onRefresh: _loadBlockedUsers,
+                              color: primaryOrange,
+                              child: ListView.builder(
+                                padding: const EdgeInsets.all(20.0).copyWith(bottom: 100),
+                                itemCount: _blockedUsers.length,
+                                itemBuilder: (context, index) {
+                                  final user = _blockedUsers[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 12.0),
+                                    child: _buildBlockedUser(user, primaryOrange, isDark, cardColor, textColor),
+                                  );
+                                },
                               ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                'Daftar Blokir',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: textColor,
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              _buildBlockedUser(context, primaryOrange, isDark),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                            ),
                 ),
               ],
             ),
@@ -196,47 +211,72 @@ class BlacklistPage extends StatelessWidget {
     );
   }
 
-  Widget _buildBlockedUser(BuildContext context, Color primaryColor, bool isDark) {
+  Widget _buildBlockedUser(ContactModel user, Color primaryColor, bool isDark, Color cardColor, Color textColor) {
+    final profilePic = user.profilePic;
+    final friendId = user.friendId;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
       decoration: BoxDecoration(
-        color: isDark ? Colors.white : const Color(0xFFFDF5ED),
-        borderRadius: BorderRadius.circular(8.0),
+        color: cardColor,
+        borderRadius: BorderRadius.circular(12.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 3),
+          ),
+        ],
       ),
       child: Row(
         children: [
           // Profile picture
           Container(
-            width: 36,
-            height: 36,
+            width: 40,
+            height: 40,
             decoration: BoxDecoration(
-              color: primaryColor,
-              borderRadius: BorderRadius.circular(6.0),
+              borderRadius: BorderRadius.circular(8.0),
             ),
-            child: const Center(
-              child: Text(
-                'foto\nprofile',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 7, color: Colors.white),
-              ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: (profilePic != null && profilePic.isNotEmpty)
+                  ? Image.network(
+                      profilePic,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          color: primaryColor,
+                          child: const Icon(Icons.person, color: Colors.white, size: 20),
+                        );
+                      },
+                    )
+                  : Container(
+                      color: primaryColor,
+                      child: const Icon(Icons.person, color: Colors.white, size: 20),
+                    ),
             ),
           ),
           const SizedBox(width: 12),
-          // Name
-          const Expanded(
-            child: Text(
-              'nama user',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.black87,
-              ),
+          // Name & NIM
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  user.name ?? 'Tidak diketahui',
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: textColor),
+                ),
+                if (user.nim != null && user.nim!.isNotEmpty)
+                  Text(
+                    'NIM: ${user.nim}',
+                    style: TextStyle(fontSize: 11, color: isDark ? Colors.white54 : Colors.black54),
+                  ),
+              ],
             ),
           ),
-          // Buka Button
+          // Buka Blokir Button
           GestureDetector(
-            onTap: () {
-              _showUnblockConfirmation(context, primaryColor);
-            },
+            onTap: () => _showUnblockDialog(user),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
               decoration: BoxDecoration(
@@ -256,91 +296,6 @@ class BlacklistPage extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  void _showUnblockConfirmation(BuildContext context, Color primaryColor) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                  'Buka Blokir',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                const Text(
-                  'Apakah Anda yakin ingin membuka blokir pengguna ini?',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.black54,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    // No Button
-                    GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: const Text(
-                          'Tidak',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black87,
-                          ),
-                        ),
-                      ),
-                    ),
-                    // Yes Button
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                        // Unblock logic here
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
-                        decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: const Text(
-                          'Ya',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 }

@@ -10,6 +10,14 @@ class ApiConfig {
   // Endpoint untuk mengambil permintaan pertemanan yang sudah dikirim (status pending)
   static String sentRequestsUrl(int myId) => '$baseUrl/friends/sent/$myId';
 
-  // Endpoint untuk events
+  // Endpoint untuk events list
   static String get eventsUrl => '$baseUrl/events';
+
+  // URL untuk gambar banner event
+  static String eventImage(String? imageName) {
+    if (imageName == null || imageName.isEmpty) return '';
+    // Jika sudah berupa URL penuh (http://...) langsung kembalikan
+    if (imageName.startsWith('http')) return imageName;
+    return '${baseUrl.replaceAll('/api', '')}/uploads/events/$imageName';
+  }
 }

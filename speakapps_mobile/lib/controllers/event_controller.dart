@@ -16,6 +16,21 @@ class EventController extends GetxController {
   var isDeleteMode = false.obs;
   var userRole = ''.obs;
   int? currentMonth;
+  final RxString searchQuery = ''.obs;
+
+  List<EventModel> get filteredEvents {
+    if (searchQuery.value.isEmpty) return events;
+    final q = searchQuery.value.toLowerCase();
+    return events.where((e) =>
+      e.title.toLowerCase().contains(q) ||
+      (e.description?.toLowerCase().contains(q) ?? false)
+    ).toList();
+  }
+
+  EventModel? get latestEvent {
+    if (events.isEmpty) return null;
+    return events.first;
+  }
 
   @override
   void onInit() {
@@ -62,6 +77,9 @@ class EventController extends GetxController {
     }
   }
 
+  Future<void> loadEvents() async {
+    fetchEvents();
+  }
   Future<void> fetchMainEvent() async {
     try {
       final response = await http.get(Uri.parse('${ApiConfig.eventsUrl}/main-active'));
@@ -186,5 +204,8 @@ class EventController extends GetxController {
       Get.snackbar('Error', 'Koneksi terputus: $e');
       return false;
     }
+  void searchEvent(String query) {
+    searchQuery.value = query;
+  }
   }
 }

@@ -1,25 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../api_services.dart';
+import '../models/event_model.dart';
+import '../controllers/event_controller.dart';
 import 'widgets/custom_bottom_nav.dart';
 
-class NewsDetailPage extends StatelessWidget {
-  final String title;
-  final String date;
-  final String imagePath;
-  final String description;
+class NewsDetailPage extends StatefulWidget {
+  final EventModel event;
 
   const NewsDetailPage({
     super.key,
-    required this.title,
-    required this.date,
-    this.imagePath = '',
-    this.description = '',
+    required this.event,
   });
+
+  @override
+  State<NewsDetailPage> createState() => _NewsDetailPageState();
+}
+
+class _NewsDetailPageState extends State<NewsDetailPage> {
+  String _userRole = 'user';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadRole();
+  }
+
+  Future<void> _loadRole() async {
+    final prefs = await SharedPreferences.getInstance();
+    final role = prefs.getString('user_role') ?? 'user';
+    setState(() => _userRole = role);
+  }
+
+  void _showDeleteDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Hapus Event'),
+        content: Text('Yakin ingin menghapus "${widget.event.title}"?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Batal'),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.pop(context);
+              final controller = Get.find<EventController>();
+              final result = await controller.deleteEvent(widget.event.id);
+              if (result['status'] == 'success') {
+                Get.snackbar('Sukses', 'Event berhasil dihapus',
+                    backgroundColor: Colors.green, colorText: Colors.white);
+                Navigator.pop(context);
+              } else {
+                Get.snackbar('Error', result['message'] ?? 'Gagal menghapus event',
+                    backgroundColor: Colors.red, colorText: Colors.white);
+              }
+            },
+            child: const Text('Hapus', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final primaryOrange = const Color(0xFFF6A039);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final bgColor = Theme.of(context).scaffoldBackgroundColor;
+    final event = widget.event;
+    final imageUrl = ApiConfig.eventImage(event.image);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -51,14 +103,22 @@ class NewsDetailPage extends StatelessWidget {
                         child: Icon(Icons.arrow_back, size: 28, color: isDark ? Colors.white : Colors.black87),
                       ),
                       const SizedBox(width: 16),
-                      Text(
-                        'Detail Berita',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: isDark ? Colors.white : Colors.black87,
+                      Expanded(
+                        child: Text(
+                          'Detail Event',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: isDark ? Colors.white : Colors.black87,
+                          ),
                         ),
                       ),
+                      if (_userRole == 'admin') ...[
+                        GestureDetector(
+                          onTap: _showDeleteDialog,
+                          child: Icon(Icons.delete, size: 22, color: Colors.red),
+                        ),
+                      ],
                     ],
                   ),
                 ),
@@ -71,7 +131,7 @@ class NewsDetailPage extends StatelessWidget {
                       width: double.infinity,
                       padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: isDark ? const Color(0xFF111C44) : Colors.white,
                         borderRadius: BorderRadius.circular(16.0),
                         boxShadow: [
                           BoxShadow(
@@ -91,19 +151,18 @@ class NewsDetailPage extends StatelessWidget {
                               width: double.infinity,
                               height: 200,
                               color: const Color(0xFFFDF5ED),
-                              child: imagePath.isNotEmpty
-                                  ? Image.asset(
-                                      imagePath,
+                              child: imageUrl.isNotEmpty
+                                  ? Image.network(
+                                      imageUrl,
                                       fit: BoxFit.cover,
                                       errorBuilder: (context, error, stackTrace) {
-                                        return const Center(child: Icon(Icons.image_not_supported, color: Colors.grey, size: 50));
+                                        return const Center(
+                                          child: Icon(Icons.event, color: Colors.grey, size: 50),
+                                        );
                                       },
                                     )
                                   : const Center(
-                                      child: Text(
-                                        'gambar event/berita',
-                                        style: TextStyle(fontSize: 14, color: Colors.black54),
-                                      ),
+                                      child: Icon(Icons.event, color: Colors.grey, size: 50),
                                     ),
                             ),
                           ),
@@ -112,83 +171,83 @@ class NewsDetailPage extends StatelessWidget {
 
                           // Title
                           Text(
-                            title,
-                            style: const TextStyle(
+                            event.title,
+                            style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black87,
+                              color: isDark ? Colors.white : Colors.black87,
                             ),
                           ),
                           const SizedBox(height: 8),
 
                           // Date Row
-                          Row(
-                            children: [
-                              Icon(Icons.calendar_today, size: 14, color: primaryOrange),
-                              const SizedBox(width: 6),
-                              Text(
-                                date,
-                                style: const TextStyle(fontSize: 12, color: Colors.black54),
-                              ),
-                            ],
-                          ),
-
-                          const SizedBox(height: 24),
+                          if (event.eventDate != null && event.eventDate!.isNotEmpty) ...[
+                            Row(
+                              children: [
+                                Icon(Icons.calendar_today, size: 14, color: primaryOrange),
+                                const SizedBox(width: 6),
+                                Text(
+                                  event.eventDate!,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: isDark ? Colors.white54 : Colors.black54,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                          ],
 
                           // Description
-                          const Text(
+                          Text(
                             'Deskripsi Lengkap:',
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black87,
+                              color: isDark ? Colors.white : Colors.black87,
                             ),
                           ),
                           const SizedBox(height: 12),
                           Text(
-                            description.isNotEmpty 
-                              ? description 
-                              : 'Silahkan isi deskripsi berita atau event di sini untuk memberikan informasi lebih lanjut kepada pengguna.',
+                            (event.description != null && event.description!.isNotEmpty)
+                                ? event.description!
+                                : 'Tidak ada deskripsi untuk event ini.',
                             textAlign: TextAlign.justify,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 13,
-                              color: Colors.black87,
+                              color: isDark ? Colors.white70 : Colors.black87,
                               height: 1.5,
                             ),
                           ),
-                          const SizedBox(height: 32),
 
-                          // Selengkapnya Button
-                          GestureDetector(
-                            onTap: () {
-                              // Action for Read More
-                            },
-                            child: Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                              decoration: BoxDecoration(
-                                color: primaryOrange,
-                                borderRadius: BorderRadius.circular(12),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: primaryOrange.withOpacity(0.3),
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ],
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  'Selengkapnya',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
+                          // Event Link
+                          if (event.eventLink != null && event.eventLink!.isNotEmpty) ...[
+                            const SizedBox(height: 24),
+                            GestureDetector(
+                              onTap: () {
+                                // Can launch URL if needed
+                              },
+                              child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.symmetric(vertical: 14),
+                                decoration: BoxDecoration(
+                                  color: primaryOrange,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    'Kunjungi Link Event',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
+                          ],
+
                           const SizedBox(height: 20),
                         ],
                       ),

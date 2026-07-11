@@ -259,5 +259,5 @@ class EventController extends ResourceController
             'status' => 'success',
             'data'   => $events
         ]);
-    }
+}
 }

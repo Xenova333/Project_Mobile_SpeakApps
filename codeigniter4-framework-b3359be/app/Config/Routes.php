@@ -20,6 +20,7 @@ $routes->post('api/login',    'AuthController::login');
 
 // User Profile
 $routes->post('api/user/update/(:num)', 'UserController::updateProfile/$1');
+$routes->delete('api/user/(:num)', 'UserController::deleteUser/$1');
 
 // Admin Reset Password
 $routes->post('api/admin/reset-password', 'UserController::adminResetPassword');
@@ -46,9 +47,12 @@ $routes->get('api/my-friends/search/(:num)/(:any)', 'TemanController::searchMyFr
 // Hapus & Blokir Teman
 $routes->delete('api/friends/delete/(:num)/(:num)', 'TemanController::deleteFriend/$1/$2');
 $routes->post('api/friends/block', 'TemanController::blacklistFriend');
+$routes->get('api/friends/blocked/(:num)', 'TemanController::getBlockedUsers/$1');
+$routes->post('api/friends/unblock', 'TemanController::unblockFriend');
 
 // Events
 $routes->get('api/events', 'EventController::index');
+$routes->get('api/events/(:num)', 'EventController::show/$1'); // Added from remote for compatibility
 $routes->post('api/events', 'EventController::createEvent');
 $routes->get('api/events/main-active', 'EventController::getMainEvent');
 $routes->get('api/events/month/(:num)', 'EventController::getEventsByMonth/$1');

@@ -7,6 +7,8 @@ class ContactModel {
   final String? name;
   final String? profilePic;
   final String? nim;
+  final String? semester;
+  final String? gender;
   final String? lastMessage;
   final String? lastMessageTime;
   final int unreadCount;
@@ -20,6 +22,8 @@ class ContactModel {
     this.name,
     this.profilePic,
     this.nim,
+    this.semester,
+    this.gender,
     this.lastMessage,
     this.lastMessageTime,
     this.unreadCount = 0,
@@ -35,6 +39,8 @@ class ContactModel {
       name: json['name'],
       profilePic: json['profile_pic'],
       nim: json['nim']?.toString(),
+      semester: json['semester']?.toString(),
+      gender: json['gender']?.toString(),
       lastMessage: json['latest_message'],
       lastMessageTime: json['latest_chat_time'],
       unreadCount: int.tryParse(json['unread_count']?.toString() ?? '0') ?? 0,

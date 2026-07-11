@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import '../api_services.dart';
 import 'account_page.dart';
 import 'theme_page.dart';
+import 'news_page.dart';
+import 'add_event_page.dart';
 import 'widgets/custom_bottom_nav.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -205,6 +207,28 @@ class SettingsPage extends StatelessWidget {
                               if (role == 'admin') {
                                 return Column(
                                   children: [
+                                    const SizedBox(height: 16),
+                                    _buildSettingItem(
+                                      'Kelola Event',
+                                      icon: Icons.event,
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => const NewsPage()),
+                                        );
+                                      },
+                                    ),
+                                    const SizedBox(height: 16),
+                                    _buildSettingItem(
+                                      'Tambah Event Baru',
+                                      icon: Icons.add_circle_outline,
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => const AddEventPage()),
+                                        );
+                                      },
+                                    ),
                                     const SizedBox(height: 16),
                                     _buildSettingItem(
                                       'Reset Password Mahasiswa',

@@ -242,4 +242,75 @@ class ContactService {
       };
     }
   }
+
+  /// Fungsi untuk mengambil daftar user yang diblokir
+  Future<List<ContactModel>> getBlockedUsers(int userId) async {
+    try {
+      final response = await http.get(
+        Uri.parse("${ApiConfig.baseUrl}/friends/blocked/$userId"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final decodedData = json.decode(response.body);
+        if (decodedData['status'] == 'success') {
+          final List<dynamic> dataList = decodedData['data'] ?? [];
+          return dataList.map((json) => ContactModel.fromJson(json)).toList();
+        }
+      }
+      return [];
+    } catch (e) {
+      print("Error fetching blocked users: $e");
+      return [];
+    }
+  }
+
+  /// Fungsi untuk membuka blokir teman
+  Future<Map<String, dynamic>> unblockFriend(int myId, int friendId) async {
+    try {
+      final response = await http.post(
+        Uri.parse("${ApiConfig.baseUrl}/friends/unblock"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: json.encode({
+          'user_id': myId,
+          'friend_id': friendId,
+        }),
+      );
+
+      return json.decode(response.body);
+    } catch (e) {
+      print("Error unblocking friend: $e");
+      return {
+        'status': 'error',
+        'message': 'Gagal terhubung ke server: $e',
+      };
+    }
+  }
+
+  /// Fungsi untuk menghapus akun user
+  Future<Map<String, dynamic>> deleteUser(int userId) async {
+    try {
+      final response = await http.delete(
+        Uri.parse("${ApiConfig.baseUrl}/user/$userId"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      );
+
+      return json.decode(response.body);
+    } catch (e) {
+      print("Error deleting user: $e");
+      return {
+        'status': 'error',
+        'message': 'Gagal terhubung ke server: $e',
+      };
+    }
+  }
 }
