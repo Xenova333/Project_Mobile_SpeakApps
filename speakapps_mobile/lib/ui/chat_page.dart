@@ -255,11 +255,7 @@ class _ChatPageState extends State<ChatPage> {
               ],
             ),
           ),
-          const Spacer(),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.more_vert, color: textColor),
-          ),
+
         ],
       ),
     );

@@ -53,58 +53,77 @@ class _UserInfoPageState extends State<UserInfoPage> {
   }
 
   void _showDeleteDialog() {
-    final primaryOrange = const Color(0xFFF6A039);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
-          child: Container(
+          backgroundColor: isDark ? const Color(0xFF1E293B) : Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: Padding(
             padding: const EdgeInsets.all(24.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16.0),
-              border: Border.all(color: primaryOrange, width: 1.5),
-            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text('Hapus Teman', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87)),
-                const SizedBox(height: 12),
+                // Ikon peringatan
+                Container(
+                  width: 68, height: 68,
+                  decoration: BoxDecoration(
+                    color: Colors.red.withOpacity(0.12),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.person_remove_outlined, color: Colors.red, size: 36),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Hapus Teman',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: isDark ? Colors.white : Colors.black87,
+                  ),
+                ),
+                const SizedBox(height: 8),
                 Text(
                   'Yakin ingin menghapus ${widget.friendName} dari daftar teman?',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 13, color: Colors.black54),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: isDark ? Colors.white70 : Colors.black54,
+                    height: 1.4,
+                  ),
                 ),
                 const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: primaryOrange, width: 1.0),
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: const Text('BATAL', style: TextStyle(color: Colors.black87, fontSize: 12, fontWeight: FontWeight.bold)),
+                    OutlinedButton(
+                      onPressed: () => Navigator.pop(context),
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: Colors.orange),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                      ),
+                      child: const Text(
+                        'BATAL',
+                        style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                        elevation: 0,
+                      ),
+                      onPressed: () {
                         Navigator.pop(context);
                         _controller.handleDelete(context, widget.friendId);
                       },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFE53935),
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: const Text('Hapus', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+                      child: const Text(
+                        'Hapus',
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],

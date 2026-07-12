@@ -39,46 +39,70 @@ class _BlacklistPageState extends State<BlacklistPage> {
   }
 
   void _showUnblockDialog(ContactModel user) {
-    final primaryOrange = const Color(0xFFF6A039);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+          backgroundColor: isDark ? const Color(0xFF1E293B) : Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
+            padding: const EdgeInsets.all(24),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Buka Blokir',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87),
+                Container(
+                  width: 68, height: 68,
+                  decoration: BoxDecoration(
+                    color: Colors.orange.withOpacity(0.12),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.lock_open_rounded, color: Colors.orange, size: 36),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
+                Text(
+                  'Buka Blokir',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: isDark ? Colors.white : Colors.black87,
+                  ),
+                ),
+                const SizedBox(height: 8),
                 Text(
                   'Buka blokir ${user.name ?? 'pengguna ini'}?',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 13, color: Colors.black54),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: isDark ? Colors.white70 : Colors.black54,
+                    height: 1.4,
+                  ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: const Text('Tidak', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black87)),
+                    OutlinedButton(
+                      onPressed: () => Navigator.pop(context),
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: Colors.orange),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                      ),
+                      child: const Text(
+                        'BATAL',
+                        style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () async {
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orange,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                        elevation: 0,
+                      ),
+                      onPressed: () async {
                         Navigator.pop(context);
                         final blockedId = (user.userId == _userId)
                             ? user.friendId
@@ -88,7 +112,6 @@ class _BlacklistPageState extends State<BlacklistPage> {
                           Get.snackbar('Berhasil', 'Blokir berhasil dibuka',
                               backgroundColor: Colors.green, colorText: Colors.white);
                           _loadBlockedUsers();
-                          // Refresh contact list di home
                           if (Get.isRegistered<ContactController>()) {
                             Get.find<ContactController>().loadContacts();
                           }
@@ -97,13 +120,9 @@ class _BlacklistPageState extends State<BlacklistPage> {
                               backgroundColor: Colors.red, colorText: Colors.white);
                         }
                       },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
-                        decoration: BoxDecoration(
-                          color: primaryOrange,
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: const Text('Ya', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white)),
+                      child: const Text(
+                        'Ya, Buka',
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],

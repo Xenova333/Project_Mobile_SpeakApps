@@ -33,7 +33,9 @@ class _EventPageState extends State<EventPage> {
   void _showEventDialog(BuildContext context, {EventModel? event}) {
     final isEdit = event != null;
     final titleController = TextEditingController(text: event?.title ?? '');
-    final descriptionController = TextEditingController(text: event?.description ?? '');
+    final descriptionController = TextEditingController(
+      text: event?.description ?? '',
+    );
     final dateController = TextEditingController(text: event?.eventDate ?? '');
     final linkController = TextEditingController(text: event?.eventLink ?? '');
     XFile? selectedImage;
@@ -53,7 +55,9 @@ class _EventPageState extends State<EventPage> {
                 return Container(
                   decoration: const BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(24),
+                    ),
                   ),
                   child: Column(
                     children: [
@@ -61,7 +65,8 @@ class _EventPageState extends State<EventPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         child: Container(
-                          width: 40, height: 4,
+                          width: 40,
+                          height: 4,
                           decoration: BoxDecoration(
                             color: Colors.grey[300],
                             borderRadius: BorderRadius.circular(2),
@@ -77,11 +82,15 @@ class _EventPageState extends State<EventPage> {
                             Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                color: const Color(0xFFF6A039).withOpacity(0.15),
+                                color: const Color(
+                                  0xFFF6A039,
+                                ).withOpacity(0.15),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Icon(
-                                isEdit ? Icons.edit_outlined : Icons.add_circle_outline,
+                                isEdit
+                                    ? Icons.edit_outlined
+                                    : Icons.add_circle_outline,
                                 color: const Color(0xFFF6A039),
                                 size: 22,
                               ),
@@ -97,7 +106,10 @@ class _EventPageState extends State<EventPage> {
                             ),
                             const Spacer(),
                             IconButton(
-                              icon: const Icon(Icons.close, color: Colors.black54),
+                              icon: const Icon(
+                                Icons.close,
+                                color: Colors.black54,
+                              ),
                               onPressed: () => Navigator.pop(sheetContext),
                             ),
                           ],
@@ -110,14 +122,21 @@ class _EventPageState extends State<EventPage> {
                         child: SingleChildScrollView(
                           controller: scrollController,
                           padding: EdgeInsets.only(
-                            left: 20, right: 20, top: 20,
-                            bottom: MediaQuery.of(sheetContext).viewInsets.bottom + 24,
+                            left: 20,
+                            right: 20,
+                            top: 20,
+                            bottom:
+                                MediaQuery.of(sheetContext).viewInsets.bottom +
+                                24,
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Pratinjau gambar (mode edit)
-                              if (isEdit && event.image != null && event.image!.isNotEmpty && selectedImage == null)
+                              if (isEdit &&
+                                  event.image != null &&
+                                  event.image!.isNotEmpty &&
+                                  selectedImage == null)
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
                                   child: Image.network(
@@ -125,7 +144,8 @@ class _EventPageState extends State<EventPage> {
                                     height: 140,
                                     width: double.infinity,
                                     fit: BoxFit.cover,
-                                    errorBuilder: (_, __, ___) => _imageFallback(),
+                                    errorBuilder: (_, __, ___) =>
+                                        _imageFallback(),
                                   ),
                                 ),
 
@@ -133,15 +153,24 @@ class _EventPageState extends State<EventPage> {
                               if (selectedImage != null)
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 10,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: Colors.green[50],
                                     borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.green[300]!),
+                                    border: Border.all(
+                                      color: Colors.green[300]!,
+                                    ),
                                   ),
                                   child: Row(
                                     children: [
-                                      const Icon(Icons.check_circle, color: Colors.green, size: 18),
+                                      const Icon(
+                                        Icons.check_circle,
+                                        color: Colors.green,
+                                        size: 18,
+                                      ),
                                       const SizedBox(width: 8),
                                       Expanded(
                                         child: Text(
@@ -164,31 +193,63 @@ class _EventPageState extends State<EventPage> {
                               SizedBox(
                                 width: double.infinity,
                                 child: OutlinedButton.icon(
-                                  icon: const Icon(Icons.image_search_outlined, size: 20),
-                                  label: Text(selectedImage == null ? 'Pilih Gambar Banner' : 'Ganti Gambar'),
+                                  icon: const Icon(
+                                    Icons.image_search_outlined,
+                                    size: 20,
+                                  ),
+                                  label: Text(
+                                    selectedImage == null
+                                        ? 'Pilih Gambar Banner'
+                                        : 'Ganti Gambar',
+                                  ),
                                   style: OutlinedButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(vertical: 12),
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                                    side: const BorderSide(color: Color(0xFFF6A039)),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 12,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    side: const BorderSide(
+                                      color: Color(0xFFF6A039),
+                                    ),
                                     foregroundColor: const Color(0xFFF6A039),
                                   ),
                                   onPressed: () async {
-                                    final XFile? img = await _picker.pickImage(source: ImageSource.gallery);
-                                    if (img != null) setModalState(() => selectedImage = img);
+                                    final XFile? img = await _picker.pickImage(
+                                      source: ImageSource.gallery,
+                                    );
+                                    if (img != null)
+                                      setModalState(() => selectedImage = img);
                                   },
                                 ),
                               ),
 
                               const SizedBox(height: 22),
-                              const Text('Detail Event', style: TextStyle(fontSize: 13, color: Colors.black54, fontWeight: FontWeight.w600)),
+                              const Text(
+                                'Detail Event',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.black54,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                               const SizedBox(height: 10),
 
                               // Judul Event
-                              _buildField(titleController, 'Judul Event', Icons.title_outlined),
+                              _buildField(
+                                titleController,
+                                'Judul Event',
+                                Icons.title_outlined,
+                              ),
                               const SizedBox(height: 14),
 
                               // Deskripsi
-                              _buildField(descriptionController, 'Deskripsi', Icons.notes_outlined, maxLines: 4),
+                              _buildField(
+                                descriptionController,
+                                'Deskripsi',
+                                Icons.notes_outlined,
+                                maxLines: 4,
+                              ),
                               const SizedBox(height: 14),
 
                               // Tanggal (date picker)
@@ -197,22 +258,36 @@ class _EventPageState extends State<EventPage> {
                                 readOnly: true,
                                 decoration: InputDecoration(
                                   labelText: 'Tanggal Event',
-                                  prefixIcon: const Icon(Icons.calendar_month_outlined, color: Color(0xFFF6A039)),
-                                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                                  prefixIcon: const Icon(
+                                    Icons.calendar_month_outlined,
+                                    color: Color(0xFFF6A039),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
-                                    borderSide: const BorderSide(color: Color(0xFFF6A039), width: 2),
+                                    borderSide: const BorderSide(
+                                      color: Color(0xFFF6A039),
+                                      width: 2,
+                                    ),
                                   ),
                                 ),
                                 onTap: () async {
                                   final DateTime? picked = await showDatePicker(
                                     context: sheetContext,
-                                    initialDate: DateTime.tryParse(dateController.text) ?? DateTime.now(),
+                                    initialDate:
+                                        DateTime.tryParse(
+                                          dateController.text,
+                                        ) ??
+                                        DateTime.now(),
                                     firstDate: DateTime(2020),
                                     lastDate: DateTime(2030),
                                     builder: (ctx, child) => Theme(
                                       data: Theme.of(ctx).copyWith(
-                                        colorScheme: const ColorScheme.light(primary: Color(0xFFF6A039)),
+                                        colorScheme: const ColorScheme.light(
+                                          primary: Color(0xFFF6A039),
+                                        ),
                                       ),
                                       child: child!,
                                     ),
@@ -226,7 +301,11 @@ class _EventPageState extends State<EventPage> {
                               const SizedBox(height: 14),
 
                               // Tautan
-                              _buildField(linkController, 'Tautan (Link Web/IG)', Icons.link_outlined),
+                              _buildField(
+                                linkController,
+                                'Tautan (Link Web/IG)',
+                                Icons.link_outlined,
+                              ),
                               const SizedBox(height: 30),
 
                               // ── Tombol aksi ────────────────────────────────
@@ -234,14 +313,28 @@ class _EventPageState extends State<EventPage> {
                                 children: [
                                   Expanded(
                                     child: OutlinedButton(
-                                      onPressed: () => Navigator.pop(sheetContext),
+                                      onPressed: () =>
+                                          Navigator.pop(sheetContext),
                                       style: OutlinedButton.styleFrom(
-                                        padding: const EdgeInsets.symmetric(vertical: 14),
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                                        side: BorderSide(color: Colors.grey[400]!),
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 14,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                        ),
+                                        side: BorderSide(
+                                          color: Colors.grey[400]!,
+                                        ),
                                         foregroundColor: Colors.black54,
                                       ),
-                                      child: const Text('Batal', style: TextStyle(fontWeight: FontWeight.w600)),
+                                      child: const Text(
+                                        'Batal',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(width: 12),
@@ -249,9 +342,17 @@ class _EventPageState extends State<EventPage> {
                                     flex: 2,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: const Color(0xFFF6A039),
-                                        padding: const EdgeInsets.symmetric(vertical: 14),
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                        backgroundColor: const Color(
+                                          0xFFF6A039,
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 14,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                        ),
                                         elevation: 2,
                                       ),
                                       onPressed: () async {
@@ -259,7 +360,8 @@ class _EventPageState extends State<EventPage> {
                                         String? imgPath;
                                         if (selectedImage != null) {
                                           if (kIsWeb) {
-                                            imgBytes = await selectedImage!.readAsBytes();
+                                            imgBytes = await selectedImage!
+                                                .readAsBytes();
                                           } else {
                                             imgPath = selectedImage!.path;
                                           }
@@ -269,9 +371,13 @@ class _EventPageState extends State<EventPage> {
                                         if (!isEdit) {
                                           result = await controller.createEvent(
                                             title: titleController.text,
-                                            description: descriptionController.text,
+                                            description:
+                                                descriptionController.text,
                                             eventDate: dateController.text,
-                                            eventLink: linkController.text.isNotEmpty ? linkController.text : null,
+                                            eventLink:
+                                                linkController.text.isNotEmpty
+                                                ? linkController.text
+                                                : null,
                                             createdBy: 0,
                                             imagePath: imgPath,
                                             imageBytes: imgBytes,
@@ -280,9 +386,13 @@ class _EventPageState extends State<EventPage> {
                                           result = await controller.updateEvent(
                                             id: event.id,
                                             title: titleController.text,
-                                            description: descriptionController.text,
+                                            description:
+                                                descriptionController.text,
                                             eventDate: dateController.text,
-                                            eventLink: linkController.text.isNotEmpty ? linkController.text : null,
+                                            eventLink:
+                                                linkController.text.isNotEmpty
+                                                ? linkController.text
+                                                : null,
                                             imagePath: imgPath,
                                             imageBytes: imgBytes,
                                           );
@@ -290,7 +400,8 @@ class _EventPageState extends State<EventPage> {
                                         if (result['status'] == 'success') {
                                           Navigator.pop(sheetContext);
                                           Get.snackbar(
-                                            'Sukses', 'Data event berhasil disimpan',
+                                            'Sukses',
+                                            'Data event berhasil disimpan',
                                             backgroundColor: Colors.green,
                                             colorText: Colors.white,
                                             snackPosition: SnackPosition.BOTTOM,
@@ -298,8 +409,14 @@ class _EventPageState extends State<EventPage> {
                                         }
                                       },
                                       child: Text(
-                                        isEdit ? 'Simpan Perubahan' : 'Tambah Event',
-                                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
+                                        isEdit
+                                            ? 'Simpan Perubahan'
+                                            : 'Tambah Event',
+                                        style: const TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -321,7 +438,12 @@ class _EventPageState extends State<EventPage> {
   }
 
   // Helper: field teks berdesain
-  Widget _buildField(TextEditingController ctrl, String label, IconData icon, {int maxLines = 1}) {
+  Widget _buildField(
+    TextEditingController ctrl,
+    String label,
+    IconData icon, {
+    int maxLines = 1,
+  }) {
     return TextFormField(
       controller: ctrl,
       maxLines: maxLines,
@@ -340,79 +462,93 @@ class _EventPageState extends State<EventPage> {
 
   // Helper: fallback gambar broken
   Widget _imageFallback() => Container(
-    height: 140, width: double.infinity,
-    decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(12)),
+    height: 140,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: Colors.grey[200],
+      borderRadius: BorderRadius.circular(12),
+    ),
     child: const Icon(Icons.broken_image, color: Colors.grey, size: 40),
   );
 
   void _confirmDelete(BuildContext context, int id) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     showDialog(
       context: context,
       builder: (context) {
         return Dialog(
+          backgroundColor: isDark ? const Color(0xFF1E293B) : Colors.white,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Ikon peringatan
                 Container(
-                  width: 64, height: 64,
+                  width: 68, height: 68,
                   decoration: BoxDecoration(
-                    color: Colors.red[50],
+                    color: Colors.red.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.delete_outline, color: Colors.red, size: 32),
+                  child: const Icon(Icons.delete_outline, color: Colors.red, size: 36),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Hapus Event?',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: isDark ? Colors.white : Colors.black87,
+                  ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'Event ini akan dihapus secara permanen dan tidak dapat dikembalikan.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 13, color: Colors.black54, height: 1.4),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: isDark ? Colors.white70 : Colors.black54,
+                    height: 1.4,
+                  ),
                 ),
                 const SizedBox(height: 24),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: () => Navigator.pop(context),
-                        style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                          side: BorderSide(color: Colors.grey[400]!),
-                          foregroundColor: Colors.black54,
-                        ),
-                        child: const Text('Batal', style: TextStyle(fontWeight: FontWeight.w600)),
+                    OutlinedButton(
+                      onPressed: () => Navigator.pop(context),
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: Colors.orange),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                      ),
+                      child: Text(
+                        'BATAL',
+                        style: TextStyle(color: isDark ? Colors.white70 : Colors.black87, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                          elevation: 0,
-                        ),
-                        onPressed: () async {
-                          final result = await controller.deleteEvent(id);
-                          Navigator.pop(context);
-                          if (result['status'] == 'success') {
-                            Get.snackbar(
-                              'Dihapus', 'Event berhasil dihapus',
-                              backgroundColor: Colors.red,
-                              colorText: Colors.white,
-                              snackPosition: SnackPosition.BOTTOM,
-                            );
-                          }
-                        },
-                        child: const Text('Hapus', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                        elevation: 0,
+                      ),
+                      onPressed: () async {
+                        final result = await controller.deleteEvent(id);
+                        Navigator.pop(context);
+                        if (result['status'] == 'success') {
+                          Get.snackbar(
+                            'Dihapus', 'Event berhasil dihapus',
+                            backgroundColor: Colors.red,
+                            colorText: Colors.white,
+                            snackPosition: SnackPosition.BOTTOM,
+                          );
+                        }
+                      },
+                      child: const Text(
+                        'Hapus',
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],
@@ -425,26 +561,30 @@ class _EventPageState extends State<EventPage> {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: const Color(0xFFF9EFE5), // Latar warna lembut sesuai mockup
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: const Text('Berita dan Informasi', style: TextStyle(color: Colors.black87)),
+        title: Text(
+          'Berita dan Informasi',
+          style: TextStyle(color: isDark ? Colors.white : Colors.black87),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         flexibleSpace: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFFF9EFE5), Color(0xFFF6A039)], // Gradasi krem oranye
+              colors: isDark
+                  ? [const Color(0xFF0F172A), const Color(0xFF1E3A5F)]
+                  : [const Color(0xFFF9EFE5), const Color(0xFFF6A039)],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
           ),
         ),
-        iconTheme: const IconThemeData(color: Colors.black87),
+        iconTheme: IconThemeData(color: isDark ? Colors.white : Colors.black87),
         actions: [
           Obx(() {
             if (controller.isAdmin.value) {
@@ -454,14 +594,19 @@ class _EventPageState extends State<EventPage> {
                   IconButton(
                     icon: Icon(
                       Icons.delete_outline,
-                      color: controller.isDeleteMode.value ? Colors.red : Colors.black87,
+                      color: controller.isDeleteMode.value
+                          ? Colors.red
+                          : (isDark ? Colors.white : Colors.black87),
                     ),
                     onPressed: () {
                       controller.toggleDeleteMode();
                     },
                   ),
                   IconButton(
-                    icon: const Icon(Icons.add_circle_outline, color: Colors.black87),
+                    icon: Icon(
+                      Icons.add_circle_outline,
+                      color: isDark ? Colors.white : Colors.black87,
+                    ),
                     onPressed: () => _showEventDialog(context),
                   ),
                 ],
@@ -506,7 +651,7 @@ class _EventPageState extends State<EventPage> {
                 }
               },
               child: Card(
-                color: Colors.white,
+                color: isDark ? const Color(0xFF1E293B) : Colors.white,
                 margin: const EdgeInsets.only(bottom: 16),
                 elevation: 4,
                 shape: RoundedRectangleBorder(
@@ -520,7 +665,9 @@ class _EventPageState extends State<EventPage> {
                   children: [
                     // Elemen 1 (Atas): Gambar
                     ClipRRect(
-                      borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(12),
+                      ),
                       child: event.image != null && event.image!.isNotEmpty
                           ? Image.network(
                               event.image!,
@@ -533,7 +680,11 @@ class _EventPageState extends State<EventPage> {
                                   width: double.infinity,
                                   color: Colors.grey[300],
                                   child: const Center(
-                                    child: Icon(Icons.broken_image, size: 50, color: Colors.grey),
+                                    child: Icon(
+                                      Icons.broken_image,
+                                      size: 50,
+                                      color: Colors.grey,
+                                    ),
                                   ),
                                 );
                               },
@@ -543,7 +694,10 @@ class _EventPageState extends State<EventPage> {
                               width: double.infinity,
                               color: Colors.grey[300],
                               child: const Center(
-                                child: Text('gambar event/berita', style: TextStyle(color: Colors.grey)),
+                                child: Text(
+                                  'gambar event/berita',
+                                  style: TextStyle(color: Colors.grey),
+                                ),
                               ),
                             ),
                     ),
@@ -560,15 +714,23 @@ class _EventPageState extends State<EventPage> {
                               children: [
                                 Text(
                                   event.title,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
+                                    color: isDark
+                                        ? Colors.white
+                                        : Colors.black87,
                                   ),
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
                                   event.eventDate ?? '-',
-                                  style: const TextStyle(color: Colors.black87, fontSize: 14),
+                                  style: TextStyle(
+                                    color: isDark
+                                        ? Colors.white70
+                                        : Colors.black87,
+                                    fontSize: 14,
+                                  ),
                                 ),
                               ],
                             ),

@@ -12,70 +12,100 @@ class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
 
   void _showDeleteAccountDialog(BuildContext context, Color primaryColor) {
-    showDialog(
-      context: context,
-      builder: (BuildContext dialogContext) {
-        return Dialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
-          child: Container(
-            padding: const EdgeInsets.all(24.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16.0),
-              border: Border.all(color: primaryColor, width: 1.5),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                  'Hapus Akun',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
-                ),
-                const SizedBox(height: 12),
-                const Text(
-                  'Semua data Anda akan dihapus secara permanen. Tindakan ini tidak dapat dibatalkan.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 13, color: Colors.black54),
-                ),
-                const SizedBox(height: 24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      onTap: () => Navigator.pop(dialogContext),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: primaryColor, width: 1.0),
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: const Text('BATAL', style: TextStyle(color: Colors.black87, fontSize: 12, fontWeight: FontWeight.bold)),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        Navigator.pop(dialogContext);
-                        await _executeDeleteAccount(context);
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFE53935),
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: const Text('Ya, Hapus', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+  final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+  showDialog(
+    context: context,
+    builder: (BuildContext dialogContext) {
+      return Dialog(
+        backgroundColor: isDarkMode ? const Color(0xFF1E293B) : Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0), // Diperhalus jadi 20 seperti dialog konfirmasi lainnya
+        ),
+        child: Container(
+          padding: const EdgeInsets.all(24.0),
+          decoration: BoxDecoration(
+            color: isDarkMode ? const Color(0xFF1E293B) : Colors.white,
+            borderRadius: BorderRadius.circular(20.0),
+            // Border tipis luar dilepas atau disesuaikan agar tidak terlalu mencolok di dark mode
+            border: Border.all(
+              color: isDarkMode ? Colors.white10 : primaryColor.withOpacity(0.5), 
+              width: 1.0,
             ),
           ),
-        );
-      },
-    );
-  }
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Hapus Akun',
+                style: TextStyle(
+                  fontSize: 18, 
+                  fontWeight: FontWeight.bold, 
+                  color: isDarkMode ? Colors.white : Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                'Semua data Anda akan dihapus secara permanen. Tindakan ini tidak dapat dibatalkan.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 15, 
+                  color: isDarkMode ? Colors.white70 : Colors.black54,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // Tombol BATAL (Outlined Oranye/Primary)
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: primaryColor),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                    ),
+                    onPressed: () => Navigator.pop(dialogContext),
+                    child: Text(
+                      'BATAL',
+                      style: TextStyle(
+                        color: primaryColor, 
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  // Tombol Ya, Hapus (Solid Merah)
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFE53935), // Solid Merah
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                      elevation: 0,
+                    ),
+                    onPressed: () async {
+                      Navigator.pop(dialogContext); // Tutup dialog
+                      await _executeDeleteAccount(context);
+                    },
+                    child: const Text(
+                      'Ya, Hapus',
+                      style: TextStyle(
+                        color: Colors.white, 
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
 
   Future<void> _executeDeleteAccount(BuildContext context) async {
     // Show loading

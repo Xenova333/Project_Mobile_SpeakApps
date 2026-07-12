@@ -313,16 +313,28 @@ class _HomePageState extends State<HomePage> {
                           if (Get.isRegistered<AuthController>()) {
                             final authController = Get.find<AuthController>();
                             if (authController.currentUser.value.role.toString().trim().toLowerCase() == 'admin') {
+                              final isDarkMode = Theme.of(context).brightness == Brightness.dark;
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 16.0),
                                 child: Card(
                                   margin: const EdgeInsets.symmetric(horizontal: 20),
                                   elevation: 2,
+                                  color: isDarkMode ? const Color(0xFF1E293B) : Colors.white,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                                   child: ListTile(
                                     leading: const Icon(Icons.event_note, color: Colors.amber),
-                                    title: const Text('Kelola Event Aplikasi', style: TextStyle(fontWeight: FontWeight.bold)),
-                                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                                    title: Text(
+                                      'Kelola Event Aplikasi',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: isDarkMode ? Colors.white : Colors.black87,
+                                      ),
+                                    ),
+                                    trailing: Icon(
+                                      Icons.arrow_forward_ios,
+                                      size: 16,
+                                      color: isDarkMode ? Colors.white : Colors.black54,
+                                    ),
                                     onTap: () => Get.to(() => EventPage()),
                                   ),
                                 ),
@@ -750,53 +762,82 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _showLogoutDialog(BuildContext context, Color primaryColor) {
+    void _showLogoutDialog(BuildContext context, Color primaryColor) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext dialogContext) {
         return Dialog(
+          backgroundColor: isDarkMode ? const Color(0xFF1E293B) : Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
+            borderRadius: BorderRadius.circular(20.0),
           ),
           child: Container(
             padding: const EdgeInsets.all(24.0),
             decoration: BoxDecoration(
-              color: Colors.white, // Always white
-              borderRadius: BorderRadius.circular(16.0),
-              border: Border.all(color: primaryColor, width: 1.5),
-              boxShadow: [
-                BoxShadow(
-                  color: primaryColor.withOpacity(0.2),
-                  blurRadius: 15,
-                  spreadRadius: 2,
-                ),
-              ],
+              color: isDarkMode ? const Color(0xFF1E293B) : Colors.white,
+              borderRadius: BorderRadius.circular(20.0),
+              border: Border.all(
+                color: isDarkMode ? Colors.white10 : primaryColor.withOpacity(0.5),
+                width: 1.0,
+              ),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
+                Text(
                   'Konfirmasi',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    color: isDarkMode ? Colors.white : Colors.black87,
                   ),
                 ),
                 const SizedBox(height: 12),
-                const Text(
+                Text(
                   'Yakin ingin keluar?',
-                  style: TextStyle(fontSize: 14, color: Colors.black87),
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: isDarkMode ? Colors.white70 : Colors.black54,
+                  ),
                 ),
                 const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // Ya, Keluar button
-                    GestureDetector(
-                      onTap: () async {
+                    // Tombol BATAL (Outlined Oranye/Primary) - Diletakkan di kiri agar konsisten
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: primaryColor),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(dialogContext); // Gunakan dialogContext yang aman
+                      },
+                      child: Text(
+                        'BATAL',
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    // Tombol Ya, Keluar (Solid Merah) - Diletakkan di kanan
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFE53935), // Solid Merah
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                        elevation: 0,
+                      ),
+                      onPressed: () async {
                         // Hapus session HANYA untuk data user
-                        // Jangan gunakan prefs.clear() karena akan menghapus wallpaper milik akun lain!
                         final prefs = await SharedPreferences.getInstance();
                         await prefs.remove('user_id');
                         await prefs.remove('user_nim');
@@ -813,14 +854,15 @@ class _HomePageState extends State<HomePage> {
                         if (Get.isRegistered<AddContactController>()) {
                           Get.delete<AddContactController>();
                         }
-                        // Reset foto profil di GlobalUserController agar tidak bocor ke akun lain
+                        
+                        // Reset foto profil di GlobalUserController
                         if (Get.isRegistered<GlobalUserController>()) {
                           final globalUser = Get.find<GlobalUserController>();
                           globalUser.userPic.value = '';
                           globalUser.imageTimestamp.value = DateTime.now().millisecondsSinceEpoch;
                         }
 
-                        // Close dialog and go to login page
+                        // Tutup dialog dan arahkan kembali ke Halaman Login
                         if (context.mounted) {
                           Navigator.pushAndRemoveUntil(
                             context,
@@ -831,48 +873,11 @@ class _HomePageState extends State<HomePage> {
                           );
                         }
                       },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0,
-                          vertical: 10.0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFE53935), // Red
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: const Text(
-                          'Ya, Keluar',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    // BATAL button
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context); // Close dialog
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24.0,
-                          vertical: 10.0,
-                        ),
-                        decoration: BoxDecoration(
+                      child: const Text(
+                        'Ya, Keluar',
+                        style: TextStyle(
                           color: Colors.white,
-                          border: Border.all(color: primaryColor, width: 1.0),
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: const Text(
-                          'BATAL',
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),

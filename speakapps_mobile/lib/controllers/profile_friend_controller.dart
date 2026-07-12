@@ -78,32 +78,79 @@ class ProfileFriendController extends GetxController {
 
   /// Meminta Konfirmasi lalu memblokir teman
   void handleBlock(BuildContext context, int friendId) {
-    showDialog(
-      context: context,
-      builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          title: const Text('Konfirmasi Blokir'),
-          content: const Text('Apakah Anda yakin ingin memblokir kontak ini? Anda tidak akan bisa bertukar pesan lagi.'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(dialogContext), // Tutup dialog
-              child: const Text('Batal', style: TextStyle(color: Colors.grey)),
+  final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+  showDialog(
+    context: context,
+    builder: (BuildContext dialogContext) {
+      return AlertDialog(
+        backgroundColor: isDarkMode ? const Color(0xFF1E293B) : Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        title: Text(
+          'Konfirmasi Blokir',
+          style: TextStyle(
+            color: isDarkMode ? Colors.white : Colors.black87,
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        content: Text(
+          'Apakah Anda yakin ingin memblokir kontak ini? Anda tidak akan bisa bertukar pesan lagi.',
+          style: TextStyle(
+            color: isDarkMode ? Colors.white70 : Colors.black54,
+            fontSize: 15,
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12, left: 8, right: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                // Tombol Batal (Outlined Oranye)
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Colors.orange),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                  ),
+                  onPressed: () => Navigator.pop(dialogContext),
+                  child: const Text(
+                    "BATAL",
+                    style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                // Tombol Blokir (Solid Merah)
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                    elevation: 0,
+                  ),
+                  onPressed: () async {
+                    Navigator.pop(dialogContext); // Tutup dialog konfirmasi
+                    await _executeBlock(context, friendId);
+                  },
+                  child: const Text(
+                    "Blokir",
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
             ),
-            TextButton(
-              onPressed: () async {
-                Navigator.pop(dialogContext); // Tutup dialog konfirmasi
-                await _executeBlock(context, friendId);
-              },
-              child: const Text(
-                'Blokir',
-                style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
+          ),
+        ],
+      );
+    },
+  );
+}
 
   /// Eksekusi logika pemblokiran (Private)
   Future<void> _executeBlock(BuildContext context, int friendId) async {

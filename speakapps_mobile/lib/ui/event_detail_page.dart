@@ -301,44 +301,51 @@ class EventDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final RxBool isMain = (event.isMain == 1).obs;
     final controller = Get.find<EventController>();
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final iconColor = isDark ? Colors.white : Colors.black87;
 
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: const Text('Detail Event', style: TextStyle(color: Colors.black87)),
+        title: Text('Detail Event',
+            style: TextStyle(color: isDark ? Colors.white : Colors.black87)),
         backgroundColor: Colors.transparent,
         elevation: 0,
         flexibleSpace: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFFF9EFE5), Color(0xFFF6A039)],
+              colors: isDark
+                  ? [const Color(0xFF0F172A), const Color(0xFF1E3A5F)]
+                  : [const Color(0xFFF9EFE5), const Color(0xFFF6A039)],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
           ),
         ),
-        iconTheme: const IconThemeData(color: Colors.black87),
+        iconTheme: IconThemeData(color: iconColor),
         actions: [
           Obx(() {
             if (controller.isAdmin.value) {
               return Row(
                 children: [
                   IconButton(
-                    icon: Icon(isMain.value ? Icons.star : Icons.star_border, 
-                               color: isMain.value ? Colors.orange : Colors.black87),
+                    icon: Icon(
+                      isMain.value ? Icons.star : Icons.star_border,
+                      color: isMain.value ? Colors.orange : iconColor,
+                    ),
                     tooltip: 'Set as Main Event',
                     onPressed: () async {
                       bool success = await controller.setMainEvent(event.id);
                       if (success) {
                         isMain.value = true;
-                        controller.fetchMainEvent(); // Memperbarui state dashboard
-                        Get.back(); // Kembali ke halaman list/dashboard
+                        controller.fetchMainEvent();
+                        Get.back();
                         Get.snackbar('Sukses', 'Berhasil mengatur sebagai Main Event');
                       }
                     },
                   ),
                   IconButton(
-                    icon: const Icon(Icons.edit_outlined),
+                    icon: Icon(Icons.edit_outlined, color: iconColor),
                     tooltip: 'Edit Event',
                     onPressed: () => _showEditDialog(context, controller),
                   ),
@@ -353,6 +360,7 @@ class EventDetailPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0),
           child: Card(
+            color: isDark ? const Color(0xFF1E293B) : Colors.white,
             margin: const EdgeInsets.all(16.0),
             elevation: 3,
             shape: RoundedRectangleBorder(
@@ -389,7 +397,9 @@ class EventDetailPage extends StatelessWidget {
                       : Container(
                           width: double.infinity,
                           height: 220,
-                          color: const Color(0xFFE0D6C8),
+                          color: isDark
+                              ? const Color(0xFF263548)
+                              : const Color(0xFFE0D6C8),
                           child: const Center(
                             child: Icon(
                               Icons.event,
@@ -409,10 +419,10 @@ class EventDetailPage extends StatelessWidget {
                       // Judul
                       Text(
                         event.title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black87,
+                          color: isDark ? Colors.white : Colors.black87,
                         ),
                       ),
 
@@ -421,31 +431,35 @@ class EventDetailPage extends StatelessWidget {
                       // Tanggal + Ikon
                       Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.calendar_today,
                             size: 16,
-                            color: Colors.grey,
+                            color: isDark ? Colors.white60 : Colors.grey,
                           ),
                           const SizedBox(width: 6),
                           Text(
                             event.eventDate ?? '-',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 14,
-                              color: Colors.grey,
+                              color: isDark ? Colors.white70 : Colors.grey,
                             ),
                           ),
                         ],
                       ),
 
-                      const Divider(height: 30, thickness: 1),
+                      Divider(
+                        height: 30,
+                        thickness: 1,
+                        color: isDark ? Colors.white24 : Colors.grey[300],
+                      ),
 
                       // Deskripsi
                       Text(
                         event.description,
                         textAlign: TextAlign.justify,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 15,
-                          color: Colors.black87,
+                          color: isDark ? Colors.white : Colors.black87,
                           height: 1.4,
                         ),
                       ),
@@ -467,7 +481,7 @@ class EventDetailPage extends StatelessWidget {
                             ),
                             onPressed: () => _launchUrl(event.eventLink),
                             child: const Text(
-                              'Buka Link Selengkapnya',
+                              'Selengkapnya',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,

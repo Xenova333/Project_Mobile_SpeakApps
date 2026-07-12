@@ -394,26 +394,81 @@ class BackgroundPesanPage extends StatelessWidget {
   // ── Konfirmasi hapus background ──────────────────────────────────────────
 
   void _confirmRemove(BuildContext context, ChatBackgroundController ctrl) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Hapus Background?'),
-        content: const Text(
-            'Latar belakang chat akan dikembalikan ke tampilan default.'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: const Text('Batal'),
+      builder: (ctx) => Dialog(
+        backgroundColor: isDark ? const Color(0xFF1E293B) : Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 68, height: 68,
+                decoration: BoxDecoration(
+                  color: Colors.red.withOpacity(0.12),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.wallpaper, color: Colors.red, size: 36),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Hapus Background?',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: isDark ? Colors.white : Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Latar belakang chat akan dikembalikan ke tampilan default.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: isDark ? Colors.white70 : Colors.black54,
+                  height: 1.4,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  OutlinedButton(
+                    onPressed: () => Navigator.pop(ctx),
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: Colors.orange),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                    ),
+                    child: const Text(
+                      'BATAL',
+                      style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                      elevation: 0,
+                    ),
+                    onPressed: () {
+                      ctrl.removeBackground();
+                      Navigator.pop(ctx);
+                    },
+                    child: const Text(
+                      'Hapus',
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              ctrl.removeBackground();
-              Navigator.pop(ctx);
-            },
-            child: const Text('Hapus',
-                style: TextStyle(color: Color(0xFFB00020))),
-          ),
-        ],
+        ),
       ),
     );
   }
